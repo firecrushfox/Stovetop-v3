@@ -1,0 +1,30 @@
+{
+  "name": "stovetop",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:lan": "vite --host 0.0.0.0",
+    "dev:https": "vite --mode https --host 0.0.0.0",
+    "dev:pwa": "vite --mode pwa-dev",
+    "dev:https:pwa": "vite --mode https-pwa --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview",
+    "preview:lan": "vite preview --host 0.0.0.0",
+    "preview:https": "vite preview --mode https --host 0.0.0.0"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-basic-ssl": "^2.3.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "vite": "^7.0.0",
+    "vite-plugin-pwa": "^1.2.0"
+  },
+  "overrides": {
+    "serialize-javascript": "^7.0.5"
+  }
+}
