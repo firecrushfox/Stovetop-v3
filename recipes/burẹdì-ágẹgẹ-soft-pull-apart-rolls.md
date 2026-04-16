@@ -36,13 +36,13 @@ Slightly sweet, plush and tender, this yeast-risen bread is often dipped and dra
 ## Ingredients
 - 1 cup/240 grams lukewarm water or milk (98 to 105 degrees)
 - 1 tablespoon/14 grams active dry yeast
-- ⅓ cup/67 grams sugar&nbsp;
+- ⅓ cup/67 grams sugar
 - 4 cups/515 grams all-purpose flour, plus more for sprinkling
 - ¾ cup/58 grams nonfat dry milk powder
 - ½ teaspoon ground allspice
-- 2 teaspoons kosher salt (such as Diamond Crystal)&nbsp;
-- 1 large egg, whisked&nbsp;
-- 6 tablespoons/84 grams unsalted butter, at room temperature, plus 1 to 2 tablespoons for greasing pan and brushing rolls&nbsp;
+- 2 teaspoons kosher salt (such as Diamond Crystal)
+- 1 large egg, whisked
+- 6 tablespoons/84 grams unsalted butter, at room temperature, plus 1 to 2 tablespoons for greasing pan and brushing rolls
 - Large-flake sea salt or honey, optional, for sprinkling and drizzling
 
 ## Instructions
@@ -50,7 +50,7 @@ Slightly sweet, plush and tender, this yeast-risen bread is often dipped and dra
 2. In a separate bowl, whisk together the flour, milk powder, allspice and salt.
 3. Once the yeast is foamy, stir the egg into the yeast mixture and, using a silicone spatula, add in the flour mixture all at once and mix until combined. Add the butter and stir using a wooden spoon until the dough is shaggy (damp and surrounded by pockets of flour), 2 to 3 minutes.
 4. Transfer the bowl to the stand mixer fitted with a dough hook and set to low speed. Knead the dough, intermittently stopping the mixer to scrape down the hook and sides and gather the dough back in the center of the bowl, until smooth and tacky but not too sticky to handle, 13 to 14 minutes. (Kneading develops gluten strands, giving the dough a springiness and a chewy mochi-like result).
-5. Remove the hook, and use your hands to shape the dough into a smooth ball. Move dough to a large clean metal bowl and cover with a kitchen towel. Let stand undisturbed until doubled in size, 1 ½ to 2 hours. (Dough can be left to rise, covered and refrigerated, for 9 hours and up to 2 days. Once ready to bake, remove dough from the refrigerator,  proceed with the steps below.)
+5. Remove the hook, and use your hands to shape the dough into a smooth ball. Move dough to a large clean metal bowl and cover with a kitchen towel. Let stand undisturbed until doubled in size, 1 ½ to 2 hours. (Dough can be left to rise, covered and refrigerated, for 9 hours and up to 2 days. Once ready to bake, remove dough from the refrigerator, proceed with the steps below.)
 6. Generously butter the bottom and sides of a 9-by-13-inch baking pan and set aside. Punch the dough to deflate and transfer to a clean work surface sprinkled with flour to prevent sticking. Use a sharp knife to cut the dough into 24 even-size pieces (about 40 to 45 grams/1.6 ounces each). It's OK if you end up with fewer or more here. Use your thumb to create a dimple in the center of each piece of dough and cover the dough balls with a kitchen towel to rest for about 10 minutes.
 7. Shape each piece by placing it on the floured work surface, dimple side up. Stretch any corners over and up toward the center. Flip dough so that the folded edges lay seam side down on your work surface. Keep the other pieces of dough covered as you work.
 8. Cup your palm on top of the dough portion, and move the dough in a circular motion while pressing down slightly. Keep your hand cupped and your thumb steady around the edge of your palm to control the movement. You should have a tight ball with the seam side tucked and sealed. Transfer each ball, seam side down, onto the buttered baking pan, about ½ inch apart. Repeat this rolling step until all the dough pieces have been rolled and placed in the pan.

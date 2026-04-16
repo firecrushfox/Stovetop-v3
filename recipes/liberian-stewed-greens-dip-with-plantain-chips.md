@@ -59,7 +59,7 @@ A staple vegetable in Liberia, collard greens are cooked in a variety of ways ac
 - 2 teaspoons stock concentrate, meat or vegetable, plus more to taste (optional)
 - 1 tablespoon grated lemon zest (from 2 lemons)
 - ¼ cup fresh purple or Thai basil leaves or fresh scent leaves (see Tip), chopped
-- Plantain chips, for serving&nbsp;
+- Plantain chips, for serving
 
 ## Instructions
 1. In the bowl of a food processor, pulse the ginger, garlic, scallion whites, Scotch bonnets, onion, bell peppers, collard stems, kale stems and mustard green stems to break up, then process for 1 minute to form a coarse purée. Scrape down the sides of the bowl and move the mixture to a large bowl.
