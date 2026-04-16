@@ -125,3 +125,17 @@ npm run preview:https
 `preview:https` runs on port `4174` by default so it does not collide with the dev server on `4173`.
 
 Use `npm run preview` only when you want to verify the final built output in `dist/`. It will always reflect the last build, not live source changes.
+
+## GitHub Pages
+
+This repo is configured to deploy to GitHub Pages with GitHub Actions.
+
+1. In GitHub, open `Settings` -> `Pages`
+2. Under `Build and deployment`, set `Source` to `GitHub Actions`
+3. Push to `main`
+
+The workflow in `.github/workflows/deploy.yml` will build and publish the app.
+
+For this repository, the live URL will be:
+
+`https://firecrushfox.github.io/Stovetop-v3/`

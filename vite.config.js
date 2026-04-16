@@ -6,8 +6,12 @@ import { VitePWA } from 'vite-plugin-pwa';
 export default defineConfig(({ mode }) => {
   const useHttps = mode === 'https' || mode === 'https-pwa';
   const enableDevPwa = mode === 'pwa-dev' || mode === 'https-pwa';
+  const repositoryName = process.env.GITHUB_REPOSITORY?.split('/')[1] || 'Stovetop-v3';
+  const isGitHubPagesBuild = process.env.GITHUB_ACTIONS === 'true';
+  const base = isGitHubPagesBuild ? `/${repositoryName}/` : '/';
 
   return {
+    base,
     server: {
       port: 4173,
       https: useHttps
@@ -31,26 +35,26 @@ export default defineConfig(({ mode }) => {
           'favicon-512x512.png'
         ],
         manifest: {
-          id: '/',
+          id: base,
           name: 'Stovetop',
           short_name: 'Stovetop',
           description: 'A PWA recipe organizer powered by Markdown files.',
           theme_color: '#1a3d1a',
           background_color: '#f5f0e6',
-          scope: '/',
+          scope: base,
           display: 'standalone',
           display_override: ['standalone'],
-          start_url: '/',
+          start_url: base,
           categories: ['food', 'lifestyle', 'productivity'],
           icons: [
             {
-              src: '/favicon-192x192.png',
+              src: 'favicon-192x192.png',
               sizes: '192x192',
               type: 'image/png',
               purpose: 'any'
             },
             {
-              src: '/favicon-512x512.png',
+              src: 'favicon-512x512.png',
               sizes: '512x512',
               type: 'image/png',
               purpose: 'maskable'
