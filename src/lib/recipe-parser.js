@@ -219,7 +219,7 @@ function parseSections(body) {
     description: formatParagraphs(sections.description || []),
     ingredients: formatList(sections.ingredients || []),
     instructions: formatList(sections.instructions || [], true),
-    notes: formatParagraphs(sections.notes || []),
+    notes: formatNotes(sections.notes || []),
     tags: formatList(sections.tags || []),
     categories: formatList(sections.categories || []),
     warnings
@@ -234,6 +234,16 @@ function formatParagraphs(lines) {
     .filter(Boolean)
     .map(fixMojibake)
     .filter((paragraph) => !isSourceParagraph(paragraph));
+}
+
+function formatNotes(lines) {
+  return lines
+    .map((line) => line.replace(/^\s*>\s?/gm, '').trim())
+    .map((line) => line.replace(/^\s*(?:\d+[.)]|[-*])\s*/, '').trim())
+    .map(stripWrappingEmphasis)
+    .map(fixMojibake)
+    .filter(Boolean)
+    .filter((note) => !isSourceParagraph(note));
 }
 
 function formatList(lines, ordered = false) {
@@ -302,6 +312,11 @@ function normalizeSectionHeading(value) {
 
 function isSourceParagraph(value) {
   return /^source:\s+\S+/i.test(value.trim());
+}
+
+function stripWrappingEmphasis(value) {
+  const match = value.match(/^([*_])(.*)\1$/);
+  return match ? match[2].trim() : value;
 }
 
 function validateRecipe(recipe) {
