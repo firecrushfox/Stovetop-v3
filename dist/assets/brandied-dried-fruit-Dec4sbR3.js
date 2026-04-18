@@ -1,0 +1,68 @@
+const e=`---
+title: "Brandied Dried Fruit"
+source: "https://cooking.nytimes.com/recipes/1021676-brandied-dried-fruit"
+author: "Yewande Komolafe"
+yield: "About 5 cups"
+prep_time: ""
+cook_time: ""
+total_time: "P14DT15M"
+categories:
+  - easy
+  - project
+tags:
+  - christmas
+  - new year’s day
+  - currant
+  - dried apricot
+  - dried cherry
+  - dried cranberry
+  - dried pears
+  - lemon
+  - orange
+  - vegetarian
+cuisine: ""
+image: "https://static01.nyt.com/images/2020/11/24/dining/yk-dried-fruit/merlin_180213339_ab576880-0aad-4c06-9ca0-ebac4afde666-videoSixteenByNineJumbo1600.jpg"
+date_saved: "2026-04-17"
+---
+
+# Brandied Dried Fruit
+
+> Source: https://cooking.nytimes.com/recipes/1021676-brandied-dried-fruit
+
+## Description
+The complex layers of flavor that develop from combining dried fruit, citrus, spices and brandy are the reward for an investment of time. And time does most of the work in this recipe, which produces brandied fruit that you can use in an array of dishes and drinks: A two-day soak will get you a fine infusion, but go for the full 14 to extract notes from each component. The spices need time to bloom, and the dried fruit skins plump as they are infused, absorbing the citrus’s bite and the brandy’s warmth. Use the fruit mixture in scones, cocktails and braised lamb. Or stir the drained fruit into muffin or cake batter, toss with bulkier fruit like apples or pears for use as a filling for hand pies, or serve as a relish to accompany lamb, pork or chicken. As an added bonus, the fruit mixture keeps in the refrigerator for months. Store in an airtight container and avoid adding any moisture to the jar by using only dry utensils to serve.
+
+## Ingredients
+- 8 ounces/225 grams currants or raisins
+- 8 ounces/225 grams dried cranberries
+- 4 ounces/110 grams dried cherries
+- 2 ounces/55 grams dried pears, finely chopped
+- 2 ounces/55 grams dried apricots, thinly sliced
+- 1 orange
+- 1 lemon, sliced thin and seeds removed, chopped
+- 2 tablespoons fresh grated ginger (from about a 2-inch piece)
+- 1 teaspoon anise seeds
+- 1 teaspoon freshly ground black pepper
+- 1/2 teaspoon grated nutmeg
+- 1/2 teaspoon ground cinnamon
+- 1/4 teaspoon ground cardamom
+- About 1 cup/250 milliliters brandy
+
+## Instructions
+1. In a large bowl, combine the currants, cranberries, cherries, pears and apricots. Zest the orange and add the zest to the bowl. Add the lemon, ginger, anise seeds, black pepper, nutmeg, cinnamon and cardamom.
+2. Juice the orange and add the liquid to the bowl. Add the brandy and stir to combine. Transfer the mixture to a jar, cover and refrigerate. (If you don’t have a jar that’s large enough, keep the mixture in the bowl and cover with plastic wrap.) Allow the fruit to sit in the liquid for 2 to 14 days before using. The flavor of the fruit, spices and brandy will improve with time. At least once a day, turn the jar upside-down (or thoroughly stir the mixture if it’s in a bowl) to make sure all the dried fruit gets coated in the brandied liquid. The mixture keeps in the refrigerator for months, stored in an airtight container.
+
+## Tags
+- christmas
+- new year’s day
+- currant
+- dried apricot
+- dried cherry
+- dried cranberry
+- dried pears
+- lemon
+- orange
+- vegetarian
+
+## Notes
+`;export{e as default};

@@ -9,6 +9,7 @@
     "dev:https": "vite --mode https --host 0.0.0.0",
     "dev:pwa": "vite --mode pwa-dev",
     "dev:https:pwa": "vite --mode https-pwa --host 0.0.0.0",
+    "test": "node scripts/run-tests.mjs",
     "build": "vite build",
     "preview": "vite preview",
     "preview:lan": "vite preview --host 0.0.0.0",

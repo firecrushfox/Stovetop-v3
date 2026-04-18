@@ -1,27 +1,62 @@
-import { useEffect, useState } from 'react';
-import { loadRecipes } from './lib/recipes';
+import { useDeferredValue, useEffect, useRef, useState } from 'react';
+import { loadRecipe, loadRecipes } from './lib/recipes';
+import { filterRecipes, getListHref, getRecipeHref, getRoute, LIST_ROUTE } from './lib/route-state';
 
 const FACET_PAGE_SIZE = 5;
-const LIST_ROUTE = '#/';
-const RECIPE_ROUTE_PREFIX = '#/recipe/';
-const recipes = loadRecipes();
-const allTags = collectFacetCounts(recipes, 'tags');
-const allCategories = collectFacetCounts(recipes, 'categories');
 
 export default function App() {
-  const [query, setQuery] = useState('');
-  const [activeTag, setActiveTag] = useState('');
-  const [activeCategory, setActiveCategory] = useState('');
+  const initialRoute = getRoute(window.location.hash || LIST_ROUTE);
+  const mobileSearchInputRef = useRef(null);
+  const [recipes, setRecipes] = useState([]);
+  const [isLibraryLoading, setIsLibraryLoading] = useState(true);
+  const [query, setQuery] = useState(initialRoute.query);
+  const [activeTag, setActiveTag] = useState(initialRoute.tag);
+  const [activeCategory, setActiveCategory] = useState(initialRoute.category);
   const [visibleTagCount, setVisibleTagCount] = useState(FACET_PAGE_SIZE);
   const [visibleCategoryCount, setVisibleCategoryCount] = useState(FACET_PAGE_SIZE);
-  const [route, setRoute] = useState(getRoute());
+  const [route, setRoute] = useState(initialRoute);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [deferredInstallPrompt, setDeferredInstallPrompt] = useState(null);
   const [isInstalled, setIsInstalled] = useState(isStandaloneDisplay());
   const [showIosInstallHelp, setShowIosInstallHelp] = useState(false);
+  const [activeRecipe, setActiveRecipe] = useState(null);
+  const [isRecipeLoading, setIsRecipeLoading] = useState(false);
+  const deferredQuery = useDeferredValue(query);
+  const normalizedDeferredQuery = deferredQuery.trim().toLowerCase();
+  const currentFilters = { query, tag: activeTag, category: activeCategory };
+  const currentListHref = getListHref(currentFilters);
+
+  const allTags = collectFacetCounts(recipes, 'tags');
+  const allCategories = collectFacetCounts(recipes, 'categories');
 
   useEffect(() => {
-    const syncRoute = () => setRoute(getRoute());
+    let cancelled = false;
+
+    loadRecipes()
+      .then((loadedRecipes) => {
+        if (cancelled) {
+          return;
+        }
+
+        setRecipes(loadedRecipes);
+        setIsLibraryLoading(false);
+      })
+      .catch(() => {
+        if (cancelled) {
+          return;
+        }
+
+        setRecipes([]);
+        setIsLibraryLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    const syncRoute = () => setRoute(getRoute(window.location.hash || LIST_ROUTE));
 
     window.addEventListener('hashchange', syncRoute);
     syncRoute();
@@ -30,13 +65,90 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    setQuery(route.query);
+    setActiveTag(route.tag);
+    setActiveCategory(route.category);
+  }, [route]);
+
+  useEffect(() => {
     if (route.type !== 'list') {
       setMobileFiltersOpen(false);
     }
   }, [route]);
 
   useEffect(() => {
+    if (!mobileFiltersOpen) {
+      document.body.style.overflow = '';
+      return undefined;
+    }
+
+    document.body.style.overflow = 'hidden';
+    mobileSearchInputRef.current?.focus();
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setMobileFiltersOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [mobileFiltersOpen]);
+
+  useEffect(() => {
+    if (route.type !== 'list') {
+      return;
+    }
+
+    const nextHash = getListHref({ query, tag: activeTag, category: activeCategory });
+
+    if (window.location.hash === nextHash) {
+      return;
+    }
+
+    window.history.replaceState(null, '', nextHash);
+    setRoute((current) => ({
+      ...current,
+      query,
+      tag: activeTag,
+      category: activeCategory
+    }));
+  }, [activeCategory, activeTag, query, route.type]);
+
+  useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [route]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    if (route.type !== 'recipe') {
+      setActiveRecipe(null);
+      setIsRecipeLoading(false);
+      return () => {
+        cancelled = true;
+      };
+    }
+
+    setIsRecipeLoading(true);
+    setActiveRecipe(null);
+
+    loadRecipe(route.recipeId).then((recipe) => {
+      if (cancelled) {
+        return;
+      }
+
+      setActiveRecipe(recipe);
+      setIsRecipeLoading(false);
+    });
+
+    return () => {
+      cancelled = true;
+    };
   }, [route]);
 
   useEffect(() => {
@@ -76,36 +188,18 @@ export default function App() {
     }
   }
 
-  const filteredRecipes = recipes.filter((recipe) => {
-    const matchesQuery =
-      !query ||
-      [
-        recipe.title,
-        recipe.author,
-        recipe.cuisine,
-        recipe.description.join(' '),
-        recipe.tags.join(' '),
-        recipe.categories.join(' '),
-        recipe.ingredients.join(' ')
-      ]
-        .join(' ')
-        .toLowerCase()
-        .includes(query.toLowerCase());
-
-    const matchesTag = !activeTag || recipe.tags.includes(activeTag);
-    const matchesCategory = !activeCategory || recipe.categories.includes(activeCategory);
-
-    return matchesQuery && matchesTag && matchesCategory;
+  const filteredRecipes = filterRecipes(recipes, {
+    query: normalizedDeferredQuery,
+    tag: activeTag,
+    category: activeCategory
   });
 
   if (route.type === 'recipe') {
-    const recipe = recipes.find((item) => item.id === route.recipeId) ?? null;
-
     return (
       <div className="shell">
         <header className="hero">
           <div className="hero-spacer" aria-hidden="true" />
-          <a className="hero-title-link" href={LIST_ROUTE}>
+          <a className="hero-title-link" href={currentListHref}>
             <h1>Stovetop</h1>
           </a>
           {showInstallAction ? (
@@ -119,7 +213,11 @@ export default function App() {
 
         <main className="page-layout">
           {showIosInstallHelp ? <InstallHelp /> : null}
-          {recipe ? <RecipePage recipe={recipe} /> : <MissingRecipe />}
+          {isRecipeLoading ? <LoadingRecipe /> : null}
+          {!isRecipeLoading && activeRecipe ? (
+            <RecipePage recipe={activeRecipe} listHref={currentListHref} />
+          ) : null}
+          {!isRecipeLoading && !activeRecipe ? <MissingRecipe listHref={currentListHref} /> : null}
         </main>
       </div>
     );
@@ -133,7 +231,7 @@ export default function App() {
           className={mobileFiltersOpen ? 'hero-icon-button active' : 'hero-icon-button'}
           aria-expanded={mobileFiltersOpen}
           aria-controls="mobile-filters"
-          aria-label="Toggle search and filters"
+          aria-label={mobileFiltersOpen ? 'Close search and filters' : 'Open search and filters'}
           onClick={() => setMobileFiltersOpen((open) => !open)}
         >
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -143,7 +241,7 @@ export default function App() {
             />
           </svg>
         </button>
-        <a className="hero-title-link" href={LIST_ROUTE}>
+        <a className="hero-title-link" href={currentListHref}>
           <h1>Stovetop</h1>
         </a>
         {showInstallAction ? (
@@ -157,14 +255,38 @@ export default function App() {
 
       <main className="page-layout">
         {showIosInstallHelp ? <InstallHelp /> : null}
+        {mobileFiltersOpen ? (
+          <button
+            type="button"
+            className="filter-drawer-backdrop"
+            aria-label="Close search and filters"
+            onClick={() => setMobileFiltersOpen(false)}
+          />
+        ) : null}
         <section className="sidebar library-page">
           <div
             id="mobile-filters"
             className={mobileFiltersOpen ? 'filter-panel mobile-open' : 'filter-panel'}
+            role={mobileFiltersOpen ? 'dialog' : undefined}
+            aria-modal={mobileFiltersOpen ? 'true' : undefined}
+            aria-labelledby="mobile-filters-title"
           >
+            <div className="filter-panel-header">
+              <h2 id="mobile-filters-title">Search and Filters</h2>
+              <button
+                type="button"
+                className="filter-panel-close"
+                aria-label="Close search and filters"
+                onClick={() => setMobileFiltersOpen(false)}
+              >
+                Close
+              </button>
+            </div>
+
             <label className="search">
               <span>Search</span>
               <input
+                ref={mobileSearchInputRef}
                 type="search"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
@@ -254,15 +376,17 @@ export default function App() {
           <section className="recipe-list">
             <div className="filter-header">
               <h2>Recipes</h2>
-              <span>{filteredRecipes.length}</span>
+              <span>{isLibraryLoading ? '...' : filteredRecipes.length}</span>
             </div>
-            {filteredRecipes.length ? (
+            {isLibraryLoading ? (
+              <p className="empty-state">Loading recipes.</p>
+            ) : filteredRecipes.length ? (
               <div className="recipe-card-grid">
                 {filteredRecipes.map((recipe) => (
                   <a
                     key={recipe.id}
                     className="recipe-card"
-                    href={getRecipeHref(recipe.id)}
+                    href={getRecipeHref(recipe.id, currentFilters)}
                     onClick={scrollToTop}
                   >
                     <div className="recipe-card-image-frame">
@@ -280,6 +404,9 @@ export default function App() {
                       )}
                     </div>
                     <span className="recipe-card-title">{recipe.title}</span>
+                    <span className="recipe-card-meta">
+                      {[recipe.cuisine, recipe.totalTime, recipe.yield].filter(Boolean).join(' | ')}
+                    </span>
                   </a>
                 ))}
               </div>
@@ -293,10 +420,19 @@ export default function App() {
   );
 }
 
-function RecipePage({ recipe }) {
+function LoadingRecipe() {
+  return (
+    <article className="empty-library">
+      <h2>Loading recipe</h2>
+      <p>Fetching the full recipe content.</p>
+    </article>
+  );
+}
+
+function RecipePage({ recipe, listHref }) {
   return (
     <article className="recipe-detail recipe-page">
-      <a className="back-link" href={LIST_ROUTE}>
+      <a className="back-link" href={listHref}>
         Back to Recipes
       </a>
 
@@ -313,7 +449,7 @@ function RecipePage({ recipe }) {
               recipe.totalTime && `Total ${recipe.totalTime}`
             ]
               .filter(Boolean)
-              .join(' • ')}
+              .join(' | ')}
           </p>
         </div>
         {recipe.image ? (
@@ -322,6 +458,17 @@ function RecipePage({ recipe }) {
           </div>
         ) : null}
       </div>
+
+      {recipe.warnings?.length ? (
+        <section className="parse-warning-panel" aria-live="polite">
+          <h3>Recipe Format Warnings</h3>
+          <ul>
+            {recipe.warnings.map((warning) => (
+              <li key={warning}>{warning}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       {recipe.description.length ? (
         <section className="content-section">
@@ -382,19 +529,19 @@ function RecipePage({ recipe }) {
           ) : (
             'No source URL'
           )}
-          {recipe.dateSaved ? ` • Saved ${recipe.dateSaved}` : ''}
+          {recipe.dateSaved ? ` | Saved ${recipe.dateSaved}` : ''}
         </p>
       </footer>
     </article>
   );
 }
 
-function MissingRecipe() {
+function MissingRecipe({ listHref }) {
   return (
     <article className="empty-library">
       <h2>Recipe not found</h2>
       <p>The requested recipe could not be found. Return to the library to choose another one.</p>
-      <a className="back-link" href={LIST_ROUTE}>
+      <a className="back-link" href={listHref}>
         Back to Library
       </a>
     </article>
@@ -409,23 +556,6 @@ function InstallHelp() {
       <p>When installed from a proper HTTPS site, Stovetop opens as its own app window instead of a normal browser tab.</p>
     </section>
   );
-}
-
-function getRoute() {
-  const hash = window.location.hash || LIST_ROUTE;
-
-  if (hash.startsWith(RECIPE_ROUTE_PREFIX)) {
-    return {
-      type: 'recipe',
-      recipeId: decodeURIComponent(hash.slice(RECIPE_ROUTE_PREFIX.length))
-    };
-  }
-
-  return { type: 'list' };
-}
-
-function getRecipeHref(recipeId) {
-  return `${RECIPE_ROUTE_PREFIX}${encodeURIComponent(recipeId)}`;
 }
 
 function scrollToTop() {

@@ -1,0 +1,77 @@
+const e=`---
+title: "Country Panzanella With Watermelon Dressing"
+source: "https://cooking.nytimes.com/recipes/1022283-country-panzanella-with-watermelon-dressing"
+author: "Nicole Taylor, Yewande Komolafe"
+yield: "8 to 10 servings (about 16 cups)"
+prep_time: ""
+cook_time: ""
+total_time: "PT30M"
+categories:
+  - dinner
+  - lunch
+  - main course
+  - side dish
+tags:
+  - basil
+  - ciabatta
+  - ck-mccormick-0526-sponsor
+  - cucumber
+  - heirloom tomato
+  - salad
+  - watermelon
+  - summer
+  - vegetarian
+  - Southern
+cuisine: "southern"
+image: "https://static01.nyt.com/images/2021/06/09/dining/07watermelonrex/merlin_188346429_09300964-0f19-44d9-b4fe-65f4595fa7ef-videoSixteenByNineJumbo1600.jpg"
+date_saved: "2026-04-17"
+---
+
+# Country Panzanella With Watermelon Dressing
+
+> Source: https://cooking.nytimes.com/recipes/1022283-country-panzanella-with-watermelon-dressing
+
+## Description
+Consumed plainly or with a salt sprinkle, fresh watermelon conjures warm-weather memories. In the U.S. (primarily in the American South), master gardeners are growing heirloom (seedful) varieties: sugar baby, jubilee and Georgia rattlesnake. In Apex, N.C., Gabrielle E.W. Carter is the new steward of the property once owned by her maternal great-grandfather, where she grows herbs, tomatoes and watermelon. As a multimedia artist, she is documenting the food ways of Black families in Eastern North Carolina and preserving cooking traditions using fruits and vegetables straight from the garden. Crimson-flesh watermelon transforms the classic panzanella with a balanced sweetness. Using a coarse grater is essential in achieving a vibrant, textured dressing. Bocconcini can be substituted for feta cheese in this salad, which pairs well with festive mains like dry-rub mushrooms and spicy tamarind pork ribs.
+
+## Ingredients
+- 1/2 pound piece of skin-on watermelon, seeds discarded
+- 1/4 cup granulated sugar
+- Kosher salt
+- 2 garlic cloves, peeled and grated
+- 1 tablespoon whole-grain mustard
+- 1 1/2 teaspoons fresh thyme leaves
+- 1/2 teaspoon red-pepper flakes
+- 1/2 teaspoon ground black pepper
+- 1/2 cup white wine vinegar
+- 1/2 cup olive oil
+- 1/2 loaf day-old ciabatta, cut into 1/2-inch cubes (about 4 loose cups)
+- 2 tablespoons olive oil
+- 1/4 teaspoon fine sea salt
+- 2 pounds watermelon, rind discarded cut into 1-inch pieces (about 4 packed cups)
+- 3 medium heirloom tomatoes (about 1 3/4 to 2 pounds), cut into 1-inch-wide wedges (about 5 loose cups)
+- 1 medium seedless cucumber (about 1/2 pound), trimmed, halved lengthwise then sliced 1/4-inch-thick (about 2 cups)
+- 1 small red onion (about 4 ounces), peeled and sliced (about 1 loose cup)
+- 1 cup fresh basil leaves
+- 1/2 cup crumbled feta
+
+## Instructions
+1. Make the dressing: Using a coarse grater set over a medium bowl, grate the watermelon flesh then rind, grating the rind all the way to the skin. (You should have about 1 cup grated watermelon.) Discard the firm skin. Add the sugar and 1 teaspoon salt; stir to dissolve the sugar and salt grains. Allow the mixture to sit for at least 10 minutes.
+2. Add the garlic, mustard, thyme leaves, red-pepper flakes, ground black pepper, vinegar and oil. Whisk together (or transfer to a mason jar, cover and shake vigorously). The dressing makes 2 cups, and will keep, refrigerated, up to 1 week; shake before use.
+3. Make the salad: Heat the oven to 425 degrees. On a small sheet pan, toss the cubed bread, olive oil, thyme and sea salt together. Spread in a single layer and bake for 8 to 10 minutes, until toasted and golden brown.
+4. In a large serving bowl, combine the watermelon, tomatoes, cucumber and red onion. Drain any excess liquid before adding the toasted bread cubes and half the basil. Drizzle with 1/4 cup of the dressing and season with salt and pepper. Divide among individual bowls, if you like. Top with crumbled feta, remaining basil leaves and spoon additional dressing over the top.
+
+## Tags
+- basil
+- ciabatta
+- ck-mccormick-0526-sponsor
+- cucumber
+- heirloom tomato
+- salad
+- watermelon
+- summer
+- vegetarian
+- Southern
+
+## Notes
+`;export{e as default};

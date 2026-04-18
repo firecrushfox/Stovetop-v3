@@ -1,0 +1,73 @@
+const e=`---
+title: "Salmon and Couscous Salad With Cucumber-Feta Dressing"
+source: "https://cooking.nytimes.com/recipes/1021970-salmon-and-couscous-salad-with-cucumber-feta-dressing"
+author: "Yasmin Fahr"
+yield: "4 servings"
+prep_time: ""
+cook_time: ""
+total_time: "PT30M"
+categories:
+  - brunch
+  - dinner
+  - lunch
+  - quick
+  - seafood
+  - main course
+tags:
+  - arugula
+  - couscous
+  - cucumber
+  - feta
+  - grain bowl
+  - lime
+  - salmon fillet
+  - yogurt
+  - summer
+cuisine: ""
+image: "https://static01.nyt.com/images/2021/03/04/dining/yf-warm-salmon-salad/merlin_183955374_635d6987-6d53-4930-917a-ec5b13e591b1-videoSixteenByNineJumbo1600.jpg"
+date_saved: "2026-04-16"
+---
+
+# Salmon and Couscous Salad With Cucumber-Feta Dressing
+
+> Source: https://cooking.nytimes.com/recipes/1021970-salmon-and-couscous-salad-with-cucumber-feta-dressing
+
+## Description
+The dressing in this 30-minute recipe is inspired by green goddess dressing and mast-o khiar, a Persian side dish of cucumbers and yogurt. Here, thick yogurt is combined with fresh herbs, tangy feta and crunchy Persian cucumbers. If you have trouble finding Persian cucumbers, they can be swapped for similarly sweet-skinned English cucumbers or peeled regular cucumbers. Flaking the salmon into the salad evenly distributes it and is a nice alternative to serving a fillet for dinner. Leftover salad can be enjoyed cold for lunch the next day, freshened up with a squeeze of lime juice and more fresh herbs.
+
+## Ingredients
+- 3 (6-ounce) skin-on (or skinless) salmon fillets
+- 2 tablespoons olive oil, plus more for drizzling
+- Kosher salt and black pepper
+- 1 teaspoon ground cumin
+- 1/2 teaspoon ground turmeric
+- 2 limes, 1 halved and 1 zested and juiced
+- 1 1/2 cups pearl couscous
+- 1 1/2 cups baby arugula
+- 1 cup thick, full-fat yogurt, such as Greek, Skyr or labneh
+- 1/2 cup crumbled feta
+- 1/4 packed cup fresh flat-leaf parsley, cilantro or dill leaves and tender stems, roughly chopped
+- 1/4 packed cup fresh mint leaves and tender stems, roughly chopped
+- 1 Persian cucumber, diced into 1/2-inch pieces (about 3/4 cup)
+- 2 scallions, light green and white parts sliced
+
+## Instructions
+1. Heat the oven to 400 degrees. In the center of a sheet pan, place salmon skin-side down. Pat the salmon dry, then coat with 2 tablespoons olive oil. Season with salt, pepper, 1/2 teaspoon cumin and 1/2 teaspoon turmeric. Coat 1 of the lime halves in some of the olive oil in the pan, then place cut-side up in the corner.
+2. Roast the salmon on the center rack until opaque on the outside and light pink in the center, about 18 minutes. Remove from the oven and let cool slightly.
+3. While the salmon roasts, make the couscous: In a lidded pot over medium-high heat, toast the couscous, uncovered, stirring until fragrant, about 3 to 4 minutes. Add 3 cups water, season with salt, cover and bring to a boil. Reduce heat to maintain an active simmer, then cook until the couscous is tender and most of the liquid has been absorbed, 8 to 10 minutes. Drain the couscous in a colander, then drizzle with olive oil, tossing to coat. Stir in the arugula, letting it wilt. Leave in the sink to cool slightly while you make the dressing.
+4. Prepare the dressing: In a serving bowl, combine the yogurt with 1/4 cup room temperature water and the zest and juice of 1 lime, then whisk until smooth. Add the remaining 1/2 teaspoon cumin, plus 1/4 cup feta, most of the herbs (reserving some for garnish) and the cucumber. Stir to combine, then season to taste with salt. Set aside.
+5. Add the cooked couscous and arugula to the yogurt mixture, tossing to combine. Remove the salmon from the skin, then flake with a fork. Add half the salmon to the couscous, mixing it together. Place the remaining salmon on top, squeeze the roasted lime half over the dish, then garnish with the scallions, remaining feta, parsley and mint. Quarter the remaining lime half and serve it on the side.
+
+## Tags
+- arugula
+- couscous
+- cucumber
+- feta
+- grain bowl
+- lime
+- salmon fillet
+- yogurt
+- summer
+
+## Notes
+`;export{e as default};
