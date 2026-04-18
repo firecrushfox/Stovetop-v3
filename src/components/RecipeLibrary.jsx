@@ -8,17 +8,13 @@ export default function RecipeLibrary({
   allCategories,
   allTags,
   bookmarkedRecipeIds,
-  bookmarkedRecipes,
   currentFilters,
   filteredRecipes,
   isLibraryLoading,
   mobileFiltersOpen,
-  mobileSearchInputRef,
-  query,
   setActiveCategory,
   setActiveTag,
   setMobileFiltersOpen,
-  setQuery,
   setVisibleCategoryCount,
   setVisibleTagCount,
   toggleBookmark,
@@ -31,7 +27,7 @@ export default function RecipeLibrary({
         <button
           type="button"
           className="filter-drawer-backdrop"
-          aria-label="Close search and filters"
+          aria-label="Close filters"
           onClick={() => setMobileFiltersOpen(false)}
         />
       ) : null}
@@ -44,28 +40,16 @@ export default function RecipeLibrary({
           aria-labelledby="mobile-filters-title"
         >
           <div className="filter-panel-header">
-            <h2 id="mobile-filters-title">Search and Filters</h2>
+            <h2 id="mobile-filters-title">Filters</h2>
             <button
               type="button"
               className="filter-panel-close"
-              aria-label="Close search and filters"
+              aria-label="Close filters"
               onClick={() => setMobileFiltersOpen(false)}
             >
               Close
             </button>
           </div>
-
-          <label className="search">
-            <span>Search</span>
-            <input
-              ref={mobileSearchInputRef}
-              type="search"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search title, ingredient, tag..."
-            />
-          </label>
-
           <FacetGroup
             activeValue={activeCategory}
             title="Categories"
@@ -100,25 +84,6 @@ export default function RecipeLibrary({
         </div>
 
         <section className="recipe-list">
-          {!isLibraryLoading && bookmarkedRecipes.length ? (
-            <section className="bookmark-list">
-              <div className="filter-header">
-                <h2>Bookmarks</h2>
-                <span>{bookmarkedRecipes.length}</span>
-              </div>
-              <div className="recipe-card-grid">
-                {bookmarkedRecipes.map((recipe) => (
-                  <RecipeCard
-                    key={`bookmark-${recipe.id}`}
-                    bookmarkedRecipeIds={bookmarkedRecipeIds}
-                    currentFilters={currentFilters}
-                    recipe={recipe}
-                    toggleBookmark={toggleBookmark}
-                  />
-                ))}
-              </div>
-            </section>
-          ) : null}
           <div className="filter-header">
             <h2>Recipes</h2>
             <span>{isLibraryLoading ? '...' : filteredRecipes.length}</span>

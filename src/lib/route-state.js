@@ -1,5 +1,6 @@
 export const HOME_ROUTE = '#/';
 export const LIST_ROUTE = '#/recipes';
+export const SAVED_ROUTE = '#/saved';
 export const RECIPE_ROUTE_PREFIX = '#/recipe/';
 
 export function getRoute(hash = HOME_ROUTE) {
@@ -9,7 +10,8 @@ export function getRoute(hash = HOME_ROUTE) {
   const filters = {
     query: params.get('q') || '',
     tag: params.get('tag') || '',
-    category: params.get('category') || ''
+    category: params.get('category') || '',
+    source: params.get('source') || ''
   };
 
   if (path.startsWith(RECIPE_ROUTE_PREFIX)) {
@@ -27,6 +29,13 @@ export function getRoute(hash = HOME_ROUTE) {
     };
   }
 
+  if (path === SAVED_ROUTE) {
+    return {
+      type: 'saved',
+      ...filters
+    };
+  }
+
   return {
     type: 'home',
     ...filters
@@ -34,16 +43,20 @@ export function getRoute(hash = HOME_ROUTE) {
 }
 
 export function getListHref(filters = {}) {
-  const search = buildRouteSearch(filters);
+  const search = buildRouteSearch({ ...filters, source: '' });
   return `${LIST_ROUTE}${search}`;
 }
 
-export function getRecipeHref(recipeId, filters = {}) {
-  const search = buildRouteSearch(filters);
+export function getSavedHref() {
+  return SAVED_ROUTE;
+}
+
+export function getRecipeHref(recipeId, filters = {}, source = '') {
+  const search = buildRouteSearch({ ...filters, source });
   return `${RECIPE_ROUTE_PREFIX}${encodeURIComponent(recipeId)}${search}`;
 }
 
-export function buildRouteSearch({ query = '', tag = '', category = '' }) {
+export function buildRouteSearch({ query = '', tag = '', category = '', source = '' }) {
   const params = new URLSearchParams();
 
   if (query) {
@@ -56,6 +69,10 @@ export function buildRouteSearch({ query = '', tag = '', category = '' }) {
 
   if (category) {
     params.set('category', category);
+  }
+
+  if (source) {
+    params.set('source', source);
   }
 
   const search = params.toString();
