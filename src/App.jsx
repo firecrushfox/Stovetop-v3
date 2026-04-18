@@ -5,13 +5,13 @@ import MissingRecipe from './components/MissingRecipe';
 import RecipeLibrary from './components/RecipeLibrary';
 import RecipePage from './components/RecipePage';
 import { loadRecipe, loadRecipes } from './lib/recipes';
-import { filterRecipes, getListHref, getRoute, LIST_ROUTE } from './lib/route-state';
+import { filterRecipes, getListHref, getRoute, HOME_ROUTE, LIST_ROUTE } from './lib/route-state';
 
 const FACET_PAGE_SIZE = 5;
 
 export default function App() {
   const [bookmarkedRecipeIds, setBookmarkedRecipeIds] = useState(() => loadBookmarkedRecipeIds());
-  const initialRoute = getRoute(window.location.hash || LIST_ROUTE);
+  const initialRoute = getRoute(window.location.hash || HOME_ROUTE);
   const mobileSearchInputRef = useRef(null);
   const [recipes, setRecipes] = useState([]);
   const [isLibraryLoading, setIsLibraryLoading] = useState(true);
@@ -22,6 +22,7 @@ export default function App() {
   const [visibleCategoryCount, setVisibleCategoryCount] = useState(FACET_PAGE_SIZE);
   const [route, setRoute] = useState(initialRoute);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [deferredInstallPrompt, setDeferredInstallPrompt] = useState(null);
   const [isInstalled, setIsInstalled] = useState(isStandaloneDisplay());
   const [showIosInstallHelp, setShowIosInstallHelp] = useState(false);
@@ -62,7 +63,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const syncRoute = () => setRoute(getRoute(window.location.hash || LIST_ROUTE));
+    const syncRoute = () => setRoute(getRoute(window.location.hash || HOME_ROUTE));
 
     window.addEventListener('hashchange', syncRoute);
     syncRoute();
@@ -80,6 +81,7 @@ export default function App() {
     if (route.type !== 'list') {
       setMobileFiltersOpen(false);
     }
+    setMobileNavOpen(false);
   }, [route]);
 
   useEffect(() => {
@@ -216,36 +218,95 @@ export default function App() {
   return (
     <div className="shell">
       <header className="hero">
-        {route.type === 'list' ? (
+        <div className="hero-leading-actions">
           <button
             type="button"
-            className={mobileFiltersOpen ? 'hero-icon-button active' : 'hero-icon-button'}
-            aria-expanded={mobileFiltersOpen}
-            aria-controls="mobile-filters"
-            aria-label={mobileFiltersOpen ? 'Close search and filters' : 'Open search and filters'}
-            onClick={() => setMobileFiltersOpen((open) => !open)}
+            className={mobileNavOpen ? 'hero-icon-button active hero-menu-button' : 'hero-icon-button hero-menu-button'}
+            aria-expanded={mobileNavOpen}
+            aria-controls="mobile-nav"
+            aria-label={mobileNavOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            onClick={() => setMobileNavOpen((open) => !open)}
           >
             <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M10.5 4a6.5 6.5 0 1 0 4.03 11.6l4.44 4.44 1.06-1.06-4.44-4.44A6.5 6.5 0 0 0 10.5 4Zm0 1.5a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"
-                fill="currentColor"
-              />
+              {mobileNavOpen ? (
+                <path
+                  d="M6.5 6.5l11 11m0-11l-11 11"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                />
+              ) : (
+                <path
+                  d="M4 7.25h16M4 12h16M4 16.75h16"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                />
+              )}
             </svg>
           </button>
-        ) : (
-          <div className="hero-spacer" aria-hidden="true" />
-        )}
-        <a className="hero-title-link" href={currentListHref}>
+          {route.type === 'list' ? (
+            <button
+              type="button"
+              className={mobileFiltersOpen ? 'hero-icon-button active hero-search-button' : 'hero-icon-button hero-search-button'}
+              aria-expanded={mobileFiltersOpen}
+              aria-controls="mobile-filters"
+              aria-label={mobileFiltersOpen ? 'Close search and filters' : 'Open search and filters'}
+              onClick={() => setMobileFiltersOpen((open) => !open)}
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M10.5 4a6.5 6.5 0 1 0 4.03 11.6l4.44 4.44 1.06-1.06-4.44-4.44A6.5 6.5 0 0 0 10.5 4Zm0 1.5a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </button>
+          ) : (
+            <div className="hero-spacer hero-search-spacer" aria-hidden="true" />
+          )}
+        </div>
+        <a className="hero-title-link" href={HOME_ROUTE}>
           <h1>Stovetop</h1>
         </a>
-        {showInstallAction ? (
-          <button type="button" className="install-button" onClick={handleInstallClick}>
-            Install
-          </button>
-        ) : (
-          <div className="hero-spacer" aria-hidden="true" />
-        )}
+        <div className="hero-trailing-actions">
+          {showInstallAction ? (
+            <button type="button" className="install-button" onClick={handleInstallClick}>
+              Install
+            </button>
+          ) : (
+            <div className="hero-spacer" aria-hidden="true" />
+          )}
+        </div>
       </header>
+      <nav className="top-nav" aria-label="Primary">
+        <a className={route.type === 'list' ? 'top-nav-link active' : 'top-nav-link'} href={LIST_ROUTE}>
+          Recipes
+        </a>
+      </nav>
+      {mobileNavOpen ? (
+        <button
+          type="button"
+          className="mobile-nav-backdrop"
+          aria-label="Close navigation menu"
+          onClick={() => setMobileNavOpen(false)}
+        />
+      ) : null}
+      <nav
+        id="mobile-nav"
+        className={mobileNavOpen ? 'mobile-nav-panel open' : 'mobile-nav-panel'}
+        aria-label="Mobile navigation"
+      >
+        <a
+          className={route.type === 'list' ? 'mobile-nav-link active' : 'mobile-nav-link'}
+          href={LIST_ROUTE}
+          onClick={() => setMobileNavOpen(false)}
+        >
+          Recipes
+        </a>
+        <div className="hero-spacer" aria-hidden="true" />
+      </nav>
 
       <main className="page-layout">
         {showIosInstallHelp ? <InstallHelp /> : null}
@@ -257,7 +318,7 @@ export default function App() {
             ) : null}
             {!isRecipeLoading && !activeRecipe ? <MissingRecipe listHref={currentListHref} /> : null}
           </>
-        ) : (
+        ) : route.type === 'list' ? (
           <RecipeLibrary
             activeCategory={activeCategory}
             activeTag={activeTag}
@@ -281,6 +342,8 @@ export default function App() {
             visibleCategoryCount={visibleCategoryCount}
             visibleTagCount={visibleTagCount}
           />
+        ) : (
+          <HomePage />
         )}
       </main>
     </div>
@@ -324,4 +387,8 @@ function loadBookmarkedRecipeIds() {
   } catch {
     return [];
   }
+}
+
+function HomePage() {
+  return <section className="home-page" aria-label="Homepage" />;
 }

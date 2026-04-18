@@ -1,8 +1,9 @@
-export const LIST_ROUTE = '#/';
+export const HOME_ROUTE = '#/';
+export const LIST_ROUTE = '#/recipes';
 export const RECIPE_ROUTE_PREFIX = '#/recipe/';
 
-export function getRoute(hash = LIST_ROUTE) {
-  const normalizedHash = hash || LIST_ROUTE;
+export function getRoute(hash = HOME_ROUTE) {
+  const normalizedHash = hash || HOME_ROUTE;
   const [path, search = ''] = normalizedHash.split('?');
   const params = new URLSearchParams(search);
   const filters = {
@@ -19,8 +20,15 @@ export function getRoute(hash = LIST_ROUTE) {
     };
   }
 
+  if (path === LIST_ROUTE) {
+    return {
+      type: 'list',
+      ...filters
+    };
+  }
+
   return {
-    type: 'list',
+    type: 'home',
     ...filters
   };
 }
