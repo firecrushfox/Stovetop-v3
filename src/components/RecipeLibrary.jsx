@@ -8,10 +8,12 @@ export default function RecipeLibrary({
   allCategories,
   allTags,
   bookmarkedRecipeIds,
+  collectionName,
   currentFilters,
   filteredRecipes,
   isLibraryLoading,
   mobileFiltersOpen,
+  onOpenCollectionPicker,
   setActiveCategory,
   setActiveTag,
   setMobileFiltersOpen,
@@ -85,9 +87,10 @@ export default function RecipeLibrary({
 
         <section className="recipe-list">
           <div className="filter-header">
-            <h2>Recipes</h2>
+            <h2>{collectionName ? collectionName : 'Recipes'}</h2>
             <span>{isLibraryLoading ? '...' : filteredRecipes.length}</span>
           </div>
+          {collectionName ? <p className="empty-state">Showing recipes from this collection.</p> : null}
           {isLibraryLoading ? (
             <p className="empty-state">Loading recipes.</p>
           ) : filteredRecipes.length ? (
@@ -97,6 +100,7 @@ export default function RecipeLibrary({
                   key={recipe.id}
                   bookmarkedRecipeIds={bookmarkedRecipeIds}
                   currentFilters={currentFilters}
+                  onOpenCollectionPicker={onOpenCollectionPicker}
                   recipe={recipe}
                   toggleBookmark={toggleBookmark}
                 />
@@ -144,7 +148,7 @@ function FacetGroup({ activeValue, onClear, onSelect, onShowMore, title, values,
   );
 }
 
-function RecipeCard({ bookmarkedRecipeIds, currentFilters, recipe, toggleBookmark }) {
+function RecipeCard({ bookmarkedRecipeIds, currentFilters, onOpenCollectionPicker, recipe, toggleBookmark }) {
   const isBookmarked = bookmarkedRecipeIds.includes(recipe.id);
   const recipeHref = getRecipeHref(recipe.id, currentFilters);
 
@@ -160,6 +164,14 @@ function RecipeCard({ bookmarkedRecipeIds, currentFilters, recipe, toggleBookmar
             </div>
           )}
         </a>
+        <button
+          type="button"
+          className="collection-button"
+          aria-label={`Add ${recipe.title} to a collection`}
+          onClick={() => onOpenCollectionPicker(recipe)}
+        >
+          +
+        </button>
         <button
           type="button"
           className={isBookmarked ? 'bookmark-button active' : 'bookmark-button'}

@@ -51,16 +51,16 @@ a {
 .shell {
   width: min(1440px, calc(100% - 1rem));
   margin: 0 auto;
-  padding: 0.75rem 0 1rem;
+  padding: 0 0 1rem;
 }
 
 .hero {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: auto minmax(18rem, 1fr) auto;
   align-items: center;
-  gap: 1rem;
-  padding: 0.25rem 0 0.75rem;
-  border-bottom: 1px solid var(--line-strong);
+  gap: 1.25rem;
+  padding: 0.35rem 0 0.9rem;
+  background: #fffdf8;
 }
 
 .hero-icon-button,
@@ -127,7 +127,9 @@ a {
 }
 
 .hero h1 {
-  font-size: clamp(2.25rem, 5vw, 4rem);
+  font-size: clamp(2rem, 4vw, 3.15rem);
+  color: #bf3a1d;
+  letter-spacing: -0.04em;
 }
 
 .hero-leading-actions {
@@ -149,6 +151,12 @@ a {
   text-decoration: none;
 }
 
+.hero-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
 .hero-search-form {
   display: flex;
   align-items: center;
@@ -166,9 +174,12 @@ a {
 
 .hero-search-field input {
   width: 100%;
-  padding: 0.65rem 0.8rem 0.65rem 2.65rem;
-  border: 1px solid var(--line-strong);
-  background: #fffdf8;
+  height: 2.75rem;
+  padding: 0.65rem 1rem 0.65rem 2.8rem;
+  border: 1px solid #d6d8de;
+  border-radius: 0.2rem;
+  background: #ffffff;
+  color: var(--accent-navy);
 }
 
 .hero-search-submit,
@@ -186,13 +197,14 @@ a {
 .hero-search-submit {
   position: absolute;
   top: 50%;
-  left: 0.45rem;
+  left: 0.85rem;
   width: 1.6rem;
   height: 1.6rem;
   padding: 0;
   border: 0;
   background: transparent;
   transform: translateY(-50%);
+  color: #7f8796;
 }
 
 .hero-search-submit svg {
@@ -224,28 +236,31 @@ a {
 .top-nav {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  width: min(1100px, 100%);
+  gap: 2.1rem;
+  width: 100%;
   margin: 0 auto;
-  padding: 0.7rem 0 0.2rem;
+  padding: 0.8rem 0 0.35rem;
+  background: #fffdf8;
+  border-bottom: 1px solid #ddd2bf;
 }
 
 .top-nav-link {
   display: inline-flex;
   align-items: center;
   min-height: 2.25rem;
-  padding: 0.35rem 0.1rem;
-  color: var(--ink-soft);
+  padding: 0.35rem 0;
+  color: #0f1828;
   text-decoration: none;
   font-weight: 700;
+  font-size: 0.98rem;
   border-bottom: 2px solid transparent;
 }
 
 .top-nav-link:hover,
 .top-nav-link:focus-visible,
 .top-nav-link.active {
-  color: var(--accent-deep);
-  border-bottom-color: var(--accent-deep);
+  color: #bf3a1d;
+  border-bottom-color: #bf3a1d;
 }
 
 .mobile-nav-backdrop,
@@ -511,19 +526,38 @@ a:focus-visible {
   place-items: center;
   border: 0;
   border-radius: 999px;
-  background: rgba(44, 49, 57, 0.88);
+  background: rgba(26, 39, 68, 0.92);
   color: #fdfbf7;
   box-shadow: 0 0.4rem 1rem rgba(20, 24, 29, 0.18);
 }
 
+.collection-button {
+  position: absolute;
+  left: 0.75rem;
+  bottom: 0.75rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: inline-grid;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(44, 49, 57, 0.88);
+  color: #fdfbf7;
+  font-size: 1.2rem;
+  line-height: 1;
+  box-shadow: 0 0.4rem 1rem rgba(20, 24, 29, 0.18);
+}
+
+.collection-button:hover,
+.collection-button:focus-visible,
 .bookmark-button:hover,
 .bookmark-button:focus-visible {
   background: rgba(26, 39, 68, 0.96);
 }
 
 .bookmark-button.active {
-  background: var(--accent-deep);
-  color: #fff8ef;
+  background: #c9a86c;
+  color: #2f2410;
 }
 
 .bookmark-button svg {
@@ -635,6 +669,15 @@ a:focus-visible {
   min-width: 0;
 }
 
+.detail-collection-button {
+  margin-top: 0.9rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--accent-deep);
+  background: rgba(201, 168, 108, 0.18);
+  color: var(--accent-deep);
+  font-weight: 700;
+}
+
 .source-line,
 .recipe-detail p,
 .chip {
@@ -649,12 +692,378 @@ a:focus-visible {
 }
 
 .home-page {
+  display: grid;
+  gap: 1rem;
   min-height: 60vh;
+}
+
+.home-carousel {
+  display: grid;
+  gap: 1rem;
+}
+
+.home-carousel-tabs {
+  display: flex;
+  gap: 0.55rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+  scrollbar-width: none;
+}
+
+.home-carousel-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.home-carousel-tab {
+  flex: 0 0 auto;
+  padding: 0.65rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.45rem;
+  background: transparent;
+  color: var(--accent-navy);
+  white-space: nowrap;
+}
+
+.home-carousel-tab.active {
+  border-color: #f0d27d;
+  background: #f6dc8d;
+  color: #3a2b08;
+}
+
+.home-carousel-shell {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: start;
+}
+
+.home-carousel-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 2.7rem) / 4);
+  gap: 0.9rem;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+.home-carousel-card {
+  display: grid;
+  gap: 0.65rem;
+  align-content: start;
+}
+
+.home-carousel-card-cta {
+  align-content: start;
+}
+
+.home-carousel-image-link {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--line);
+  background: #dfe6d9;
+  text-decoration: none;
+}
+
+.home-carousel-image,
+.home-carousel-image-placeholder {
+  width: 100%;
+  height: 100%;
+}
+
+.home-carousel-image {
+  display: block;
+  object-fit: cover;
+}
+
+.home-carousel-image-placeholder {
+  display: grid;
+  place-items: end start;
+  padding: 0.75rem;
+  background: linear-gradient(180deg, var(--accent-gold), var(--accent));
+  color: #f5f0e6;
+  font-weight: 700;
+}
+
+.home-carousel-card-link {
+  display: grid;
+  gap: 0.18rem;
+  text-decoration: none;
+}
+
+.home-carousel-card-link:hover,
+.home-carousel-card-link:focus-visible {
+  color: var(--accent-deep);
+}
+
+.home-carousel-card-title {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.02rem;
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--accent-navy);
+}
+
+.home-carousel-card-author {
+  color: var(--ink-soft);
+}
+
+.home-carousel-card-title {
+  overflow-wrap: anywhere;
+}
+
+.home-carousel-card-meta {
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+
+.home-carousel-see-all {
+  min-height: var(--carousel-media-height, 100%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 1rem 1.4rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg-panel-strong);
+  color: var(--accent-navy);
+  font-weight: 700;
+  text-decoration: none;
+  justify-self: center;
+  align-self: start;
+}
+
+.home-carousel-see-all:hover,
+.home-carousel-see-all:focus-visible {
+  border-color: var(--accent-deep);
+  color: var(--accent-deep);
+}
+
+.home-carousel-arrow {
+  width: 3rem;
+  height: 3rem;
+  display: inline-grid;
+  place-items: center;
+  margin-top: calc((var(--carousel-media-height, 0px) - 3rem) / 2);
+  border: 1px solid #d6d8de;
+  border-radius: 999px;
+  background: rgba(255, 253, 248, 0.94);
+  color: var(--accent-navy);
+  font-size: 1.25rem;
+  box-shadow: 0 0.4rem 1rem rgba(20, 24, 29, 0.12);
+}
+
+.home-carousel-arrow:hover:not(:disabled),
+.home-carousel-arrow:focus-visible:not(:disabled) {
+  border-color: var(--accent-navy);
+  background: #ffffff;
+}
+
+.home-carousel-arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.collections-page {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.collections-sidebar,
+.collections-editor,
+.collections-editor-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.collections-editor-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.collections-panel {
+  padding: 1rem;
+  border: 1px solid var(--line);
+  background: var(--bg-panel);
+}
+
+.collections-create-inline,
+.collections-rename-form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.collections-create-inline {
+  grid-template-columns: minmax(0, 1fr) auto;
+  margin-top: 0.85rem;
+}
+
+.collections-create-inline input {
+  min-width: 0;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--line-strong);
+  background: #fffdf8;
+}
+
+.collections-create-inline button,
+.collections-recipe-item button,
+.collections-delete-button {
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--accent-deep);
+  background: rgba(201, 168, 108, 0.18);
+  color: var(--accent-deep);
+  font-weight: 700;
+}
+
+.collections-nav-list,
+.collections-default-list,
+.collections-recipe-list {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 0.85rem;
+}
+
+.collections-nav-item,
+.collections-default-item,
+.collections-recipe-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--line);
+  background: var(--bg-panel-strong);
+}
+
+.collections-nav-item {
+  color: var(--accent-navy);
+  text-align: left;
+}
+
+.collections-nav-item.active {
+  border-color: var(--accent-deep);
+  background: rgba(201, 168, 108, 0.22);
+  color: var(--accent-deep);
+}
+
+.collections-default-item,
+.collections-recipe-item {
+  align-items: start;
+}
+
+.collections-default-item,
+.collections-recipe-item div {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.collections-default-item span,
+.collections-recipe-item span {
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+
+.collections-editor-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.collections-delete-button {
+  border-color: #9d4f32;
+  background: #fff0e7;
+  color: #8d4326;
+}
+
+.collection-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 40;
+  width: min(32rem, calc(100vw - 1rem));
+  max-height: min(36rem, calc(100dvh - 2rem));
+  overflow: auto;
+  padding: 1rem;
+  border: 1px solid var(--line-strong);
+  background: var(--bg-panel);
+  box-shadow: 0 1rem 2rem rgba(26, 39, 68, 0.22);
+  transform: translate(-50%, -50%);
+}
+
+.collection-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+  border: 0;
+  background: rgba(26, 39, 68, 0.34);
+}
+
+.collection-dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.collection-dialog-header h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.5rem;
+}
+
+.collection-dialog-close {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--accent-deep);
+  font-weight: 700;
+}
+
+.collection-dialog-body {
+  display: grid;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+
+.collection-list {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.collection-list-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--line);
+  background: var(--bg-panel-strong);
+  color: var(--accent-navy);
+  text-align: left;
+}
+
+.collection-list-item.active {
+  border-color: var(--accent-deep);
+  background: rgba(201, 168, 108, 0.22);
+  color: var(--accent-deep);
+}
+
+.collection-create-form {
+  display: grid;
+  gap: 0.75rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
 }
 
 @media (max-width: 1080px) {
   .detail-header,
-  .detail-grid {
+  .detail-grid,
+  .collections-page,
+  .collections-editor-grid {
     grid-template-columns: 1fr;
   }
 
@@ -669,6 +1078,10 @@ a:focus-visible {
     height: auto;
     aspect-ratio: 4 / 3;
     object-fit: cover;
+  }
+
+  .home-carousel-track {
+    grid-auto-columns: calc((100% - 0.9rem) / 2);
   }
 }
 
@@ -695,6 +1108,11 @@ a:focus-visible {
     min-height: 3.75rem;
     padding: 0.75rem 0.5rem;
     background: rgba(245, 240, 230, 0.96);
+    border-bottom: 1px solid #ddd2bf;
+  }
+
+  .hero-brand {
+    gap: 0.45rem;
   }
 
   .hero-leading-actions,
@@ -745,7 +1163,7 @@ a:focus-visible {
   }
 
   .hero h1 {
-    font-size: 2rem;
+    font-size: 1.9rem;
     text-align: center;
   }
 
@@ -756,6 +1174,7 @@ a:focus-visible {
 
   .top-nav {
     display: none;
+    border-bottom: 0;
   }
 
   .page-layout {
@@ -869,5 +1288,39 @@ a:focus-visible {
   .recipe-card-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.7rem;
+  }
+
+  .home-carousel-arrow {
+    display: none;
+  }
+
+  .home-carousel-shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-carousel-track {
+    grid-auto-columns: minmax(15rem, 78vw);
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 0.35rem;
+    scroll-padding-inline: 0.1rem;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .home-carousel-card {
+    scroll-snap-align: start;
+  }
+
+  .home-carousel-see-all {
+    min-height: auto;
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  .collections-create-inline,
+  .collections-editor-actions {
+    grid-template-columns: 1fr;
+    display: grid;
   }
 }

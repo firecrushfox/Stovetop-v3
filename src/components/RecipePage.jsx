@@ -1,4 +1,4 @@
-export default function RecipePage({ recipe, listHref }) {
+export default function RecipePage({ onOpenCollectionPicker, recipe, listHref }) {
   return (
     <article className="recipe-detail recipe-page">
       <a className="back-link" href={listHref}>
@@ -20,6 +20,13 @@ export default function RecipePage({ recipe, listHref }) {
               .filter(Boolean)
               .join(' | ')}
           </p>
+          <button
+            type="button"
+            className="detail-collection-button"
+            onClick={() => onOpenCollectionPicker(recipe)}
+          >
+            Add to collection
+          </button>
         </div>
         {recipe.image ? (
           <div className="recipe-image-frame">

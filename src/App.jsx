@@ -1,11 +1,26 @@
 import { useDeferredValue, useEffect, useRef, useState } from 'react';
 import AppHeader from './components/AppHeader';
+import CollectionPickerDialog from './components/CollectionPickerDialog';
+import CollectionsPage from './components/CollectionsPage';
+import HomeRecipeCarousel from './components/HomeRecipeCarousel';
 import InstallHelp from './components/InstallHelp';
 import LoadingRecipe from './components/LoadingRecipe';
 import MissingRecipe from './components/MissingRecipe';
 import RecipeLibrary from './components/RecipeLibrary';
 import RecipePage from './components/RecipePage';
 import SavedRecipesPage from './components/SavedRecipesPage';
+import {
+  addRecipeToUserCollection,
+  getCollectionMap,
+  createUserCollection,
+  deleteUserCollection,
+  getHomepageCollections,
+  getResolvedUserCollections,
+  loadUserCollections,
+  removeRecipeFromUserCollection,
+  renameUserCollection,
+  saveUserCollections
+} from './lib/collections';
 import { loadRecipe, loadRecipes } from './lib/recipes';
 import { filterRecipes, getListHref, getRoute, getSavedHref, HOME_ROUTE } from './lib/route-state';
 
@@ -13,6 +28,7 @@ const FACET_PAGE_SIZE = 5;
 
 export default function App() {
   const [bookmarkedRecipeIds, setBookmarkedRecipeIds] = useState(() => loadBookmarkedRecipeIds());
+  const [userCollections, setUserCollections] = useState(() => loadUserCollections());
   const initialRoute = getRoute(window.location.hash || HOME_ROUTE);
   const mobileSearchInputRef = useRef(null);
   const [recipes, setRecipes] = useState([]);
@@ -20,6 +36,7 @@ export default function App() {
   const [query, setQuery] = useState(initialRoute.query);
   const [activeTag, setActiveTag] = useState(initialRoute.tag);
   const [activeCategory, setActiveCategory] = useState(initialRoute.category);
+  const [activeCollectionId, setActiveCollectionId] = useState(initialRoute.collection);
   const [visibleTagCount, setVisibleTagCount] = useState(FACET_PAGE_SIZE);
   const [visibleCategoryCount, setVisibleCategoryCount] = useState(FACET_PAGE_SIZE);
   const [route, setRoute] = useState(initialRoute);
@@ -31,9 +48,10 @@ export default function App() {
   const [showIosInstallHelp, setShowIosInstallHelp] = useState(false);
   const [activeRecipe, setActiveRecipe] = useState(null);
   const [isRecipeLoading, setIsRecipeLoading] = useState(false);
+  const [collectionPickerRecipe, setCollectionPickerRecipe] = useState(null);
   const deferredQuery = useDeferredValue(query);
   const normalizedDeferredQuery = deferredQuery.trim().toLowerCase();
-  const currentFilters = { query, tag: activeTag, category: activeCategory };
+  const currentFilters = { query, tag: activeTag, category: activeCategory, collection: activeCollectionId };
   const currentCollectionHref = route.type === 'recipe' && route.source === 'saved'
     ? getSavedHref()
     : getListHref(currentFilters);
@@ -80,7 +98,8 @@ export default function App() {
     setQuery((current) => (current === route.query ? current : route.query));
     setActiveTag((current) => (current === route.tag ? current : route.tag));
     setActiveCategory((current) => (current === route.category ? current : route.category));
-  }, [route.category, route.query, route.tag]);
+    setActiveCollectionId((current) => (current === route.collection ? current : route.collection));
+  }, [route.category, route.collection, route.query, route.tag]);
 
   useEffect(() => {
     setMobileNavOpen(false);
@@ -197,11 +216,16 @@ export default function App() {
     }
   }
 
+  const collectionMap = getCollectionMap(recipes, userCollections);
+  const activeCollection = collectionMap.get(activeCollectionId) ?? null;
   const filteredRecipes = filterRecipes(recipes, {
     query: normalizedDeferredQuery,
     tag: activeTag,
-    category: activeCategory
+    category: activeCategory,
+    collectionRecipeIds: activeCollection?.recipeIds ?? null
   });
+  const homepageData = getHomepageCollections(recipes, userCollections);
+  const resolvedUserCollections = getResolvedUserCollections(recipes, userCollections);
   const bookmarkedRecipes = recipes.filter((recipe) => bookmarkedRecipeIds.includes(recipe.id));
 
   function toggleBookmark(recipeId) {
@@ -215,6 +239,10 @@ export default function App() {
   useEffect(() => {
     window.localStorage.setItem('stovetop-bookmarks', JSON.stringify(bookmarkedRecipeIds));
   }, [bookmarkedRecipeIds]);
+
+  useEffect(() => {
+    saveUserCollections(userCollections);
+  }, [userCollections]);
 
   function handleSearchChange(nextQuery) {
     setQuery(nextQuery);
@@ -241,6 +269,30 @@ export default function App() {
     }
 
     window.location.hash = nextHash;
+  }
+
+  function handleCreateCollection(name, recipeId) {
+    const collection = createUserCollection(name);
+    const nextCollection = recipeId ? { ...collection, recipeIds: [recipeId] } : collection;
+    setUserCollections((current) => [...current, nextCollection]);
+    setCollectionPickerRecipe(null);
+  }
+
+  function handleAddRecipeToCollection(collectionId, recipeId) {
+    setUserCollections((current) => addRecipeToUserCollection(current, collectionId, recipeId));
+    setCollectionPickerRecipe(null);
+  }
+
+  function handleRemoveRecipeFromCollection(collectionId, recipeId) {
+    setUserCollections((current) => removeRecipeFromUserCollection(current, collectionId, recipeId));
+  }
+
+  function handleRenameCollection(collectionId, name) {
+    setUserCollections((current) => renameUserCollection(current, collectionId, name));
+  }
+
+  function handleDeleteCollection(collectionId) {
+    setUserCollections((current) => deleteUserCollection(current, collectionId));
   }
 
   return (
@@ -281,7 +333,11 @@ export default function App() {
           <>
             {isRecipeLoading ? <LoadingRecipe /> : null}
             {!isRecipeLoading && activeRecipe ? (
-              <RecipePage recipe={activeRecipe} listHref={currentCollectionHref} />
+              <RecipePage
+                onOpenCollectionPicker={setCollectionPickerRecipe}
+                recipe={activeRecipe}
+                listHref={currentCollectionHref}
+              />
             ) : null}
             {!isRecipeLoading && !activeRecipe ? <MissingRecipe listHref={currentCollectionHref} /> : null}
           </>
@@ -292,10 +348,12 @@ export default function App() {
             allCategories={allCategories}
             allTags={allTags}
             bookmarkedRecipeIds={bookmarkedRecipeIds}
+            collectionName={activeCollection?.name ?? ''}
             currentFilters={currentFilters}
             filteredRecipes={filteredRecipes}
             isLibraryLoading={isLibraryLoading}
             mobileFiltersOpen={mobileFiltersOpen}
+            onOpenCollectionPicker={setCollectionPickerRecipe}
             setActiveCategory={setActiveCategory}
             setActiveTag={setActiveTag}
             setMobileFiltersOpen={setMobileFiltersOpen}
@@ -310,12 +368,36 @@ export default function App() {
             bookmarkedRecipeIds={bookmarkedRecipeIds}
             bookmarkedRecipes={bookmarkedRecipes}
             isLibraryLoading={isLibraryLoading}
+            onOpenCollectionPicker={setCollectionPickerRecipe}
             toggleBookmark={toggleBookmark}
           />
+        ) : route.type === 'collections' ? (
+          <CollectionsPage
+            onAddRecipeToCollection={handleAddRecipeToCollection}
+            onCreateCollection={handleCreateCollection}
+            onDeleteCollection={handleDeleteCollection}
+            onRemoveRecipeFromCollection={handleRemoveRecipeFromCollection}
+            onRenameCollection={handleRenameCollection}
+            recipes={recipes}
+            userCollections={resolvedUserCollections}
+          />
         ) : (
-          <HomePage />
+          <HomePage
+            defaultCollections={homepageData.defaultCollections}
+            featuredUserCollection={homepageData.featuredUserCollection}
+          />
         )}
       </main>
+
+      {collectionPickerRecipe ? (
+        <CollectionPickerDialog
+          recipe={collectionPickerRecipe}
+          userCollections={userCollections}
+          onAddToCollection={handleAddRecipeToCollection}
+          onClose={() => setCollectionPickerRecipe(null)}
+          onCreateCollection={handleCreateCollection}
+        />
+      ) : null}
     </div>
   );
 }
@@ -359,6 +441,11 @@ function loadBookmarkedRecipeIds() {
   }
 }
 
-function HomePage() {
-  return <section className="home-page" aria-label="Homepage" />;
+function HomePage({ defaultCollections, featuredUserCollection }) {
+  return (
+    <section className="home-page" aria-label="Homepage">
+      <HomeRecipeCarousel collections={defaultCollections} />
+      {featuredUserCollection ? <HomeRecipeCarousel collections={[featuredUserCollection]} /> : null}
+    </section>
+  );
 }

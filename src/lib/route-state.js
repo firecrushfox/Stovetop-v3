@@ -1,6 +1,7 @@
 export const HOME_ROUTE = '#/';
 export const LIST_ROUTE = '#/recipes';
 export const SAVED_ROUTE = '#/saved';
+export const COLLECTIONS_ROUTE = '#/collections';
 export const RECIPE_ROUTE_PREFIX = '#/recipe/';
 
 export function getRoute(hash = HOME_ROUTE) {
@@ -11,6 +12,7 @@ export function getRoute(hash = HOME_ROUTE) {
     query: params.get('q') || '',
     tag: params.get('tag') || '',
     category: params.get('category') || '',
+    collection: params.get('collection') || '',
     source: params.get('source') || ''
   };
 
@@ -36,6 +38,13 @@ export function getRoute(hash = HOME_ROUTE) {
     };
   }
 
+  if (path === COLLECTIONS_ROUTE) {
+    return {
+      type: 'collections',
+      ...filters
+    };
+  }
+
   return {
     type: 'home',
     ...filters
@@ -56,7 +65,7 @@ export function getRecipeHref(recipeId, filters = {}, source = '') {
   return `${RECIPE_ROUTE_PREFIX}${encodeURIComponent(recipeId)}${search}`;
 }
 
-export function buildRouteSearch({ query = '', tag = '', category = '', source = '' }) {
+export function buildRouteSearch({ query = '', tag = '', category = '', collection = '', source = '' }) {
   const params = new URLSearchParams();
 
   if (query) {
@@ -71,6 +80,10 @@ export function buildRouteSearch({ query = '', tag = '', category = '', source =
     params.set('category', category);
   }
 
+  if (collection) {
+    params.set('collection', collection);
+  }
+
   if (source) {
     params.set('source', source);
   }
@@ -79,14 +92,16 @@ export function buildRouteSearch({ query = '', tag = '', category = '', source =
   return search ? `?${search}` : '';
 }
 
-export function filterRecipes(recipes, { query = '', tag = '', category = '' }) {
+export function filterRecipes(recipes, { query = '', tag = '', category = '', collectionRecipeIds = null }) {
   const normalizedQuery = query.trim().toLowerCase();
+  const allowedRecipeIds = collectionRecipeIds ? new Set(collectionRecipeIds) : null;
 
   return recipes.filter((recipe) => {
     const matchesQuery = !normalizedQuery || recipe.searchText.includes(normalizedQuery);
     const matchesTag = !tag || recipe.tags.includes(tag);
     const matchesCategory = !category || recipe.categories.includes(category);
+    const matchesCollection = !allowedRecipeIds || allowedRecipeIds.has(recipe.id);
 
-    return matchesQuery && matchesTag && matchesCategory;
+    return matchesQuery && matchesTag && matchesCategory && matchesCollection;
   });
 }

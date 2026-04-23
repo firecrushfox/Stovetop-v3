@@ -4,6 +4,7 @@ export default function SavedRecipesPage({
   bookmarkedRecipeIds,
   bookmarkedRecipes,
   isLibraryLoading,
+  onOpenCollectionPicker,
   toggleBookmark
 }) {
   return (
@@ -21,6 +22,7 @@ export default function SavedRecipesPage({
               <SavedRecipeCard
                 key={recipe.id}
                 bookmarkedRecipeIds={bookmarkedRecipeIds}
+                onOpenCollectionPicker={onOpenCollectionPicker}
                 recipe={recipe}
                 toggleBookmark={toggleBookmark}
               />
@@ -34,7 +36,7 @@ export default function SavedRecipesPage({
   );
 }
 
-function SavedRecipeCard({ bookmarkedRecipeIds, recipe, toggleBookmark }) {
+function SavedRecipeCard({ bookmarkedRecipeIds, onOpenCollectionPicker, recipe, toggleBookmark }) {
   const isBookmarked = bookmarkedRecipeIds.includes(recipe.id);
   const recipeHref = getRecipeHref(recipe.id, {}, 'saved');
 
@@ -50,6 +52,14 @@ function SavedRecipeCard({ bookmarkedRecipeIds, recipe, toggleBookmark }) {
             </div>
           )}
         </a>
+        <button
+          type="button"
+          className="collection-button"
+          aria-label={`Add ${recipe.title} to a collection`}
+          onClick={() => onOpenCollectionPicker(recipe)}
+        >
+          +
+        </button>
         <button
           type="button"
           className={isBookmarked ? 'bookmark-button active' : 'bookmark-button'}

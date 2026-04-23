@@ -1,4 +1,4 @@
-import { HOME_ROUTE, LIST_ROUTE, SAVED_ROUTE } from '../lib/route-state';
+import { COLLECTIONS_ROUTE, HOME_ROUTE, LIST_ROUTE, SAVED_ROUTE } from '../lib/route-state';
 
 export default function AppHeader({
   mobileFiltersOpen,
@@ -19,6 +19,7 @@ export default function AppHeader({
 }) {
   const isListRoute = route.type === 'list';
   const isSavedRoute = route.type === 'saved';
+  const isCollectionsRoute = route.type === 'collections';
 
   function handleSearchSubmit(event) {
     event.preventDefault();
@@ -98,7 +99,9 @@ export default function AppHeader({
         </div>
 
         <a className="hero-title-link" href={HOME_ROUTE}>
-          <h1>Stovetop</h1>
+          <div className="hero-brand">
+            <h1>Stovetop</h1>
+          </div>
         </a>
 
         <div className="hero-trailing-actions">
@@ -117,7 +120,7 @@ export default function AppHeader({
                 type="search"
                 value={query}
                 onChange={(event) => onSearchChange(event.target.value)}
-                placeholder="Search recipes"
+                placeholder="What would you like to cook?"
               />
             </label>
           </form>
@@ -137,6 +140,9 @@ export default function AppHeader({
         </a>
         <a className={isSavedRoute ? 'top-nav-link active' : 'top-nav-link'} href={SAVED_ROUTE}>
           Saved
+        </a>
+        <a className={isCollectionsRoute ? 'top-nav-link active' : 'top-nav-link'} href={COLLECTIONS_ROUTE}>
+          Collections
         </a>
       </nav>
 
@@ -166,6 +172,13 @@ export default function AppHeader({
           onClick={() => setMobileNavOpen(false)}
         >
           Saved
+        </a>
+        <a
+          className={isCollectionsRoute ? 'mobile-nav-link active' : 'mobile-nav-link'}
+          href={COLLECTIONS_ROUTE}
+          onClick={() => setMobileNavOpen(false)}
+        >
+          Collections
         </a>
       </nav>
 
