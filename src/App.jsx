@@ -31,6 +31,8 @@ export default function App() {
   const [userCollections, setUserCollections] = useState(() => loadUserCollections());
   const initialRoute = getRoute(window.location.hash || HOME_ROUTE);
   const mobileSearchInputRef = useRef(null);
+  const previousRouteRef = useRef(initialRoute);
+  const listScrollPositionsRef = useRef(new Map());
   const [recipes, setRecipes] = useState([]);
   const [isLibraryLoading, setIsLibraryLoading] = useState(true);
   const [query, setQuery] = useState(initialRoute.query);
@@ -138,17 +140,35 @@ export default function App() {
       return;
     }
 
-    const nextHash = getListHref({ query, tag: activeTag, category: activeCategory });
+    const nextHash = getListHref({ query, tag: activeTag, category: activeCategory, collection: activeCollectionId });
 
     if (window.location.hash === nextHash) {
       return;
     }
 
     window.history.replaceState(null, '', nextHash);
-  }, [activeCategory, activeTag, query, route.type]);
+  }, [activeCategory, activeCollectionId, activeTag, query, route.type]);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    const previousRoute = previousRouteRef.current;
+    const previousScrollKey = getScrollRouteKey(previousRoute);
+    const currentScrollKey = getScrollRouteKey(route);
+
+    if (previousScrollKey && route.type !== 'recipe') {
+      listScrollPositionsRef.current.set(previousScrollKey, window.scrollY);
+    }
+
+    if (currentScrollKey && previousRoute.type === 'recipe') {
+      const savedScrollY = listScrollPositionsRef.current.get(currentScrollKey) ?? 0;
+
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: savedScrollY, left: 0, behavior: 'auto' });
+      });
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    }
+
+    previousRouteRef.current = route;
   }, [route]);
 
   useEffect(() => {
@@ -255,7 +275,7 @@ export default function App() {
       return;
     }
 
-    const nextHash = getListHref({ query, tag: activeTag, category: activeCategory });
+    const nextHash = getListHref({ query, tag: activeTag, category: activeCategory, collection: activeCollectionId });
 
     if (window.location.hash === nextHash) {
       setRoute((current) => ({
@@ -263,12 +283,23 @@ export default function App() {
         type: 'list',
         query,
         tag: activeTag,
-        category: activeCategory
+        category: activeCategory,
+        collection: activeCollectionId
       }));
       return;
     }
 
     window.location.hash = nextHash;
+  }
+
+  function rememberCurrentScrollPosition() {
+    const currentScrollKey = getScrollRouteKey(route);
+
+    if (!currentScrollKey) {
+      return;
+    }
+
+    listScrollPositionsRef.current.set(currentScrollKey, window.scrollY);
   }
 
   function handleCreateCollection(name, recipeId) {
@@ -354,6 +385,7 @@ export default function App() {
             isLibraryLoading={isLibraryLoading}
             mobileFiltersOpen={mobileFiltersOpen}
             onOpenCollectionPicker={setCollectionPickerRecipe}
+            onOpenRecipe={rememberCurrentScrollPosition}
             setActiveCategory={setActiveCategory}
             setActiveTag={setActiveTag}
             setMobileFiltersOpen={setMobileFiltersOpen}
@@ -369,6 +401,7 @@ export default function App() {
             bookmarkedRecipes={bookmarkedRecipes}
             isLibraryLoading={isLibraryLoading}
             onOpenCollectionPicker={setCollectionPickerRecipe}
+            onOpenRecipe={rememberCurrentScrollPosition}
             toggleBookmark={toggleBookmark}
           />
         ) : route.type === 'collections' ? (
@@ -439,6 +472,18 @@ function loadBookmarkedRecipeIds() {
   } catch {
     return [];
   }
+}
+
+function getScrollRouteKey(route) {
+  if (route.type === 'list') {
+    return getListHref(route);
+  }
+
+  if (route.type === 'saved') {
+    return getSavedHref();
+  }
+
+  return null;
 }
 
 function HomePage({ defaultCollections, featuredUserCollection }) {

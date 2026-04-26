@@ -1,0 +1,523 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/components/AppHeader.jsx");import __vite__cjsImport0_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=361cc4f1"; const Fragment = __vite__cjsImport0_react_jsxDevRuntime["Fragment"]; const jsxDEV = __vite__cjsImport0_react_jsxDevRuntime["jsxDEV"];
+import { COLLECTIONS_ROUTE, HOME_ROUTE, LIST_ROUTE, SAVED_ROUTE } from "/src/lib/route-state.js";
+export default function AppHeader({
+  mobileFiltersOpen,
+  mobileNavOpen,
+  mobileSearchInputRef,
+  mobileSearchOpen,
+  onFilterToggle,
+  onInstallClick,
+  onSearchChange,
+  onSearchSubmit,
+  onSearchToggle,
+  onNavToggle,
+  query,
+  route,
+  setMobileNavOpen,
+  setMobileSearchOpen,
+  showInstallAction
+}) {
+  const isListRoute = route.type === "list";
+  const isSavedRoute = route.type === "saved";
+  const isCollectionsRoute = route.type === "collections";
+  function handleSearchSubmit(event) {
+    event.preventDefault();
+    onSearchSubmit();
+  }
+  return /* @__PURE__ */ jsxDEV(Fragment, { children: [
+    /* @__PURE__ */ jsxDEV("header", { className: "hero", children: [
+      /* @__PURE__ */ jsxDEV("div", { className: "hero-leading-actions", children: [
+        /* @__PURE__ */ jsxDEV(
+          "button",
+          {
+            type: "button",
+            className: mobileNavOpen ? "hero-icon-button active hero-menu-button" : "hero-icon-button hero-menu-button",
+            "aria-expanded": mobileNavOpen,
+            "aria-controls": "mobile-nav",
+            "aria-label": mobileNavOpen ? "Close navigation menu" : "Open navigation menu",
+            onClick: onNavToggle,
+            children: /* @__PURE__ */ jsxDEV("svg", { viewBox: "0 0 24 24", "aria-hidden": "true", children: mobileNavOpen ? /* @__PURE__ */ jsxDEV(
+              "path",
+              {
+                d: "M6.5 6.5l11 11m0-11l-11 11",
+                fill: "none",
+                stroke: "currentColor",
+                strokeWidth: "1.8",
+                strokeLinecap: "round"
+              },
+              void 0,
+              false,
+              {
+                fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+                lineNumber: 43,
+                columnNumber: 15
+              },
+              this
+            ) : /* @__PURE__ */ jsxDEV(
+              "path",
+              {
+                d: "M4 7.25h16M4 12h16M4 16.75h16",
+                fill: "none",
+                stroke: "currentColor",
+                strokeWidth: "1.8",
+                strokeLinecap: "round"
+              },
+              void 0,
+              false,
+              {
+                fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+                lineNumber: 51,
+                columnNumber: 15
+              },
+              this
+            ) }, void 0, false, {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+              lineNumber: 41,
+              columnNumber: 13
+            }, this)
+          },
+          void 0,
+          false,
+          {
+            fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+            lineNumber: 33,
+            columnNumber: 11
+          },
+          this
+        ),
+        /* @__PURE__ */ jsxDEV(
+          "button",
+          {
+            type: "button",
+            className: mobileSearchOpen ? "hero-icon-button active hero-search-button" : "hero-icon-button hero-search-button",
+            "aria-expanded": mobileSearchOpen,
+            "aria-controls": "mobile-search",
+            "aria-label": mobileSearchOpen ? "Close search" : "Open search",
+            onClick: onSearchToggle,
+            children: /* @__PURE__ */ jsxDEV("svg", { viewBox: "0 0 24 24", "aria-hidden": "true", children: /* @__PURE__ */ jsxDEV(
+              "path",
+              {
+                d: "M10.5 4a6.5 6.5 0 1 0 4.03 11.6l4.44 4.44 1.06-1.06-4.44-4.44A6.5 6.5 0 0 0 10.5 4Zm0 1.5a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z",
+                fill: "currentColor"
+              },
+              void 0,
+              false,
+              {
+                fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+                lineNumber: 70,
+                columnNumber: 15
+              },
+              this
+            ) }, void 0, false, {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+              lineNumber: 69,
+              columnNumber: 13
+            }, this)
+          },
+          void 0,
+          false,
+          {
+            fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+            lineNumber: 61,
+            columnNumber: 11
+          },
+          this
+        ),
+        isListRoute ? /* @__PURE__ */ jsxDEV(
+          "button",
+          {
+            type: "button",
+            className: mobileFiltersOpen ? "hero-icon-button active hero-filter-button" : "hero-icon-button hero-filter-button",
+            "aria-expanded": mobileFiltersOpen,
+            "aria-controls": "mobile-filters",
+            "aria-label": mobileFiltersOpen ? "Close filters" : "Open filters",
+            onClick: onFilterToggle,
+            children: /* @__PURE__ */ jsxDEV("svg", { viewBox: "0 0 24 24", "aria-hidden": "true", children: [
+              /* @__PURE__ */ jsxDEV(
+                "path",
+                {
+                  d: "M4.75 6.25h14.5M8 12h12M11.25 17.75h9.25",
+                  fill: "none",
+                  stroke: "currentColor",
+                  strokeWidth: "1.8",
+                  strokeLinecap: "round"
+                },
+                void 0,
+                false,
+                {
+                  fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+                  lineNumber: 86,
+                  columnNumber: 17
+                },
+                this
+              ),
+              /* @__PURE__ */ jsxDEV("circle", { cx: "7", cy: "6.25", r: "1.25", fill: "currentColor" }, void 0, false, {
+                fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+                lineNumber: 93,
+                columnNumber: 17
+              }, this),
+              /* @__PURE__ */ jsxDEV("circle", { cx: "10.25", cy: "12", r: "1.25", fill: "currentColor" }, void 0, false, {
+                fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+                lineNumber: 94,
+                columnNumber: 17
+              }, this),
+              /* @__PURE__ */ jsxDEV("circle", { cx: "13.5", cy: "17.75", r: "1.25", fill: "currentColor" }, void 0, false, {
+                fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+                lineNumber: 95,
+                columnNumber: 17
+              }, this)
+            ] }, void 0, true, {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+              lineNumber: 85,
+              columnNumber: 15
+            }, this)
+          },
+          void 0,
+          false,
+          {
+            fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+            lineNumber: 77,
+            columnNumber: 11
+          },
+          this
+        ) : null
+      ] }, void 0, true, {
+        fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+        lineNumber: 32,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ jsxDEV("a", { className: "hero-title-link", href: HOME_ROUTE, children: /* @__PURE__ */ jsxDEV("div", { className: "hero-brand", children: /* @__PURE__ */ jsxDEV("h1", { children: "Stovetop" }, void 0, false, {
+        fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+        lineNumber: 103,
+        columnNumber: 13
+      }, this) }, void 0, false, {
+        fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+        lineNumber: 102,
+        columnNumber: 11
+      }, this) }, void 0, false, {
+        fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+        lineNumber: 101,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ jsxDEV("div", { className: "hero-trailing-actions", children: [
+        /* @__PURE__ */ jsxDEV("form", { className: "hero-search-form", role: "search", onSubmit: handleSearchSubmit, children: /* @__PURE__ */ jsxDEV("label", { className: "hero-search-field", children: [
+          /* @__PURE__ */ jsxDEV("span", { className: "sr-only", children: "Search recipes" }, void 0, false, {
+            fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+            lineNumber: 110,
+            columnNumber: 15
+          }, this),
+          /* @__PURE__ */ jsxDEV("button", { type: "submit", className: "hero-search-submit", "aria-label": "Search recipes", children: /* @__PURE__ */ jsxDEV("svg", { viewBox: "0 0 24 24", "aria-hidden": "true", children: /* @__PURE__ */ jsxDEV(
+            "path",
+            {
+              d: "M10.5 4a6.5 6.5 0 1 0 4.03 11.6l4.44 4.44 1.06-1.06-4.44-4.44A6.5 6.5 0 0 0 10.5 4Zm0 1.5a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z",
+              fill: "currentColor"
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+              lineNumber: 113,
+              columnNumber: 19
+            },
+            this
+          ) }, void 0, false, {
+            fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+            lineNumber: 112,
+            columnNumber: 17
+          }, this) }, void 0, false, {
+            fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+            lineNumber: 111,
+            columnNumber: 15
+          }, this),
+          /* @__PURE__ */ jsxDEV(
+            "input",
+            {
+              type: "search",
+              value: query,
+              onChange: (event) => onSearchChange(event.target.value),
+              placeholder: "What would you like to cook?"
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+              lineNumber: 119,
+              columnNumber: 15
+            },
+            this
+          )
+        ] }, void 0, true, {
+          fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+          lineNumber: 109,
+          columnNumber: 13
+        }, this) }, void 0, false, {
+          fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+          lineNumber: 108,
+          columnNumber: 11
+        }, this),
+        showInstallAction ? /* @__PURE__ */ jsxDEV("button", { type: "button", className: "install-button", onClick: onInstallClick, children: "Install" }, void 0, false, {
+          fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+          lineNumber: 128,
+          columnNumber: 11
+        }, this) : /* @__PURE__ */ jsxDEV("div", { className: "hero-spacer", "aria-hidden": "true" }, void 0, false, {
+          fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+          lineNumber: 132,
+          columnNumber: 11
+        }, this)
+      ] }, void 0, true, {
+        fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+        lineNumber: 107,
+        columnNumber: 9
+      }, this)
+    ] }, void 0, true, {
+      fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+      lineNumber: 31,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ jsxDEV("nav", { className: "top-nav", "aria-label": "Primary", children: [
+      /* @__PURE__ */ jsxDEV("a", { className: isListRoute ? "top-nav-link active" : "top-nav-link", href: LIST_ROUTE, children: "Recipes" }, void 0, false, {
+        fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+        lineNumber: 138,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ jsxDEV("a", { className: isSavedRoute ? "top-nav-link active" : "top-nav-link", href: SAVED_ROUTE, children: "Saved" }, void 0, false, {
+        fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+        lineNumber: 141,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ jsxDEV("a", { className: isCollectionsRoute ? "top-nav-link active" : "top-nav-link", href: COLLECTIONS_ROUTE, children: "Collections" }, void 0, false, {
+        fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+        lineNumber: 144,
+        columnNumber: 9
+      }, this)
+    ] }, void 0, true, {
+      fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+      lineNumber: 137,
+      columnNumber: 7
+    }, this),
+    mobileNavOpen ? /* @__PURE__ */ jsxDEV(
+      "button",
+      {
+        type: "button",
+        className: "mobile-nav-backdrop",
+        "aria-label": "Close navigation menu",
+        onClick: () => setMobileNavOpen(false)
+      },
+      void 0,
+      false,
+      {
+        fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+        lineNumber: 150,
+        columnNumber: 7
+      },
+      this
+    ) : null,
+    /* @__PURE__ */ jsxDEV(
+      "nav",
+      {
+        id: "mobile-nav",
+        className: mobileNavOpen ? "mobile-nav-panel open" : "mobile-nav-panel",
+        "aria-label": "Mobile navigation",
+        children: [
+          /* @__PURE__ */ jsxDEV(
+            "a",
+            {
+              className: isListRoute ? "mobile-nav-link active" : "mobile-nav-link",
+              href: LIST_ROUTE,
+              onClick: () => setMobileNavOpen(false),
+              children: "Recipes"
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+              lineNumber: 162,
+              columnNumber: 9
+            },
+            this
+          ),
+          /* @__PURE__ */ jsxDEV(
+            "a",
+            {
+              className: isSavedRoute ? "mobile-nav-link active" : "mobile-nav-link",
+              href: SAVED_ROUTE,
+              onClick: () => setMobileNavOpen(false),
+              children: "Saved"
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+              lineNumber: 169,
+              columnNumber: 9
+            },
+            this
+          ),
+          /* @__PURE__ */ jsxDEV(
+            "a",
+            {
+              className: isCollectionsRoute ? "mobile-nav-link active" : "mobile-nav-link",
+              href: COLLECTIONS_ROUTE,
+              onClick: () => setMobileNavOpen(false),
+              children: "Collections"
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+              lineNumber: 176,
+              columnNumber: 9
+            },
+            this
+          )
+        ]
+      },
+      void 0,
+      true,
+      {
+        fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+        lineNumber: 157,
+        columnNumber: 7
+      },
+      this
+    ),
+    mobileSearchOpen ? /* @__PURE__ */ jsxDEV(
+      "button",
+      {
+        type: "button",
+        className: "filter-drawer-backdrop",
+        "aria-label": "Close search",
+        onClick: () => setMobileSearchOpen(false)
+      },
+      void 0,
+      false,
+      {
+        fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+        lineNumber: 186,
+        columnNumber: 7
+      },
+      this
+    ) : null,
+    /* @__PURE__ */ jsxDEV(
+      "div",
+      {
+        id: "mobile-search",
+        className: mobileSearchOpen ? "header-search-panel mobile-open" : "header-search-panel",
+        role: mobileSearchOpen ? "dialog" : void 0,
+        "aria-modal": mobileSearchOpen ? "true" : void 0,
+        "aria-labelledby": "mobile-search-title",
+        children: [
+          /* @__PURE__ */ jsxDEV("div", { className: "filter-panel-header", children: [
+            /* @__PURE__ */ jsxDEV("h2", { id: "mobile-search-title", children: "Search Recipes" }, void 0, false, {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+              lineNumber: 201,
+              columnNumber: 11
+            }, this),
+            /* @__PURE__ */ jsxDEV(
+              "button",
+              {
+                type: "button",
+                className: "filter-panel-close",
+                "aria-label": "Close search",
+                onClick: () => setMobileSearchOpen(false),
+                children: "Close"
+              },
+              void 0,
+              false,
+              {
+                fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+                lineNumber: 202,
+                columnNumber: 11
+              },
+              this
+            )
+          ] }, void 0, true, {
+            fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+            lineNumber: 200,
+            columnNumber: 9
+          }, this),
+          /* @__PURE__ */ jsxDEV("form", { className: "header-search-mobile-form", role: "search", onSubmit: handleSearchSubmit, children: [
+            /* @__PURE__ */ jsxDEV("label", { className: "search", children: [
+              /* @__PURE__ */ jsxDEV("span", { children: "Search" }, void 0, false, {
+                fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+                lineNumber: 213,
+                columnNumber: 13
+              }, this),
+              /* @__PURE__ */ jsxDEV(
+                "input",
+                {
+                  ref: mobileSearchInputRef,
+                  type: "search",
+                  value: query,
+                  onChange: (event) => onSearchChange(event.target.value),
+                  placeholder: "Search title, ingredient, tag..."
+                },
+                void 0,
+                false,
+                {
+                  fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+                  lineNumber: 214,
+                  columnNumber: 13
+                },
+                this
+              )
+            ] }, void 0, true, {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+              lineNumber: 212,
+              columnNumber: 11
+            }, this),
+            /* @__PURE__ */ jsxDEV("button", { type: "submit", className: "mobile-search-submit", children: "Show results" }, void 0, false, {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+              lineNumber: 222,
+              columnNumber: 11
+            }, this)
+          ] }, void 0, true, {
+            fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+            lineNumber: 211,
+            columnNumber: 9
+          }, this)
+        ]
+      },
+      void 0,
+      true,
+      {
+        fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+        lineNumber: 193,
+        columnNumber: 7
+      },
+      this
+    )
+  ] }, void 0, true, {
+    fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx",
+    lineNumber: 30,
+    columnNumber: 5
+  }, this);
+}
+_c = AppHeader;
+var _c;
+$RefreshReg$(_c, "AppHeader");
+import * as RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
+if (import.meta.hot && !inWebWorker) {
+  if (!window.$RefreshReg$) {
+    throw new Error(
+      "@vitejs/plugin-react can't detect preamble. Something is wrong."
+    );
+  }
+  RefreshRuntime.__hmr_import(import.meta.url).then((currentExports) => {
+    RefreshRuntime.registerExportsForReactRefresh("C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+function $RefreshReg$(type, id) {
+  return RefreshRuntime.register(type, "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/AppHeader.jsx " + id);
+}
+function $RefreshSig$() {
+  return RefreshRuntime.createSignatureFunctionForTransform();
+}
+
+//# sourceMappingURL=data:application/json;base64,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LGtCQUNDLEtBQUtqQjtBQUFBQSxrQkFDTCxNQUFLO0FBQUEsa0JBQ0wsT0FBT1E7QUFBQUEsa0JBQ1AsVUFBVSxDQUFDVSxVQUFVZCxlQUFlYyxNQUFNRSxPQUFPQyxLQUFLO0FBQUEsa0JBQ3RELGFBQVk7QUFBQTtBQUFBLGdCQUxkO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQSxjQUtnRDtBQUFBLGlCQVBsRDtBQUFBO0FBQUE7QUFBQTtBQUFBLG1CQVNBO0FBQUEsWUFDQSx1QkFBQyxZQUFPLE1BQUssVUFBUyxXQUFVLHdCQUFzQiw0QkFBdEQ7QUFBQTtBQUFBO0FBQUE7QUFBQSxtQkFFQTtBQUFBLGVBYkY7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQkFjQTtBQUFBO0FBQUE7QUFBQSxNQWhDRjtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsSUFpQ0E7QUFBQSxPQXBNRjtBQUFBO0FBQUE7QUFBQTtBQUFBLFNBcU1BO0FBRUo7QUFBQ0UsS0FsT3VCMUI7QUFBUyxJQUFBMEI7QUFBQSxhQUFBQSxJQUFBIiwibmFtZXMiOlsiQ09MTEVDVElPTlNfUk9VVEUiLCJIT01FX1JPVVRFIiwiTElTVF9ST1VURSIsIlNBVkVEX1JPVVRFIiwiQXBwSGVhZGVyIiwibW9iaWxlRmlsdGVyc09wZW4iLCJtb2JpbGVOYXZPcGVuIiwibW9iaWxlU2VhcmNoSW5wdXRSZWYiLCJtb2JpbGVTZWFyY2hPcGVuIiwib25GaWx0ZXJUb2dnbGUiLCJvbkluc3RhbGxDbGljayIsIm9uU2VhcmNoQ2hhbmdlIiwib25TZWFyY2hTdWJtaXQiLCJvblNlYXJjaFRvZ2dsZSIsIm9uTmF2VG9nZ2xlIiwicXVlcnkiLCJyb3V0ZSIsInNldE1vYmlsZU5hdk9wZW4iLCJzZXRNb2JpbGVTZWFyY2hPcGVuIiwic2hvd0luc3RhbGxBY3Rpb24iLCJpc0xpc3RSb3V0ZSIsInR5cGUiLCJpc1NhdmVkUm91dGUiLCJpc0NvbGxlY3Rpb25zUm91dGUiLCJoYW5kbGVTZWFyY2hTdWJtaXQiLCJldmVudCIsInByZXZlbnREZWZhdWx0IiwidGFyZ2V0IiwidmFsdWUiLCJ1bmRlZmluZWQiLCJfYyJdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlcyI6WyJBcHBIZWFkZXIuanN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IENPTExFQ1RJT05TX1JPVVRFLCBIT01FX1JPVVRFLCBMSVNUX1JPVVRFLCBTQVZFRF9ST1VURSB9IGZyb20gJy4uL2xpYi9yb3V0ZS1zdGF0ZSc7XG5cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIEFwcEhlYWRlcih7XG4gIG1vYmlsZUZpbHRlcnNPcGVuLFxuICBtb2JpbGVOYXZPcGVuLFxuICBtb2JpbGVTZWFyY2hJbnB1dFJlZixcbiAgbW9iaWxlU2VhcmNoT3BlbixcbiAgb25GaWx0ZXJUb2dnbGUsXG4gIG9uSW5zdGFsbENsaWNrLFxuICBvblNlYXJjaENoYW5nZSxcbiAgb25TZWFyY2hTdWJtaXQsXG4gIG9uU2VhcmNoVG9nZ2xlLFxuICBvbk5hdlRvZ2dsZSxcbiAgcXVlcnksXG4gIHJvdXRlLFxuICBzZXRNb2JpbGVOYXZPcGVuLFxuICBzZXRNb2JpbGVTZWFyY2hPcGVuLFxuICBzaG93SW5zdGFsbEFjdGlvblxufSkge1xuICBjb25zdCBpc0xpc3RSb3V0ZSA9IHJvdXRlLnR5cGUgPT09ICdsaXN0JztcbiAgY29uc3QgaXNTYXZlZFJvdXRlID0gcm91dGUudHlwZSA9PT0gJ3NhdmVkJztcbiAgY29uc3QgaXNDb2xsZWN0aW9uc1JvdXRlID0gcm91dGUudHlwZSA9PT0gJ2NvbGxlY3Rpb25zJztcblxuICBmdW5jdGlvbiBoYW5kbGVTZWFyY2hTdWJtaXQoZXZlbnQpIHtcbiAgICBldmVudC5wcmV2ZW50RGVmYXVsdCgpO1xuICAgIG9uU2VhcmNoU3VibWl0KCk7XG4gIH1cblxuICByZXR1cm4gKFxuICAgIDw+XG4gICAgICA8aGVhZGVyIGNsYXNzTmFtZT1cImhlcm9cIj5cbiAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJoZXJvLWxlYWRpbmctYWN0aW9uc1wiPlxuICAgICAgICAgIDxidXR0b25cbiAgICAgICAgICAgIHR5cGU9XCJidXR0b25cIlxuICAgICAgICAgICAgY2xhc3NOYW1lPXttb2JpbGVOYXZPcGVuID8gJ2hlcm8taWNvbi1idXR0b24gYWN0aXZlIGhlcm8tbWVudS1idXR0b24nIDogJ2hlcm8taWNvbi1idXR0b24gaGVyby1tZW51LWJ1dHRvbid9XG4gICAgICAgICAgICBhcmlhLWV4cGFuZGVkPXttb2JpbGVOYXZPcGVufVxuICAgICAgICAgICAgYXJpYS1jb250cm9scz1cIm1vYmlsZS1uYXZcIlxuICAgICAgICAgICAgYXJpYS1sYWJlbD17bW9iaWxlTmF2T3BlbiA/ICdDbG9zZSBuYXZpZ2F0aW9uIG1lbnUnIDogJ09wZW4gbmF2aWdhdGlvbiBtZW51J31cbiAgICAgICAgICAgIG9uQ2xpY2s9e29uTmF2VG9nZ2xlfVxuICAgICAgICAgID5cbiAgICAgICAgICAgIDxzdmcgdmlld0JveD1cIjAgMCAyNCAyNFwiIGFyaWEtaGlkZGVuPVwidHJ1ZVwiPlxuICAgICAgICAgICAgICB7bW9iaWxlTmF2T3BlbiA/IChcbiAgICAgICAgICAgICAgICA8cGF0aFxuICAgICAgICAgICAgICAgICAgZD1cIk02LjUgNi41bDExIDExbTAtMTFsLTExIDExXCJcbiAgICAgICAgICAgICAgICAgIGZpbGw9XCJub25lXCJcbiAgICAgICAgICAgICAgICAgIHN0cm9rZT1cImN1cnJlbnRDb2xvclwiXG4gICAgICAgICAgICAgICAgICBzdHJva2VXaWR0aD1cIjEuOFwiXG4gICAgICAgICAgICAgICAgICBzdHJva2VMaW5lY2FwPVwicm91bmRcIlxuICAgICAgICAgICAgICAgIC8+XG4gICAgICAgICAgICAgICkgOiAoXG4gICAgICAgICAgICAgICAgPHBhdGhcbiAgICAgICAgICAgICAgICAgIGQ9XCJNNCA3LjI1aDE2TTQgMTJoMTZNNCAxNi43NWgxNlwiXG4gICAgICAgICAgICAgICAgICBmaWxsPVwibm9uZVwiXG4gICAgICAgICAgICAgICAgICBzdHJva2U9XCJjdXJyZW50Q29sb3JcIlxuICAgICAgICAgICAgICAgICAgc3Ryb2tlV2lkdGg9XCIxLjhcIlxuICAgICAgICAgICAgICAgICAgc3Ryb2tlTGluZWNhcD1cInJvdW5kXCJcbiAgICAgICAgICAgICAgICAvPlxuICAgICAgICAgICAgICApfVxuICAgICAgICAgICAgPC9zdmc+XG4gICAgICAgICAgPC9idXR0b24+XG4gICAgICAgICAgPGJ1dHRvblxuICAgICAgICAgICAgdHlwZT1cImJ1dHRvblwiXG4gICAgICAgICAgICBjbGFzc05hbWU9e21vYmlsZVNlYXJjaE9wZW4gPyAnaGVyby1pY29uLWJ1dHRvbiBhY3RpdmUgaGVyby1zZWFyY2gtYnV0dG9uJyA6ICdoZXJvLWljb24tYnV0dG9uIGhlcm8tc2VhcmNoLWJ1dHRvbid9XG4gICAgICAgICAgICBhcmlhLWV4cGFuZGVkPXttb2JpbGVTZWFyY2hPcGVufVxuICAgICAgICAgICAgYXJpYS1jb250cm9scz1cIm1vYmlsZS1zZWFyY2hcIlxuICAgICAgICAgICAgYXJpYS1sYWJlbD17bW9iaWxlU2VhcmNoT3BlbiA/ICdDbG9zZSBzZWFyY2gnIDogJ09wZW4gc2VhcmNoJ31cbiAgICAgICAgICAgIG9uQ2xpY2s9e29uU2VhcmNoVG9nZ2xlfVxuICAgICAgICAgID5cbiAgICAgICAgICAgIDxzdmcgdmlld0JveD1cIjAgMCAyNCAyNFwiIGFyaWEtaGlkZGVuPVwidHJ1ZVwiPlxuICAgICAgICAgICAgICA8cGF0aFxuICAgICAgICAgICAgICAgIGQ9XCJNMTAuNSA0YTYuNSA2LjUgMCAxIDAgNC4wMyAxMS42bDQuNDQgNC40NCAxLjA2LTEuMDYtNC40NC00LjQ0QTYuNSA2LjUgMCAwIDAgMTAuNSA0Wm0wIDEuNWE1IDUgMCAxIDEgMCAxMCA1IDUgMCAwIDEgMC0xMFpcIlxuICAgICAgICAgICAgICAgIGZpbGw9XCJjdXJyZW50Q29sb3JcIlxuICAgICAgICAgICAgICAvPlxuICAgICAgICAgICAgPC9zdmc+XG4gICAgICAgICAgPC9idXR0b24+XG4gICAgICAgICAge2lzTGlzdFJvdXRlID8gKFxuICAgICAgICAgICAgPGJ1dHRvblxuICAgICAgICAgICAgICB0eXBlPVwiYnV0dG9uXCJcbiAgICAgICAgICAgICAgY2xhc3NOYW1lPXttb2JpbGVGaWx0ZXJzT3BlbiA/ICdoZXJvLWljb24tYnV0dG9uIGFjdGl2ZSBoZXJvLWZpbHRlci1idXR0b24nIDogJ2hlcm8taWNvbi1idXR0b24gaGVyby1maWx0ZXItYnV0dG9uJ31cbiAgICAgICAgICAgICAgYXJpYS1leHBhbmRlZD17bW9iaWxlRmlsdGVyc09wZW59XG4gICAgICAgICAgICAgIGFyaWEtY29udHJvbHM9XCJtb2JpbGUtZmlsdGVyc1wiXG4gICAgICAgICAgICAgIGFyaWEtbGFiZWw9e21vYmlsZUZpbHRlcnNPcGVuID8gJ0Nsb3NlIGZpbHRlcnMnIDogJ09wZW4gZmlsdGVycyd9XG4gICAgICAgICAgICAgIG9uQ2xpY2s9e29uRmlsdGVyVG9nZ2xlfVxuICAgICAgICAgICAgPlxuICAgICAgICAgICAgICA8c3ZnIHZpZXdCb3g9XCIwIDAgMjQgMjRcIiBhcmlhLWhpZGRlbj1cInRydWVcIj5cbiAgICAgICAgICAgICAgICA8cGF0aFxuICAgICAgICAgICAgICAgICAgZD1cIk00Ljc1IDYuMjVoMTQuNU04IDEyaDEyTTExLjI1IDE3Ljc1aDkuMjVcIlxuICAgICAgICAgICAgICAgICAgZmlsbD1cIm5vbmVcIlxuICAgICAgICAgICAgICAgICAgc3Ryb2tlPVwiY3VycmVudENvbG9yXCJcbiAgICAgICAgICAgICAgICAgIHN0cm9rZVdpZHRoPVwiMS44XCJcbiAgICAgICAgICAgICAgICAgIHN0cm9rZUxpbmVjYXA9XCJyb3VuZFwiXG4gICAgICAgICAgICAgICAgLz5cbiAgICAgICAgICAgICAgICA8Y2lyY2xlIGN4PVwiN1wiIGN5PVwiNi4yNVwiIHI9XCIxLjI1XCIgZmlsbD1cImN1cnJlbnRDb2xvclwiIC8+XG4gICAgICAgICAgICAgICAgPGNpcmNsZSBjeD1cIjEwLjI1XCIgY3k9XCIxMlwiIHI9XCIxLjI1XCIgZmlsbD1cImN1cnJlbnRDb2xvclwiIC8+XG4gICAgICAgICAgICAgICAgPGNpcmNsZSBjeD1cIjEzLjVcIiBjeT1cIjE3Ljc1XCIgcj1cIjEuMjVcIiBmaWxsPVwiY3VycmVudENvbG9yXCIgLz5cbiAgICAgICAgICAgICAgPC9zdmc+XG4gICAgICAgICAgICA8L2J1dHRvbj5cbiAgICAgICAgICApIDogbnVsbH1cbiAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgPGEgY2xhc3NOYW1lPVwiaGVyby10aXRsZS1saW5rXCIgaHJlZj17SE9NRV9ST1VURX0+XG4gICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJoZXJvLWJyYW5kXCI+XG4gICAgICAgICAgICA8aDE+U3RvdmV0b3A8L2gxPlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICA8L2E+XG5cbiAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJoZXJvLXRyYWlsaW5nLWFjdGlvbnNcIj5cbiAgICAgICAgICA8Zm9ybSBjbGFzc05hbWU9XCJoZXJvLXNlYXJjaC1mb3JtXCIgcm9sZT1cInNlYXJjaFwiIG9uU3VibWl0PXtoYW5kbGVTZWFyY2hTdWJtaXR9PlxuICAgICAgICAgICAgPGxhYmVsIGNsYXNzTmFtZT1cImhlcm8tc2VhcmNoLWZpZWxkXCI+XG4gICAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT1cInNyLW9ubHlcIj5TZWFyY2ggcmVjaXBlczwvc3Bhbj5cbiAgICAgICAgICAgICAgPGJ1dHRvbiB0eXBlPVwic3VibWl0XCIgY2xhc3NOYW1lPVwiaGVyby1zZWFyY2gtc3VibWl0XCIgYXJpYS1sYWJlbD1cIlNlYXJjaCByZWNpcGVzXCI+XG4gICAgICAgICAgICAgICAgPHN2ZyB2aWV3Qm94PVwiMCAwIDI0IDI0XCIgYXJpYS1oaWRkZW49XCJ0cnVlXCI+XG4gICAgICAgICAgICAgICAgICA8cGF0aFxuICAgICAgICAgICAgICAgICAgICBkPVwiTTEwLjUgNGE2LjUgNi41IDAgMSAwIDQuMDMgMTEuNmw0LjQ0IDQuNDQgMS4wNi0xLjA2LTQuNDQtNC40NEE2LjUgNi41IDAgMCAwIDEwLjUgNFptMCAxLjVhNSA1IDAgMSAxIDAgMTAgNSA1IDAgMCAxIDAtMTBaXCJcbiAgICAgICAgICAgICAgICAgICAgZmlsbD1cImN1cnJlbnRDb2xvclwiXG4gICAgICAgICAgICAgICAgICAvPlxuICAgICAgICAgICAgICAgIDwvc3ZnPlxuICAgICAgICAgICAgICA8L2J1dHRvbj5cbiAgICAgICAgICAgICAgPGlucHV0XG4gICAgICAgICAgICAgICAgdHlwZT1cInNlYXJjaFwiXG4gICAgICAgICAgICAgICAgdmFsdWU9e3F1ZXJ5fVxuICAgICAgICAgICAgICAgIG9uQ2hhbmdlPXsoZXZlbnQpID0+IG9uU2VhcmNoQ2hhbmdlKGV2ZW50LnRhcmdldC52YWx1ZSl9XG4gICAgICAgICAgICAgICAgcGxhY2Vob2xkZXI9XCJXaGF0IHdvdWxkIHlvdSBsaWtlIHRvIGNvb2s/XCJcbiAgICAgICAgICAgICAgLz5cbiAgICAgICAgICAgIDwvbGFiZWw+XG4gICAgICAgICAgPC9mb3JtPlxuICAgICAgICAgIHtzaG93SW5zdGFsbEFjdGlvbiA/IChcbiAgICAgICAgICAgIDxidXR0b24gdHlwZT1cImJ1dHRvblwiIGNsYXNzTmFtZT1cImluc3RhbGwtYnV0dG9uXCIgb25DbGljaz17b25JbnN0YWxsQ2xpY2t9PlxuICAgICAgICAgICAgICBJbnN0YWxsXG4gICAgICAgICAgICA8L2J1dHRvbj5cbiAgICAgICAgICApIDogKFxuICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJoZXJvLXNwYWNlclwiIGFyaWEtaGlkZGVuPVwidHJ1ZVwiIC8+XG4gICAgICAgICAgKX1cbiAgICAgICAgPC9kaXY+XG4gICAgICA8L2hlYWRlcj5cblxuICAgICAgPG5hdiBjbGFzc05hbWU9XCJ0b3AtbmF2XCIgYXJpYS1sYWJlbD1cIlByaW1hcnlcIj5cbiAgICAgICAgPGEgY2xhc3NOYW1lPXtpc0xpc3RSb3V0ZSA/ICd0b3AtbmF2LWxpbmsgYWN0aXZlJyA6ICd0b3AtbmF2LWxpbmsnfSBocmVmPXtMSVNUX1JPVVRFfT5cbiAgICAgICAgICBSZWNpcGVzXG4gICAgICAgIDwvYT5cbiAgICAgICAgPGEgY2xhc3NOYW1lPXtpc1NhdmVkUm91dGUgPyAndG9wLW5hdi1saW5rIGFjdGl2ZScgOiAndG9wLW5hdi1saW5rJ30gaHJlZj17U0FWRURfUk9VVEV9PlxuICAgICAgICAgIFNhdmVkXG4gICAgICAgIDwvYT5cbiAgICAgICAgPGEgY2xhc3NOYW1lPXtpc0NvbGxlY3Rpb25zUm91dGUgPyAndG9wLW5hdi1saW5rIGFjdGl2ZScgOiAndG9wLW5hdi1saW5rJ30gaHJlZj17Q09MTEVDVElPTlNfUk9VVEV9PlxuICAgICAgICAgIENvbGxlY3Rpb25zXG4gICAgICAgIDwvYT5cbiAgICAgIDwvbmF2PlxuXG4gICAgICB7bW9iaWxlTmF2T3BlbiA/IChcbiAgICAgICAgPGJ1dHRvblxuICAgICAgICAgIHR5cGU9XCJidXR0b25cIlxuICAgICAgICAgIGNsYXNzTmFtZT1cIm1vYmlsZS1uYXYtYmFja2Ryb3BcIlxuICAgICAgICAgIGFyaWEtbGFiZWw9XCJDbG9zZSBuYXZpZ2F0aW9uIG1lbnVcIlxuICAgICAgICAgIG9uQ2xpY2s9eygpID0+IHNldE1vYmlsZU5hdk9wZW4oZmFsc2UpfVxuICAgICAgICAvPlxuICAgICAgKSA6IG51bGx9XG4gICAgICA8bmF2XG4gICAgICAgIGlkPVwibW9iaWxlLW5hdlwiXG4gICAgICAgIGNsYXNzTmFtZT17bW9iaWxlTmF2T3BlbiA/ICdtb2JpbGUtbmF2LXBhbmVsIG9wZW4nIDogJ21vYmlsZS1uYXYtcGFuZWwnfVxuICAgICAgICBhcmlhLWxhYmVsPVwiTW9iaWxlIG5hdmlnYXRpb25cIlxuICAgICAgPlxuICAgICAgICA8YVxuICAgICAgICAgIGNsYXNzTmFtZT17aXNMaXN0Um91dGUgPyAnbW9iaWxlLW5hdi1saW5rIGFjdGl2ZScgOiAnbW9iaWxlLW5hdi1saW5rJ31cbiAgICAgICAgICBocmVmPXtMSVNUX1JPVVRFfVxuICAgICAgICAgIG9uQ2xpY2s9eygpID0+IHNldE1vYmlsZU5hdk9wZW4oZmFsc2UpfVxuICAgICAgICA+XG4gICAgICAgICAgUmVjaXBlc1xuICAgICAgICA8L2E+XG4gICAgICAgIDxhXG4gICAgICAgICAgY2xhc3NOYW1lPXtpc1NhdmVkUm91dGUgPyAnbW9iaWxlLW5hdi1saW5rIGFjdGl2ZScgOiAnbW9iaWxlLW5hdi1saW5rJ31cbiAgICAgICAgICBocmVmPXtTQVZFRF9ST1VURX1cbiAgICAgICAgICBvbkNsaWNrPXsoKSA9PiBzZXRNb2JpbGVOYXZPcGVuKGZhbHNlKX1cbiAgICAgICAgPlxuICAgICAgICAgIFNhdmVkXG4gICAgICAgIDwvYT5cbiAgICAgICAgPGFcbiAgICAgICAgICBjbGFzc05hbWU9e2lzQ29sbGVjdGlvbnNSb3V0ZSA/ICdtb2JpbGUtbmF2LWxpbmsgYWN0aXZlJyA6ICdtb2JpbGUtbmF2LWxpbmsnfVxuICAgICAgICAgIGhyZWY9e0NPTExFQ1RJT05TX1JPVVRFfVxuICAgICAgICAgIG9uQ2xpY2s9eygpID0+IHNldE1vYmlsZU5hdk9wZW4oZmFsc2UpfVxuICAgICAgICA+XG4gICAgICAgICAgQ29sbGVjdGlvbnNcbiAgICAgICAgPC9hPlxuICAgICAgPC9uYXY+XG5cbiAgICAgIHttb2JpbGVTZWFyY2hPcGVuID8gKFxuICAgICAgICA8YnV0dG9uXG4gICAgICAgICAgdHlwZT1cImJ1dHRvblwiXG4gICAgICAgICAgY2xhc3NOYW1lPVwiZmlsdGVyLWRyYXdlci1iYWNrZHJvcFwiXG4gICAgICAgICAgYXJpYS1sYWJlbD1cIkNsb3NlIHNlYXJjaFwiXG4gICAgICAgICAgb25DbGljaz17KCkgPT4gc2V0TW9iaWxlU2VhcmNoT3BlbihmYWxzZSl9XG4gICAgICAgIC8+XG4gICAgICApIDogbnVsbH1cbiAgICAgIDxkaXZcbiAgICAgICAgaWQ9XCJtb2JpbGUtc2VhcmNoXCJcbiAgICAgICAgY2xhc3NOYW1lPXttb2JpbGVTZWFyY2hPcGVuID8gJ2hlYWRlci1zZWFyY2gtcGFuZWwgbW9iaWxlLW9wZW4nIDogJ2hlYWRlci1zZWFyY2gtcGFuZWwnfVxuICAgICAgICByb2xlPXttb2JpbGVTZWFyY2hPcGVuID8gJ2RpYWxvZycgOiB1bmRlZmluZWR9XG4gICAgICAgIGFyaWEtbW9kYWw9e21vYmlsZVNlYXJjaE9wZW4gPyAndHJ1ZScgOiB1bmRlZmluZWR9XG4gICAgICAgIGFyaWEtbGFiZWxsZWRieT1cIm1vYmlsZS1zZWFyY2gtdGl0bGVcIlxuICAgICAgPlxuICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImZpbHRlci1wYW5lbC1oZWFkZXJcIj5cbiAgICAgICAgICA8aDIgaWQ9XCJtb2JpbGUtc2VhcmNoLXRpdGxlXCI+U2VhcmNoIFJlY2lwZXM8L2gyPlxuICAgICAgICAgIDxidXR0b25cbiAgICAgICAgICAgIHR5cGU9XCJidXR0b25cIlxuICAgICAgICAgICAgY2xhc3NOYW1lPVwiZmlsdGVyLXBhbmVsLWNsb3NlXCJcbiAgICAgICAgICAgIGFyaWEtbGFiZWw9XCJDbG9zZSBzZWFyY2hcIlxuICAgICAgICAgICAgb25DbGljaz17KCkgPT4gc2V0TW9iaWxlU2VhcmNoT3BlbihmYWxzZSl9XG4gICAgICAgICAgPlxuICAgICAgICAgICAgQ2xvc2VcbiAgICAgICAgICA8L2J1dHRvbj5cbiAgICAgICAgPC9kaXY+XG4gICAgICAgIDxmb3JtIGNsYXNzTmFtZT1cImhlYWRlci1zZWFyY2gtbW9iaWxlLWZvcm1cIiByb2xlPVwic2VhcmNoXCIgb25TdWJtaXQ9e2hhbmRsZVNlYXJjaFN1Ym1pdH0+XG4gICAgICAgICAgPGxhYmVsIGNsYXNzTmFtZT1cInNlYXJjaFwiPlxuICAgICAgICAgICAgPHNwYW4+U2VhcmNoPC9zcGFuPlxuICAgICAgICAgICAgPGlucHV0XG4gICAgICAgICAgICAgIHJlZj17bW9iaWxlU2VhcmNoSW5wdXRSZWZ9XG4gICAgICAgICAgICAgIHR5cGU9XCJzZWFyY2hcIlxuICAgICAgICAgICAgICB2YWx1ZT17cXVlcnl9XG4gICAgICAgICAgICAgIG9uQ2hhbmdlPXsoZXZlbnQpID0+IG9uU2VhcmNoQ2hhbmdlKGV2ZW50LnRhcmdldC52YWx1ZSl9XG4gICAgICAgICAgICAgIHBsYWNlaG9sZGVyPVwiU2VhcmNoIHRpdGxlLCBpbmdyZWRpZW50LCB0YWcuLi5cIlxuICAgICAgICAgICAgLz5cbiAgICAgICAgICA8L2xhYmVsPlxuICAgICAgICAgIDxidXR0b24gdHlwZT1cInN1Ym1pdFwiIGNsYXNzTmFtZT1cIm1vYmlsZS1zZWFyY2gtc3VibWl0XCI+XG4gICAgICAgICAgICBTaG93IHJlc3VsdHNcbiAgICAgICAgICA8L2J1dHRvbj5cbiAgICAgICAgPC9mb3JtPlxuICAgICAgPC9kaXY+XG4gICAgPC8+XG4gICk7XG59XG4iXSwiZmlsZSI6IkM6L1VzZXJzL2tpZXJhL0RvY3VtZW50cy9Qcm9qZWN0cy9SZWNpcGUgT3JnYW5pemVyIFByb2plY3RzL1N0b3ZldG9wL1N0b3ZldG9wIHYzL3NyYy9jb21wb25lbnRzL0FwcEhlYWRlci5qc3gifQ==

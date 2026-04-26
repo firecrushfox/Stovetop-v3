@@ -5,6 +5,7 @@ export default function SavedRecipesPage({
   bookmarkedRecipes,
   isLibraryLoading,
   onOpenCollectionPicker,
+  onOpenRecipe,
   toggleBookmark
 }) {
   return (
@@ -23,6 +24,7 @@ export default function SavedRecipesPage({
                 key={recipe.id}
                 bookmarkedRecipeIds={bookmarkedRecipeIds}
                 onOpenCollectionPicker={onOpenCollectionPicker}
+                onOpenRecipe={onOpenRecipe}
                 recipe={recipe}
                 toggleBookmark={toggleBookmark}
               />
@@ -36,14 +38,14 @@ export default function SavedRecipesPage({
   );
 }
 
-function SavedRecipeCard({ bookmarkedRecipeIds, onOpenCollectionPicker, recipe, toggleBookmark }) {
+function SavedRecipeCard({ bookmarkedRecipeIds, onOpenCollectionPicker, onOpenRecipe, recipe, toggleBookmark }) {
   const isBookmarked = bookmarkedRecipeIds.includes(recipe.id);
   const recipeHref = getRecipeHref(recipe.id, {}, 'saved');
 
   return (
     <article className="recipe-card">
       <div className="recipe-card-media">
-        <a className="recipe-card-image-link" href={recipeHref} onClick={scrollToTop}>
+        <a className="recipe-card-image-link" href={recipeHref} onClick={onOpenRecipe}>
           {recipe.image ? (
             <img className="recipe-card-image" src={recipe.image} alt={recipe.title} loading="lazy" />
           ) : (
@@ -78,14 +80,10 @@ function SavedRecipeCard({ bookmarkedRecipeIds, onOpenCollectionPicker, recipe, 
           </svg>
         </button>
       </div>
-      <a className="recipe-card-link" href={recipeHref} onClick={scrollToTop}>
+      <a className="recipe-card-link" href={recipeHref} onClick={onOpenRecipe}>
         <span className="recipe-card-title">{recipe.title}</span>
         {recipe.totalTime ? <span className="recipe-card-meta">{recipe.totalTime}</span> : null}
       </a>
     </article>
   );
-}
-
-function scrollToTop() {
-  window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
 }

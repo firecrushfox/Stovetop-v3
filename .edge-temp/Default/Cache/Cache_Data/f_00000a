@@ -1,0 +1,290 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/components/HomeRecipeCarousel.jsx");import __vite__cjsImport0_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=361cc4f1"; const Fragment = __vite__cjsImport0_react_jsxDevRuntime["Fragment"]; const jsxDEV = __vite__cjsImport0_react_jsxDevRuntime["jsxDEV"];
+var _s = $RefreshSig$();
+import __vite__cjsImport1_react from "/node_modules/.vite/deps/react.js?v=361cc4f1"; const useEffect = __vite__cjsImport1_react["useEffect"]; const useRef = __vite__cjsImport1_react["useRef"]; const useState = __vite__cjsImport1_react["useState"];
+import { getListHref, getRecipeHref } from "/src/lib/route-state.js";
+const DESKTOP_PAGE_SIZE = 4;
+export default function HomeRecipeCarousel({ collections }) {
+  _s();
+  const trackRef = useRef(null);
+  const [activeCollectionId, setActiveCollectionId] = useState(collections[0]?.id ?? "");
+  const [currentPage, setCurrentPage] = useState(0);
+  const [mediaHeight, setMediaHeight] = useState(0);
+  useEffect(() => {
+    if (!collections.length) {
+      return;
+    }
+    const hasActiveCollection = collections.some((collection) => collection.id === activeCollectionId);
+    if (!hasActiveCollection) {
+      setActiveCollectionId(collections[0].id);
+    }
+  }, [activeCollectionId, collections]);
+  const activeCollection = collections.find((collection) => collection.id === activeCollectionId) ?? collections[0] ?? null;
+  const items = activeCollection ? [...activeCollection.recipes, { id: "see-all", type: "cta" }] : [];
+  useEffect(() => {
+    setCurrentPage(0);
+    trackRef.current?.scrollTo({ left: 0, behavior: "auto" });
+  }, [activeCollectionId]);
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) {
+      return;
+    }
+    track.scrollTo({
+      left: track.clientWidth * currentPage,
+      behavior: "smooth"
+    });
+  }, [currentPage]);
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) {
+      return void 0;
+    }
+    const syncMediaHeight = () => {
+      const media = track.querySelector(".home-carousel-image-link, .home-carousel-image-placeholder");
+      setMediaHeight(media instanceof HTMLElement ? media.offsetHeight : 0);
+    };
+    syncMediaHeight();
+    const observer = typeof ResizeObserver !== "undefined" ? new ResizeObserver(() => syncMediaHeight()) : null;
+    if (observer) {
+      observer.observe(track);
+    } else {
+      window.addEventListener("resize", syncMediaHeight);
+    }
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("resize", syncMediaHeight);
+    };
+  }, [activeCollectionId, items.length]);
+  const totalPages = Math.ceil(items.length / DESKTOP_PAGE_SIZE);
+  const canGoPrevious = currentPage > 0;
+  const canGoNext = currentPage < totalPages - 1;
+  return /* @__PURE__ */ jsxDEV(
+    "section",
+    {
+      className: "home-carousel",
+      "aria-label": "Homepage recipe collections",
+      style: mediaHeight ? { "--carousel-media-height": `${mediaHeight}px` } : void 0,
+      children: collections.length ? /* @__PURE__ */ jsxDEV(Fragment, { children: [
+        collections.length > 1 ? /* @__PURE__ */ jsxDEV("div", { className: "home-carousel-tabs", role: "tablist", "aria-label": "Recipe collections", children: collections.map(
+          (collection) => /* @__PURE__ */ jsxDEV(
+            "button",
+            {
+              type: "button",
+              role: "tab",
+              className: collection.id === activeCollectionId ? "home-carousel-tab active" : "home-carousel-tab",
+              "aria-selected": collection.id === activeCollectionId,
+              onClick: () => setActiveCollectionId(collection.id),
+              children: collection.name
+            },
+            collection.id,
+            false,
+            {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+              lineNumber: 90,
+              columnNumber: 11
+            },
+            this
+          )
+        ) }, void 0, false, {
+          fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+          lineNumber: 88,
+          columnNumber: 9
+        }, this) : null,
+        /* @__PURE__ */ jsxDEV("div", { className: "home-carousel-shell", children: [
+          /* @__PURE__ */ jsxDEV(
+            "button",
+            {
+              type: "button",
+              className: "home-carousel-arrow home-carousel-arrow-left",
+              "aria-label": "Show previous recipes",
+              disabled: !canGoPrevious,
+              onClick: () => setCurrentPage((page) => Math.max(page - 1, 0)),
+              children: /* @__PURE__ */ jsxDEV("span", { "aria-hidden": "true", children: "←" }, void 0, false, {
+                fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+                lineNumber: 112,
+                columnNumber: 15
+              }, this)
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+              lineNumber: 105,
+              columnNumber: 13
+            },
+            this
+          ),
+          /* @__PURE__ */ jsxDEV(
+            "div",
+            {
+              ref: trackRef,
+              className: "home-carousel-track",
+              role: "tabpanel",
+              "aria-label": activeCollection.name,
+              children: items.map(
+                (item) => item.type === "cta" ? /* @__PURE__ */ jsxDEV("article", { className: "home-carousel-card home-carousel-card-cta", children: /* @__PURE__ */ jsxDEV("a", { className: "home-carousel-see-all", href: getListHref({ collection: activeCollection.id }), children: [
+                  /* @__PURE__ */ jsxDEV("span", { children: "See all recipes" }, void 0, false, {
+                    fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+                    lineNumber: 125,
+                    columnNumber: 23
+                  }, this),
+                  /* @__PURE__ */ jsxDEV("span", { "aria-hidden": "true", children: "→" }, void 0, false, {
+                    fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+                    lineNumber: 126,
+                    columnNumber: 23
+                  }, this)
+                ] }, void 0, true, {
+                  fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+                  lineNumber: 124,
+                  columnNumber: 21
+                }, this) }, item.id, false, {
+                  fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+                  lineNumber: 123,
+                  columnNumber: 13
+                }, this) : /* @__PURE__ */ jsxDEV("article", { className: "home-carousel-card", children: [
+                  /* @__PURE__ */ jsxDEV("a", { className: "home-carousel-image-link", href: getRecipeHref(item.id), onClick: scrollToTop, children: item.image ? /* @__PURE__ */ jsxDEV(
+                    "img",
+                    {
+                      className: "home-carousel-image",
+                      src: item.image,
+                      alt: item.title,
+                      loading: "lazy"
+                    },
+                    void 0,
+                    false,
+                    {
+                      fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+                      lineNumber: 133,
+                      columnNumber: 17
+                    },
+                    this
+                  ) : /* @__PURE__ */ jsxDEV("div", { className: "home-carousel-image-placeholder", children: /* @__PURE__ */ jsxDEV("span", { children: item.cuisine || item.categories[0] || "Recipe" }, void 0, false, {
+                    fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+                    lineNumber: 141,
+                    columnNumber: 27
+                  }, this) }, void 0, false, {
+                    fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+                    lineNumber: 140,
+                    columnNumber: 17
+                  }, this) }, void 0, false, {
+                    fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+                    lineNumber: 131,
+                    columnNumber: 21
+                  }, this),
+                  /* @__PURE__ */ jsxDEV("a", { className: "home-carousel-card-link", href: getRecipeHref(item.id), onClick: scrollToTop, children: [
+                    /* @__PURE__ */ jsxDEV("span", { className: "home-carousel-card-title", children: item.title }, void 0, false, {
+                      fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+                      lineNumber: 147,
+                      columnNumber: 23
+                    }, this),
+                    item.author ? /* @__PURE__ */ jsxDEV("span", { className: "home-carousel-card-author", children: item.author }, void 0, false, {
+                      fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+                      lineNumber: 148,
+                      columnNumber: 38
+                    }, this) : null,
+                    /* @__PURE__ */ jsxDEV("span", { className: "home-carousel-card-meta", children: item.totalTime || item.categories[0] || item.cuisine || "Featured recipe" }, void 0, false, {
+                      fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+                      lineNumber: 149,
+                      columnNumber: 23
+                    }, this)
+                  ] }, void 0, true, {
+                    fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+                    lineNumber: 146,
+                    columnNumber: 21
+                  }, this)
+                ] }, item.id, true, {
+                  fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+                  lineNumber: 130,
+                  columnNumber: 13
+                }, this)
+              )
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+              lineNumber: 115,
+              columnNumber: 13
+            },
+            this
+          ),
+          /* @__PURE__ */ jsxDEV(
+            "button",
+            {
+              type: "button",
+              className: "home-carousel-arrow home-carousel-arrow-right",
+              "aria-label": "Show more recipes",
+              disabled: !canGoNext,
+              onClick: () => setCurrentPage((page) => Math.min(page + 1, totalPages - 1)),
+              children: /* @__PURE__ */ jsxDEV("span", { "aria-hidden": "true", children: "→" }, void 0, false, {
+                fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+                lineNumber: 165,
+                columnNumber: 15
+              }, this)
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+              lineNumber: 158,
+              columnNumber: 13
+            },
+            this
+          )
+        ] }, void 0, true, {
+          fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+          lineNumber: 104,
+          columnNumber: 11
+        }, this)
+      ] }, void 0, true, {
+        fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+        lineNumber: 86,
+        columnNumber: 7
+      }, this) : /* @__PURE__ */ jsxDEV("p", { className: "empty-state", children: "No homepage collections yet." }, void 0, false, {
+        fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+        lineNumber: 170,
+        columnNumber: 7
+      }, this)
+    },
+    void 0,
+    false,
+    {
+      fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx",
+      lineNumber: 80,
+      columnNumber: 5
+    },
+    this
+  );
+}
+_s(HomeRecipeCarousel, "sdnR9yGnC0nN6vKEaQcgQHepxeg=");
+_c = HomeRecipeCarousel;
+function scrollToTop() {
+  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+}
+var _c;
+$RefreshReg$(_c, "HomeRecipeCarousel");
+import * as RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
+if (import.meta.hot && !inWebWorker) {
+  if (!window.$RefreshReg$) {
+    throw new Error(
+      "@vitejs/plugin-react can't detect preamble. Something is wrong."
+    );
+  }
+  RefreshRuntime.__hmr_import(import.meta.url).then((currentExports) => {
+    RefreshRuntime.registerExportsForReactRefresh("C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+function $RefreshReg$(type, id) {
+  return RefreshRuntime.register(type, "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/HomeRecipeCarousel.jsx " + id);
+}
+function $RefreshSig$() {
+  return RefreshRuntime.createSignatureFunctionForTransform();
+}
+
+//# sourceMappingURL=data:application/json;base64,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QUEwS3hCLFNBQVNpRCxjQUFjO0FBQ3JCZCxTQUFPZCxTQUFTLEVBQUVvQyxLQUFLLEdBQUduQyxNQUFNLEdBQUdDLFVBQVUsT0FBTyxDQUFDO0FBQ3ZEO0FBQUMsSUFBQW1DO0FBQUEsYUFBQUEsSUFBQSIsIm5hbWVzIjpbInVzZUVmZmVjdCIsInVzZVJlZiIsInVzZVN0YXRlIiwiZ2V0TGlzdEhyZWYiLCJnZXRSZWNpcGVIcmVmIiwiREVTS1RPUF9QQUdFX1NJWkUiLCJIb21lUmVjaXBlQ2Fyb3VzZWwiLCJjb2xsZWN0aW9ucyIsIl9zIiwidHJhY2tSZWYiLCJhY3RpdmVDb2xsZWN0aW9uSWQiLCJzZXRBY3RpdmVDb2xsZWN0aW9uSWQiLCJpZCIsImN1cnJlbnRQYWdlIiwic2V0Q3VycmVudFBhZ2UiLCJtZWRpYUhlaWdodCIsInNldE1lZGlhSGVpZ2h0IiwibGVuZ3RoIiwiaGFzQWN0aXZlQ29sbGVjdGlvbiIsInNvbWUiLCJjb2xsZWN0aW9uIiwiYWN0aXZlQ29sbGVjdGlvbiIsImZpbmQiLCJpdGVtcyIsInJlY2lwZXMiLCJ0eXBlIiwiY3VycmVudCIsInNjcm9sbFRvIiwibGVmdCIsImJlaGF2aW9yIiwidHJhY2siLCJjbGllbnRXaWR0aCIsInVuZGVmaW5lZCIsInN5bmNNZWRpYUhlaWdodCIsIm1lZGlhIiwicXVlcnlTZWxlY3RvciIsIkhUTUxFbGVtZW50Iiwib2Zmc2V0SGVpZ2h0Iiwib2JzZXJ2ZXIiLCJSZXNpemVPYnNlcnZlciIsIm9ic2VydmUiLCJ3aW5kb3ciLCJhZGRFdmVudExpc3RlbmVyIiwiZGlzY29ubmVjdCIsInJlbW92ZUV2ZW50TGlzdGVuZXIiLCJ0b3RhbFBhZ2VzIiwiTWF0aCIsImNlaWwiLCJjYW5Hb1ByZXZpb3VzIiwiY2FuR29OZXh0IiwibWFwIiwibmFtZSIsInBhZ2UiLCJtYXgiLCJpdGVtIiwic2Nyb2xsVG9Ub3AiLCJpbWFnZSIsInRpdGxlIiwiY3Vpc2luZSIsImNhdGVnb3JpZXMiLCJhdXRob3IiLCJ0b3RhbFRpbWUiLCJtaW4iLCJ0b3AiLCJfYyJdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlcyI6WyJIb21lUmVjaXBlQ2Fyb3VzZWwuanN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IHVzZUVmZmVjdCwgdXNlUmVmLCB1c2VTdGF0ZSB9IGZyb20gJ3JlYWN0JztcbmltcG9ydCB7IGdldExpc3RIcmVmLCBnZXRSZWNpcGVIcmVmIH0gZnJvbSAnLi4vbGliL3JvdXRlLXN0YXRlJztcblxuY29uc3QgREVTS1RPUF9QQUdFX1NJWkUgPSA0O1xuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBIb21lUmVjaXBlQ2Fyb3VzZWwoeyBjb2xsZWN0aW9ucyB9KSB7XG4gIGNvbnN0IHRyYWNrUmVmID0gdXNlUmVmKG51bGwpO1xuICBjb25zdCBbYWN0aXZlQ29sbGVjdGlvbklkLCBzZXRBY3RpdmVDb2xsZWN0aW9uSWRdID0gdXNlU3RhdGUoY29sbGVjdGlvbnNbMF0/LmlkID8/ICcnKTtcbiAgY29uc3QgW2N1cnJlbnRQYWdlLCBzZXRDdXJyZW50UGFnZV0gPSB1c2VTdGF0ZSgwKTtcbiAgY29uc3QgW21lZGlhSGVpZ2h0LCBzZXRNZWRpYUhlaWdodF0gPSB1c2VTdGF0ZSgwKTtcblxuICB1c2VFZmZlY3QoKCkgPT4ge1xuICAgIGlmICghY29sbGVjdGlvbnMubGVuZ3RoKSB7XG4gICAgICByZXR1cm47XG4gICAgfVxuXG4gICAgY29uc3QgaGFzQWN0aXZlQ29sbGVjdGlvbiA9IGNvbGxlY3Rpb25zLnNvbWUoKGNvbGxlY3Rpb24pID0+IGNvbGxlY3Rpb24uaWQgPT09IGFjdGl2ZUNvbGxlY3Rpb25JZCk7XG5cbiAgICBpZiAoIWhhc0FjdGl2ZUNvbGxlY3Rpb24pIHtcbiAgICAgIHNldEFjdGl2ZUNvbGxlY3Rpb25JZChjb2xsZWN0aW9uc1swXS5pZCk7XG4gICAgfVxuICB9LCBbYWN0aXZlQ29sbGVjdGlvbklkLCBjb2xsZWN0aW9uc10pO1xuXG4gIGNvbnN0IGFjdGl2ZUNvbGxlY3Rpb24gPSBjb2xsZWN0aW9ucy5maW5kKChjb2xsZWN0aW9uKSA9PiBjb2xsZWN0aW9uLmlkID09PSBhY3RpdmVDb2xsZWN0aW9uSWQpID8/IGNvbGxlY3Rpb25zWzBdID8/IG51bGw7XG4gIGNvbnN0IGl0ZW1zID0gYWN0aXZlQ29sbGVjdGlvbiA/IFsuLi5hY3RpdmVDb2xsZWN0aW9uLnJlY2lwZXMsIHsgaWQ6ICdzZWUtYWxsJywgdHlwZTogJ2N0YScgfV0gOiBbXTtcblxuICB1c2VFZmZlY3QoKCkgPT4ge1xuICAgIHNldEN1cnJlbnRQYWdlKDApO1xuICAgIHRyYWNrUmVmLmN1cnJlbnQ/LnNjcm9sbFRvKHsgbGVmdDogMCwgYmVoYXZpb3I6ICdhdXRvJyB9KTtcbiAgfSwgW2FjdGl2ZUNvbGxlY3Rpb25JZF0pO1xuXG4gIHVzZUVmZmVjdCgoKSA9PiB7XG4gICAgY29uc3QgdHJhY2sgPSB0cmFja1JlZi5jdXJyZW50O1xuXG4gICAgaWYgKCF0cmFjaykge1xuICAgICAgcmV0dXJuO1xuICAgIH1cblxuICAgIHRyYWNrLnNjcm9sbFRvKHtcbiAgICAgIGxlZnQ6IHRyYWNrLmNsaWVudFdpZHRoICogY3VycmVudFBhZ2UsXG4gICAgICBiZWhhdmlvcjogJ3Ntb290aCdcbiAgICB9KTtcbiAgfSwgW2N1cnJlbnRQYWdlXSk7XG5cbiAgdXNlRWZmZWN0KCgpID0+IHtcbiAgICBjb25zdCB0cmFjayA9IHRyYWNrUmVmLmN1cnJlbnQ7XG5cbiAgICBpZiAoIXRyYWNrKSB7XG4gICAgICByZXR1cm4gdW5kZWZpbmVkO1xuICAgIH1cblxuICAgIGNvbnN0IHN5bmNNZWRpYUhlaWdodCA9ICgpID0+IHtcbiAgICAgIGNvbnN0IG1lZGlhID0gdHJhY2sucXVlcnlTZWxlY3RvcignLmhvbWUtY2Fyb3VzZWwtaW1hZ2UtbGluaywgLmhvbWUtY2Fyb3VzZWwtaW1hZ2UtcGxhY2Vob2xkZXInKTtcbiAgICAgIHNldE1lZGlhSGVpZ2h0KG1lZGlhIGluc3RhbmNlb2YgSFRNTEVsZW1lbnQgPyBtZWRpYS5vZmZzZXRIZWlnaHQgOiAwKTtcbiAgICB9O1xuXG4gICAgc3luY01lZGlhSGVpZ2h0KCk7XG5cbiAgICBjb25zdCBvYnNlcnZlciA9IHR5cGVvZiBSZXNpemVPYnNlcnZlciAhPT0gJ3VuZGVmaW5lZCdcbiAgICAgID8gbmV3IFJlc2l6ZU9ic2VydmVyKCgpID0+IHN5bmNNZWRpYUhlaWdodCgpKVxuICAgICAgOiBudWxsO1xuXG4gICAgaWYgKG9ic2VydmVyKSB7XG4gICAgICBvYnNlcnZlci5vYnNlcnZlKHRyYWNrKTtcbiAgICB9IGVsc2Uge1xuICAgICAgd2luZG93LmFkZEV2ZW50TGlzdGVuZXIoJ3Jlc2l6ZScsIHN5bmNNZWRpYUhlaWdodCk7XG4gICAgfVxuXG4gICAgcmV0dXJuICgpID0+IHtcbiAgICAgIG9ic2VydmVyPy5kaXNjb25uZWN0KCk7XG4gICAgICB3aW5kb3cucmVtb3ZlRXZlbnRMaXN0ZW5lcigncmVzaXplJywgc3luY01lZGlhSGVpZ2h0KTtcbiAgICB9O1xuICB9LCBbYWN0aXZlQ29sbGVjdGlvbklkLCBpdGVtcy5sZW5ndGhdKTtcblxuICBjb25zdCB0b3RhbFBhZ2VzID0gTWF0aC5jZWlsKGl0ZW1zLmxlbmd0aCAvIERFU0tUT1BfUEFHRV9TSVpFKTtcbiAgY29uc3QgY2FuR29QcmV2aW91cyA9IGN1cnJlbnRQYWdlID4gMDtcbiAgY29uc3QgY2FuR29OZXh0ID0gY3VycmVudFBhZ2UgPCB0b3RhbFBhZ2VzIC0gMTtcblxuICByZXR1cm4gKFxuICAgIDxzZWN0aW9uXG4gICAgICBjbGFzc05hbWU9XCJob21lLWNhcm91c2VsXCJcbiAgICAgIGFyaWEtbGFiZWw9XCJIb21lcGFnZSByZWNpcGUgY29sbGVjdGlvbnNcIlxuICAgICAgc3R5bGU9e21lZGlhSGVpZ2h0ID8geyAnLS1jYXJvdXNlbC1tZWRpYS1oZWlnaHQnOiBgJHttZWRpYUhlaWdodH1weGAgfSA6IHVuZGVmaW5lZH1cbiAgICA+XG4gICAgICB7Y29sbGVjdGlvbnMubGVuZ3RoID8gKFxuICAgICAgICA8PlxuICAgICAgICAgIHtjb2xsZWN0aW9ucy5sZW5ndGggPiAxID8gKFxuICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJob21lLWNhcm91c2VsLXRhYnNcIiByb2xlPVwidGFibGlzdFwiIGFyaWEtbGFiZWw9XCJSZWNpcGUgY29sbGVjdGlvbnNcIj5cbiAgICAgICAgICAgICAge2NvbGxlY3Rpb25zLm1hcCgoY29sbGVjdGlvbikgPT4gKFxuICAgICAgICAgICAgICAgIDxidXR0b25cbiAgICAgICAgICAgICAgICAgIGtleT17Y29sbGVjdGlvbi5pZH1cbiAgICAgICAgICAgICAgICAgIHR5cGU9XCJidXR0b25cIlxuICAgICAgICAgICAgICAgICAgcm9sZT1cInRhYlwiXG4gICAgICAgICAgICAgICAgICBjbGFzc05hbWU9e2NvbGxlY3Rpb24uaWQgPT09IGFjdGl2ZUNvbGxlY3Rpb25JZCA/ICdob21lLWNhcm91c2VsLXRhYiBhY3RpdmUnIDogJ2hvbWUtY2Fyb3VzZWwtdGFiJ31cbiAgICAgICAgICAgICAgICAgIGFyaWEtc2VsZWN0ZWQ9e2NvbGxlY3Rpb24uaWQgPT09IGFjdGl2ZUNvbGxlY3Rpb25JZH1cbiAgICAgICAgICAgICAgICAgIG9uQ2xpY2s9eygpID0+IHNldEFjdGl2ZUNvbGxlY3Rpb25JZChjb2xsZWN0aW9uLmlkKX1cbiAgICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgICB7Y29sbGVjdGlvbi5uYW1lfVxuICAgICAgICAgICAgICAgIDwvYnV0dG9uPlxuICAgICAgICAgICAgICApKX1cbiAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICkgOiBudWxsfVxuXG4gICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJob21lLWNhcm91c2VsLXNoZWxsXCI+XG4gICAgICAgICAgICA8YnV0dG9uXG4gICAgICAgICAgICAgIHR5cGU9XCJidXR0b25cIlxuICAgICAgICAgICAgICBjbGFzc05hbWU9XCJob21lLWNhcm91c2VsLWFycm93IGhvbWUtY2Fyb3VzZWwtYXJyb3ctbGVmdFwiXG4gICAgICAgICAgICAgIGFyaWEtbGFiZWw9XCJTaG93IHByZXZpb3VzIHJlY2lwZXNcIlxuICAgICAgICAgICAgICBkaXNhYmxlZD17IWNhbkdvUHJldmlvdXN9XG4gICAgICAgICAgICAgIG9uQ2xpY2s9eygpID0+IHNldEN1cnJlbnRQYWdlKChwYWdlKSA9PiBNYXRoLm1heChwYWdlIC0gMSwgMCkpfVxuICAgICAgICAgICAgPlxuICAgICAgICAgICAgICA8c3BhbiBhcmlhLWhpZGRlbj1cInRydWVcIj4mbGFycjs8L3NwYW4+XG4gICAgICAgICAgICA8L2J1dHRvbj5cblxuICAgICAgICAgICAgPGRpdlxuICAgICAgICAgICAgICByZWY9e3RyYWNrUmVmfVxuICAgICAgICAgICAgICBjbGFzc05hbWU9XCJob21lLWNhcm91c2VsLXRyYWNrXCJcbiAgICAgICAgICAgICAgcm9sZT1cInRhYnBhbmVsXCJcbiAgICAgICAgICAgICAgYXJpYS1sYWJlbD17YWN0aXZlQ29sbGVjdGlvbi5uYW1lfVxuICAgICAgICAgICAgPlxuICAgICAgICAgICAgICB7aXRlbXMubWFwKChpdGVtKSA9PlxuICAgICAgICAgICAgICAgIGl0ZW0udHlwZSA9PT0gJ2N0YScgPyAoXG4gICAgICAgICAgICAgICAgICA8YXJ0aWNsZSBrZXk9e2l0ZW0uaWR9IGNsYXNzTmFtZT1cImhvbWUtY2Fyb3VzZWwtY2FyZCBob21lLWNhcm91c2VsLWNhcmQtY3RhXCI+XG4gICAgICAgICAgICAgICAgICAgIDxhIGNsYXNzTmFtZT1cImhvbWUtY2Fyb3VzZWwtc2VlLWFsbFwiIGhyZWY9e2dldExpc3RIcmVmKHsgY29sbGVjdGlvbjogYWN0aXZlQ29sbGVjdGlvbi5pZCB9KX0+XG4gICAgICAgICAgICAgICAgICAgICAgPHNwYW4+U2VlIGFsbCByZWNpcGVzPC9zcGFuPlxuICAgICAgICAgICAgICAgICAgICAgIDxzcGFuIGFyaWEtaGlkZGVuPVwidHJ1ZVwiPiZyYXJyOzwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgICAgPC9hPlxuICAgICAgICAgICAgICAgICAgPC9hcnRpY2xlPlxuICAgICAgICAgICAgICAgICkgOiAoXG4gICAgICAgICAgICAgICAgICA8YXJ0aWNsZSBrZXk9e2l0ZW0uaWR9IGNsYXNzTmFtZT1cImhvbWUtY2Fyb3VzZWwtY2FyZFwiPlxuICAgICAgICAgICAgICAgICAgICA8YSBjbGFzc05hbWU9XCJob21lLWNhcm91c2VsLWltYWdlLWxpbmtcIiBocmVmPXtnZXRSZWNpcGVIcmVmKGl0ZW0uaWQpfSBvbkNsaWNrPXtzY3JvbGxUb1RvcH0+XG4gICAgICAgICAgICAgICAgICAgICAge2l0ZW0uaW1hZ2UgPyAoXG4gICAgICAgICAgICAgICAgICAgICAgICA8aW1nXG4gICAgICAgICAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZT1cImhvbWUtY2Fyb3VzZWwtaW1hZ2VcIlxuICAgICAgICAgICAgICAgICAgICAgICAgICBzcmM9e2l0ZW0uaW1hZ2V9XG4gICAgICAgICAgICAgICAgICAgICAgICAgIGFsdD17aXRlbS50aXRsZX1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgbG9hZGluZz1cImxhenlcIlxuICAgICAgICAgICAgICAgICAgICAgICAgLz5cbiAgICAgICAgICAgICAgICAgICAgICApIDogKFxuICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJob21lLWNhcm91c2VsLWltYWdlLXBsYWNlaG9sZGVyXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICAgIDxzcGFuPntpdGVtLmN1aXNpbmUgfHwgaXRlbS5jYXRlZ29yaWVzWzBdIHx8ICdSZWNpcGUnfTwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICAgICAgICAgICl9XG4gICAgICAgICAgICAgICAgICAgIDwvYT5cblxuICAgICAgICAgICAgICAgICAgICA8YSBjbGFzc05hbWU9XCJob21lLWNhcm91c2VsLWNhcmQtbGlua1wiIGhyZWY9e2dldFJlY2lwZUhyZWYoaXRlbS5pZCl9IG9uQ2xpY2s9e3Njcm9sbFRvVG9wfT5cbiAgICAgICAgICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9XCJob21lLWNhcm91c2VsLWNhcmQtdGl0bGVcIj57aXRlbS50aXRsZX08L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgICAge2l0ZW0uYXV0aG9yID8gPHNwYW4gY2xhc3NOYW1lPVwiaG9tZS1jYXJvdXNlbC1jYXJkLWF1dGhvclwiPntpdGVtLmF1dGhvcn08L3NwYW4+IDogbnVsbH1cbiAgICAgICAgICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9XCJob21lLWNhcm91c2VsLWNhcmQtbWV0YVwiPlxuICAgICAgICAgICAgICAgICAgICAgICAge2l0ZW0udG90YWxUaW1lIHx8IGl0ZW0uY2F0ZWdvcmllc1swXSB8fCBpdGVtLmN1aXNpbmUgfHwgJ0ZlYXR1cmVkIHJlY2lwZSd9XG4gICAgICAgICAgICAgICAgICAgICAgPC9zcGFuPlxuICAgICAgICAgICAgICAgICAgICA8L2E+XG4gICAgICAgICAgICAgICAgICA8L2FydGljbGU+XG4gICAgICAgICAgICAgICAgKVxuICAgICAgICAgICAgICApfVxuICAgICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICAgIDxidXR0b25cbiAgICAgICAgICAgICAgdHlwZT1cImJ1dHRvblwiXG4gICAgICAgICAgICAgIGNsYXNzTmFtZT1cImhvbWUtY2Fyb3VzZWwtYXJyb3cgaG9tZS1jYXJvdXNlbC1hcnJvdy1yaWdodFwiXG4gICAgICAgICAgICAgIGFyaWEtbGFiZWw9XCJTaG93IG1vcmUgcmVjaXBlc1wiXG4gICAgICAgICAgICAgIGRpc2FibGVkPXshY2FuR29OZXh0fVxuICAgICAgICAgICAgICBvbkNsaWNrPXsoKSA9PiBzZXRDdXJyZW50UGFnZSgocGFnZSkgPT4gTWF0aC5taW4ocGFnZSArIDEsIHRvdGFsUGFnZXMgLSAxKSl9XG4gICAgICAgICAgICA+XG4gICAgICAgICAgICAgIDxzcGFuIGFyaWEtaGlkZGVuPVwidHJ1ZVwiPiZyYXJyOzwvc3Bhbj5cbiAgICAgICAgICAgIDwvYnV0dG9uPlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICA8Lz5cbiAgICAgICkgOiAoXG4gICAgICAgIDxwIGNsYXNzTmFtZT1cImVtcHR5LXN0YXRlXCI+Tm8gaG9tZXBhZ2UgY29sbGVjdGlvbnMgeWV0LjwvcD5cbiAgICAgICl9XG4gICAgPC9zZWN0aW9uPlxuICApO1xufVxuXG5mdW5jdGlvbiBzY3JvbGxUb1RvcCgpIHtcbiAgd2luZG93LnNjcm9sbFRvKHsgdG9wOiAwLCBsZWZ0OiAwLCBiZWhhdmlvcjogJ2F1dG8nIH0pO1xufVxuIl0sImZpbGUiOiJDOi9Vc2Vycy9raWVyYS9Eb2N1bWVudHMvUHJvamVjdHMvUmVjaXBlIE9yZ2FuaXplciBQcm9qZWN0cy9TdG92ZXRvcC9TdG92ZXRvcCB2My9zcmMvY29tcG9uZW50cy9Ib21lUmVjaXBlQ2Fyb3VzZWwuanN4In0=

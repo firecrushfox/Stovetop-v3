@@ -704,6 +704,7 @@ a:focus-visible {
 
 .home-carousel-tabs {
   display: flex;
+  align-items: flex-start;
   gap: 0.55rem;
   overflow-x: auto;
   padding-bottom: 0.25rem;
@@ -1294,8 +1295,34 @@ a:focus-visible {
     display: none;
   }
 
+  .home-page {
+    min-height: auto;
+  }
+
   .home-carousel-shell {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-carousel {
+    gap: 0.2rem;
+  }
+
+  .home-carousel-tabs {
+    gap: 0.4rem;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .home-carousel-tab {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 16px;
+    min-height: auto;
+    border-radius: 0.25rem;
+    white-space: nowrap;
+    line-height: 1.1;
+    text-align: center;
   }
 
   .home-carousel-track {

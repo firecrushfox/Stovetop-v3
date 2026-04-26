@@ -14,6 +14,7 @@ export default function RecipeLibrary({
   isLibraryLoading,
   mobileFiltersOpen,
   onOpenCollectionPicker,
+  onOpenRecipe,
   setActiveCategory,
   setActiveTag,
   setMobileFiltersOpen,
@@ -101,6 +102,7 @@ export default function RecipeLibrary({
                   bookmarkedRecipeIds={bookmarkedRecipeIds}
                   currentFilters={currentFilters}
                   onOpenCollectionPicker={onOpenCollectionPicker}
+                  onOpenRecipe={onOpenRecipe}
                   recipe={recipe}
                   toggleBookmark={toggleBookmark}
                 />
@@ -148,14 +150,14 @@ function FacetGroup({ activeValue, onClear, onSelect, onShowMore, title, values,
   );
 }
 
-function RecipeCard({ bookmarkedRecipeIds, currentFilters, onOpenCollectionPicker, recipe, toggleBookmark }) {
+function RecipeCard({ bookmarkedRecipeIds, currentFilters, onOpenCollectionPicker, onOpenRecipe, recipe, toggleBookmark }) {
   const isBookmarked = bookmarkedRecipeIds.includes(recipe.id);
   const recipeHref = getRecipeHref(recipe.id, currentFilters);
 
   return (
     <article className="recipe-card">
       <div className="recipe-card-media">
-        <a className="recipe-card-image-link" href={recipeHref} onClick={scrollToTop}>
+        <a className="recipe-card-image-link" href={recipeHref} onClick={onOpenRecipe}>
           {recipe.image ? (
             <img className="recipe-card-image" src={recipe.image} alt={recipe.title} loading="lazy" />
           ) : (
@@ -190,14 +192,10 @@ function RecipeCard({ bookmarkedRecipeIds, currentFilters, onOpenCollectionPicke
           </svg>
         </button>
       </div>
-      <a className="recipe-card-link" href={recipeHref} onClick={scrollToTop}>
+      <a className="recipe-card-link" href={recipeHref} onClick={onOpenRecipe}>
         <span className="recipe-card-title">{recipe.title}</span>
         {recipe.totalTime ? <span className="recipe-card-meta">{recipe.totalTime}</span> : null}
       </a>
     </article>
   );
-}
-
-function scrollToTop() {
-  window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
 }

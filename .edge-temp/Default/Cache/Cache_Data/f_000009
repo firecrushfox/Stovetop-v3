@@ -1,0 +1,451 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/components/CollectionsPage.jsx");import __vite__cjsImport0_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=361cc4f1"; const Fragment = __vite__cjsImport0_react_jsxDevRuntime["Fragment"]; const jsxDEV = __vite__cjsImport0_react_jsxDevRuntime["jsxDEV"];
+var _s = $RefreshSig$();
+import __vite__cjsImport1_react from "/node_modules/.vite/deps/react.js?v=361cc4f1"; const useEffect = __vite__cjsImport1_react["useEffect"]; const useMemo = __vite__cjsImport1_react["useMemo"]; const useState = __vite__cjsImport1_react["useState"];
+export default function CollectionsPage({
+  onCreateCollection,
+  onDeleteCollection,
+  onRemoveRecipeFromCollection,
+  onRenameCollection,
+  onAddRecipeToCollection,
+  recipes,
+  userCollections
+}) {
+  _s();
+  const [activeCollectionId, setActiveCollectionId] = useState(userCollections[0]?.id ?? "");
+  const [draftName, setDraftName] = useState("");
+  const [newCollectionName, setNewCollectionName] = useState("");
+  const [recipeQuery, setRecipeQuery] = useState("");
+  useEffect(() => {
+    if (!userCollections.length) {
+      setActiveCollectionId("");
+      setDraftName("");
+      return;
+    }
+    const activeCollection2 = userCollections.find((collection) => collection.id === activeCollectionId) ?? userCollections[0];
+    setActiveCollectionId(activeCollection2.id);
+    setDraftName(activeCollection2.name);
+  }, [activeCollectionId, userCollections]);
+  const activeCollection = userCollections.find((collection) => collection.id === activeCollectionId) ?? null;
+  const activeRecipes = useMemo(() => {
+    if (!activeCollection) {
+      return [];
+    }
+    const recipeMap = new Map(recipes.map((recipe) => [recipe.id, recipe]));
+    return activeCollection.recipeIds.map((recipeId) => recipeMap.get(recipeId)).filter(Boolean);
+  }, [activeCollection, recipes]);
+  const availableRecipes = useMemo(() => {
+    if (!activeCollection) {
+      return [];
+    }
+    const normalizedQuery = recipeQuery.trim().toLowerCase();
+    return recipes.filter((recipe) => !activeCollection.recipeIds.includes(recipe.id)).filter((recipe) => !normalizedQuery || recipe.searchText.includes(normalizedQuery)).slice(0, 24);
+  }, [activeCollection, recipeQuery, recipes]);
+  function handleCreateCollection(event) {
+    event.preventDefault();
+    const name = newCollectionName.trim();
+    if (!name) {
+      return;
+    }
+    onCreateCollection(name);
+    setNewCollectionName("");
+  }
+  function handleRenameCollection(event) {
+    event.preventDefault();
+    if (!activeCollection) {
+      return;
+    }
+    const name = draftName.trim();
+    if (!name || name === activeCollection.name) {
+      return;
+    }
+    onRenameCollection(activeCollection.id, name);
+  }
+  return /* @__PURE__ */ jsxDEV("section", { className: "collections-page", "aria-label": "Collections", children: [
+    /* @__PURE__ */ jsxDEV("aside", { className: "collections-sidebar", children: /* @__PURE__ */ jsxDEV("div", { className: "collections-panel", children: [
+      /* @__PURE__ */ jsxDEV("div", { className: "filter-header", children: [
+        /* @__PURE__ */ jsxDEV("h2", { children: "Your Collections" }, void 0, false, {
+          fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+          lineNumber: 85,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ jsxDEV("span", { children: userCollections.length }, void 0, false, {
+          fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+          lineNumber: 86,
+          columnNumber: 13
+        }, this)
+      ] }, void 0, true, {
+        fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+        lineNumber: 84,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ jsxDEV("form", { className: "collections-create-inline", onSubmit: handleCreateCollection, children: [
+        /* @__PURE__ */ jsxDEV(
+          "input",
+          {
+            type: "text",
+            value: newCollectionName,
+            onChange: (event) => setNewCollectionName(event.target.value),
+            placeholder: "Create a collection"
+          },
+          void 0,
+          false,
+          {
+            fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+            lineNumber: 90,
+            columnNumber: 13
+          },
+          this
+        ),
+        /* @__PURE__ */ jsxDEV("button", { type: "submit", children: "Create" }, void 0, false, {
+          fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+          lineNumber: 96,
+          columnNumber: 13
+        }, this)
+      ] }, void 0, true, {
+        fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+        lineNumber: 89,
+        columnNumber: 11
+      }, this),
+      userCollections.length ? /* @__PURE__ */ jsxDEV("div", { className: "collections-nav-list", children: userCollections.map(
+        (collection) => /* @__PURE__ */ jsxDEV(
+          "button",
+          {
+            type: "button",
+            className: collection.id === activeCollectionId ? "collections-nav-item active" : "collections-nav-item",
+            onClick: () => {
+              setActiveCollectionId(collection.id);
+              setDraftName(collection.name);
+            },
+            children: [
+              /* @__PURE__ */ jsxDEV("span", { children: collection.name }, void 0, false, {
+                fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+                lineNumber: 111,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV("span", { children: collection.recipeIds.length }, void 0, false, {
+                fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+                lineNumber: 112,
+                columnNumber: 19
+              }, this)
+            ]
+          },
+          collection.id,
+          true,
+          {
+            fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+            lineNumber: 102,
+            columnNumber: 13
+          },
+          this
+        )
+      ) }, void 0, false, {
+        fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+        lineNumber: 100,
+        columnNumber: 11
+      }, this) : /* @__PURE__ */ jsxDEV("p", { className: "empty-state", children: "Create your first collection to start curating homepage picks." }, void 0, false, {
+        fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+        lineNumber: 117,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, true, {
+      fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+      lineNumber: 83,
+      columnNumber: 9
+    }, this) }, void 0, false, {
+      fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+      lineNumber: 82,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ jsxDEV("section", { className: "collections-editor", children: activeCollection ? /* @__PURE__ */ jsxDEV(Fragment, { children: [
+      /* @__PURE__ */ jsxDEV("div", { className: "collections-panel", children: /* @__PURE__ */ jsxDEV("form", { className: "collections-rename-form", onSubmit: handleRenameCollection, children: [
+        /* @__PURE__ */ jsxDEV("label", { className: "search", children: [
+          /* @__PURE__ */ jsxDEV("span", { children: "Collection name" }, void 0, false, {
+            fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+            lineNumber: 128,
+            columnNumber: 19
+          }, this),
+          /* @__PURE__ */ jsxDEV(
+            "input",
+            {
+              type: "text",
+              value: draftName,
+              onChange: (event) => setDraftName(event.target.value),
+              placeholder: "Collection name"
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+              lineNumber: 129,
+              columnNumber: 19
+            },
+            this
+          )
+        ] }, void 0, true, {
+          fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+          lineNumber: 127,
+          columnNumber: 17
+        }, this),
+        /* @__PURE__ */ jsxDEV("div", { className: "collections-editor-actions", children: [
+          /* @__PURE__ */ jsxDEV("button", { type: "submit", className: "mobile-search-submit", children: "Rename" }, void 0, false, {
+            fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+            lineNumber: 137,
+            columnNumber: 19
+          }, this),
+          /* @__PURE__ */ jsxDEV(
+            "button",
+            {
+              type: "button",
+              className: "collections-delete-button",
+              onClick: () => onDeleteCollection(activeCollection.id),
+              children: "Delete"
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+              lineNumber: 140,
+              columnNumber: 19
+            },
+            this
+          )
+        ] }, void 0, true, {
+          fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+          lineNumber: 136,
+          columnNumber: 17
+        }, this)
+      ] }, void 0, true, {
+        fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+        lineNumber: 126,
+        columnNumber: 15
+      }, this) }, void 0, false, {
+        fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+        lineNumber: 125,
+        columnNumber: 13
+      }, this),
+      /* @__PURE__ */ jsxDEV("div", { className: "collections-editor-grid", children: [
+        /* @__PURE__ */ jsxDEV("div", { className: "collections-panel", children: [
+          /* @__PURE__ */ jsxDEV("div", { className: "filter-header", children: [
+            /* @__PURE__ */ jsxDEV("h2", { children: "Recipes In Collection" }, void 0, false, {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+              lineNumber: 154,
+              columnNumber: 19
+            }, this),
+            /* @__PURE__ */ jsxDEV("span", { children: activeRecipes.length }, void 0, false, {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+              lineNumber: 155,
+              columnNumber: 19
+            }, this)
+          ] }, void 0, true, {
+            fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+            lineNumber: 153,
+            columnNumber: 17
+          }, this),
+          activeRecipes.length ? /* @__PURE__ */ jsxDEV("div", { className: "collections-recipe-list", children: activeRecipes.map(
+            (recipe) => /* @__PURE__ */ jsxDEV("article", { className: "collections-recipe-item", children: [
+              /* @__PURE__ */ jsxDEV("div", { children: [
+                /* @__PURE__ */ jsxDEV("strong", { children: recipe.title }, void 0, false, {
+                  fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+                  lineNumber: 162,
+                  columnNumber: 27
+                }, this),
+                /* @__PURE__ */ jsxDEV("span", { children: recipe.totalTime || recipe.cuisine || "Recipe" }, void 0, false, {
+                  fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+                  lineNumber: 163,
+                  columnNumber: 27
+                }, this)
+              ] }, void 0, true, {
+                fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+                lineNumber: 161,
+                columnNumber: 25
+              }, this),
+              /* @__PURE__ */ jsxDEV(
+                "button",
+                {
+                  type: "button",
+                  onClick: () => onRemoveRecipeFromCollection(activeCollection.id, recipe.id),
+                  children: "Remove"
+                },
+                void 0,
+                false,
+                {
+                  fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+                  lineNumber: 165,
+                  columnNumber: 25
+                },
+                this
+              )
+            ] }, recipe.id, true, {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+              lineNumber: 160,
+              columnNumber: 17
+            }, this)
+          ) }, void 0, false, {
+            fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+            lineNumber: 158,
+            columnNumber: 15
+          }, this) : /* @__PURE__ */ jsxDEV("p", { className: "empty-state", children: "No recipes in this collection yet." }, void 0, false, {
+            fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+            lineNumber: 175,
+            columnNumber: 15
+          }, this)
+        ] }, void 0, true, {
+          fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+          lineNumber: 152,
+          columnNumber: 15
+        }, this),
+        /* @__PURE__ */ jsxDEV("div", { className: "collections-panel", children: [
+          /* @__PURE__ */ jsxDEV("div", { className: "filter-header", children: [
+            /* @__PURE__ */ jsxDEV("h2", { children: "Add Recipes" }, void 0, false, {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+              lineNumber: 181,
+              columnNumber: 19
+            }, this),
+            /* @__PURE__ */ jsxDEV("span", { children: availableRecipes.length }, void 0, false, {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+              lineNumber: 182,
+              columnNumber: 19
+            }, this)
+          ] }, void 0, true, {
+            fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+            lineNumber: 180,
+            columnNumber: 17
+          }, this),
+          /* @__PURE__ */ jsxDEV("label", { className: "search", children: [
+            /* @__PURE__ */ jsxDEV("span", { children: "Search recipes" }, void 0, false, {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+              lineNumber: 185,
+              columnNumber: 19
+            }, this),
+            /* @__PURE__ */ jsxDEV(
+              "input",
+              {
+                type: "search",
+                value: recipeQuery,
+                onChange: (event) => setRecipeQuery(event.target.value),
+                placeholder: "Search by title, ingredient, tag..."
+              },
+              void 0,
+              false,
+              {
+                fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+                lineNumber: 186,
+                columnNumber: 19
+              },
+              this
+            )
+          ] }, void 0, true, {
+            fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+            lineNumber: 184,
+            columnNumber: 17
+          }, this),
+          availableRecipes.length ? /* @__PURE__ */ jsxDEV("div", { className: "collections-recipe-list", children: availableRecipes.map(
+            (recipe) => /* @__PURE__ */ jsxDEV("article", { className: "collections-recipe-item", children: [
+              /* @__PURE__ */ jsxDEV("div", { children: [
+                /* @__PURE__ */ jsxDEV("strong", { children: recipe.title }, void 0, false, {
+                  fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+                  lineNumber: 198,
+                  columnNumber: 27
+                }, this),
+                /* @__PURE__ */ jsxDEV("span", { children: recipe.totalTime || recipe.cuisine || "Recipe" }, void 0, false, {
+                  fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+                  lineNumber: 199,
+                  columnNumber: 27
+                }, this)
+              ] }, void 0, true, {
+                fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+                lineNumber: 197,
+                columnNumber: 25
+              }, this),
+              /* @__PURE__ */ jsxDEV(
+                "button",
+                {
+                  type: "button",
+                  onClick: () => onAddRecipeToCollection(activeCollection.id, recipe.id),
+                  children: "Add"
+                },
+                void 0,
+                false,
+                {
+                  fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+                  lineNumber: 201,
+                  columnNumber: 25
+                },
+                this
+              )
+            ] }, recipe.id, true, {
+              fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+              lineNumber: 196,
+              columnNumber: 17
+            }, this)
+          ) }, void 0, false, {
+            fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+            lineNumber: 194,
+            columnNumber: 15
+          }, this) : /* @__PURE__ */ jsxDEV("p", { className: "empty-state", children: "No matching recipes available to add." }, void 0, false, {
+            fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+            lineNumber: 211,
+            columnNumber: 15
+          }, this)
+        ] }, void 0, true, {
+          fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+          lineNumber: 179,
+          columnNumber: 15
+        }, this)
+      ] }, void 0, true, {
+        fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+        lineNumber: 151,
+        columnNumber: 13
+      }, this)
+    ] }, void 0, true, {
+      fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+      lineNumber: 124,
+      columnNumber: 9
+    }, this) : /* @__PURE__ */ jsxDEV("div", { className: "collections-panel", children: /* @__PURE__ */ jsxDEV("p", { className: "empty-state", children: "Create a collection to start adding recipes." }, void 0, false, {
+      fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+      lineNumber: 218,
+      columnNumber: 13
+    }, this) }, void 0, false, {
+      fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+      lineNumber: 217,
+      columnNumber: 9
+    }, this) }, void 0, false, {
+      fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+      lineNumber: 122,
+      columnNumber: 7
+    }, this)
+  ] }, void 0, true, {
+    fileName: "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx",
+    lineNumber: 81,
+    columnNumber: 5
+  }, this);
+}
+_s(CollectionsPage, "X48GHgLB2qtjc3sC44c4nqvqRjA=");
+_c = CollectionsPage;
+var _c;
+$RefreshReg$(_c, "CollectionsPage");
+import * as RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
+if (import.meta.hot && !inWebWorker) {
+  if (!window.$RefreshReg$) {
+    throw new Error(
+      "@vitejs/plugin-react can't detect preamble. Something is wrong."
+    );
+  }
+  RefreshRuntime.__hmr_import(import.meta.url).then((currentExports) => {
+    RefreshRuntime.registerExportsForReactRefresh("C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+function $RefreshReg$(type, id) {
+  return RefreshRuntime.register(type, "C:/Users/kiera/Documents/Projects/Recipe Organizer Projects/Stovetop/Stovetop v3/src/components/CollectionsPage.jsx " + id);
+}
+function $RefreshSig$() {
+  return RefreshRuntime.createSignatureFunctionForTransform();
+}
+
+//# sourceMappingURL=data:application/json;base64,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QUFXLFlBQTdDO0FBQUE7QUFBQTtBQUFBO0FBQUEsdUJBQXNEO0FBQUEsbUJBRnhEO0FBQUE7QUFBQTtBQUFBO0FBQUEscUJBR0E7QUFBQSxjQUNBO0FBQUEsZ0JBQUM7QUFBQTtBQUFBLGtCQUNDLE1BQUs7QUFBQSxrQkFDTCxTQUFTLE1BQU0zQyx3QkFBd0JjLGlCQUFpQlIsSUFBSWdCLE9BQU9oQixFQUFFO0FBQUEsa0JBQUU7QUFBQTtBQUFBLGdCQUZ6RTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsY0FLQTtBQUFBLGlCQVZZZ0IsT0FBT2hCLElBQXJCO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUJBV0E7QUFBQSxVQUNELEtBZEg7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQkFlQSxJQUVBLHVCQUFDLE9BQUUsV0FBVSxlQUFjLHFEQUEzQjtBQUFBO0FBQUE7QUFBQTtBQUFBLGlCQUFnRTtBQUFBLGFBaENwRTtBQUFBO0FBQUE7QUFBQTtBQUFBLGVBa0NBO0FBQUEsV0E5REY7QUFBQTtBQUFBO0FBQUE7QUFBQSxhQStEQTtBQUFBLFNBMUZGO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0EyRkEsSUFFQSx1QkFBQyxTQUFJLFdBQVUscUJBQ2IsaUNBQUMsT0FBRSxXQUFVLGVBQWMsNERBQTNCO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FBdUUsS0FEekU7QUFBQTtBQUFBO0FBQUE7QUFBQSxXQUVBLEtBakdKO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FtR0E7QUFBQSxPQTVJRjtBQUFBO0FBQUE7QUFBQTtBQUFBLFNBNklBO0FBRUo7QUFBQ0gsR0E3TnVCUixpQkFBZTtBQUFBLEtBQWZBO0FBQWUsSUFBQWlEO0FBQUEsYUFBQUEsSUFBQSIsIm5hbWVzIjpbInVzZUVmZmVjdCIsInVzZU1lbW8iLCJ1c2VTdGF0ZSIsIkNvbGxlY3Rpb25zUGFnZSIsIm9uQ3JlYXRlQ29sbGVjdGlvbiIsIm9uRGVsZXRlQ29sbGVjdGlvbiIsIm9uUmVtb3ZlUmVjaXBlRnJvbUNvbGxlY3Rpb24iLCJvblJlbmFtZUNvbGxlY3Rpb24iLCJvbkFkZFJlY2lwZVRvQ29sbGVjdGlvbiIsInJlY2lwZXMiLCJ1c2VyQ29sbGVjdGlvbnMiLCJfcyIsImFjdGl2ZUNvbGxlY3Rpb25JZCIsInNldEFjdGl2ZUNvbGxlY3Rpb25JZCIsImlkIiwiZHJhZnROYW1lIiwic2V0RHJhZnROYW1lIiwibmV3Q29sbGVjdGlvbk5hbWUiLCJzZXROZXdDb2xsZWN0aW9uTmFtZSIsInJlY2lwZVF1ZXJ5Iiwic2V0UmVjaXBlUXVlcnkiLCJsZW5ndGgiLCJhY3RpdmVDb2xsZWN0aW9uIiwiZmluZCIsImNvbGxlY3Rpb24iLCJuYW1lIiwiYWN0aXZlUmVjaXBlcyIsInJlY2lwZU1hcCIsIk1hcCIsIm1hcCIsInJlY2lwZSIsInJlY2lwZUlkcyIsInJlY2lwZUlkIiwiZ2V0IiwiZmlsdGVyIiwiQm9vbGVhbiIsImF2YWlsYWJsZVJlY2lwZXMiLCJub3JtYWxpemVkUXVlcnkiLCJ0cmltIiwidG9Mb3dlckNhc2UiLCJpbmNsdWRlcyIsInNlYXJjaFRleHQiLCJzbGljZSIsImhhbmRsZUNyZWF0ZUNvbGxlY3Rpb24iLCJldmVudCIsInByZXZlbnREZWZhdWx0IiwiaGFuZGxlUmVuYW1lQ29sbGVjdGlvbiIsInRhcmdldCIsInZhbHVlIiwidGl0bGUiLCJ0b3RhbFRpbWUiLCJjdWlzaW5lIiwiX2MiXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZXMiOlsiQ29sbGVjdGlvbnNQYWdlLmpzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyB1c2VFZmZlY3QsIHVzZU1lbW8sIHVzZVN0YXRlIH0gZnJvbSAncmVhY3QnO1xuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBDb2xsZWN0aW9uc1BhZ2Uoe1xuICBvbkNyZWF0ZUNvbGxlY3Rpb24sXG4gIG9uRGVsZXRlQ29sbGVjdGlvbixcbiAgb25SZW1vdmVSZWNpcGVGcm9tQ29sbGVjdGlvbixcbiAgb25SZW5hbWVDb2xsZWN0aW9uLFxuICBvbkFkZFJlY2lwZVRvQ29sbGVjdGlvbixcbiAgcmVjaXBlcyxcbiAgdXNlckNvbGxlY3Rpb25zXG59KSB7XG4gIGNvbnN0IFthY3RpdmVDb2xsZWN0aW9uSWQsIHNldEFjdGl2ZUNvbGxlY3Rpb25JZF0gPSB1c2VTdGF0ZSh1c2VyQ29sbGVjdGlvbnNbMF0/LmlkID8/ICcnKTtcbiAgY29uc3QgW2RyYWZ0TmFtZSwgc2V0RHJhZnROYW1lXSA9IHVzZVN0YXRlKCcnKTtcbiAgY29uc3QgW25ld0NvbGxlY3Rpb25OYW1lLCBzZXROZXdDb2xsZWN0aW9uTmFtZV0gPSB1c2VTdGF0ZSgnJyk7XG4gIGNvbnN0IFtyZWNpcGVRdWVyeSwgc2V0UmVjaXBlUXVlcnldID0gdXNlU3RhdGUoJycpO1xuXG4gIHVzZUVmZmVjdCgoKSA9PiB7XG4gICAgaWYgKCF1c2VyQ29sbGVjdGlvbnMubGVuZ3RoKSB7XG4gICAgICBzZXRBY3RpdmVDb2xsZWN0aW9uSWQoJycpO1xuICAgICAgc2V0RHJhZnROYW1lKCcnKTtcbiAgICAgIHJldHVybjtcbiAgICB9XG5cbiAgICBjb25zdCBhY3RpdmVDb2xsZWN0aW9uID0gdXNlckNvbGxlY3Rpb25zLmZpbmQoKGNvbGxlY3Rpb24pID0+IGNvbGxlY3Rpb24uaWQgPT09IGFjdGl2ZUNvbGxlY3Rpb25JZCkgPz8gdXNlckNvbGxlY3Rpb25zWzBdO1xuICAgIHNldEFjdGl2ZUNvbGxlY3Rpb25JZChhY3RpdmVDb2xsZWN0aW9uLmlkKTtcbiAgICBzZXREcmFmdE5hbWUoYWN0aXZlQ29sbGVjdGlvbi5uYW1lKTtcbiAgfSwgW2FjdGl2ZUNvbGxlY3Rpb25JZCwgdXNlckNvbGxlY3Rpb25zXSk7XG5cbiAgY29uc3QgYWN0aXZlQ29sbGVjdGlvbiA9IHVzZXJDb2xsZWN0aW9ucy5maW5kKChjb2xsZWN0aW9uKSA9PiBjb2xsZWN0aW9uLmlkID09PSBhY3RpdmVDb2xsZWN0aW9uSWQpID8/IG51bGw7XG4gIGNvbnN0IGFjdGl2ZVJlY2lwZXMgPSB1c2VNZW1vKCgpID0+IHtcbiAgICBpZiAoIWFjdGl2ZUNvbGxlY3Rpb24pIHtcbiAgICAgIHJldHVybiBbXTtcbiAgICB9XG5cbiAgICBjb25zdCByZWNpcGVNYXAgPSBuZXcgTWFwKHJlY2lwZXMubWFwKChyZWNpcGUpID0+IFtyZWNpcGUuaWQsIHJlY2lwZV0pKTtcbiAgICByZXR1cm4gYWN0aXZlQ29sbGVjdGlvbi5yZWNpcGVJZHMubWFwKChyZWNpcGVJZCkgPT4gcmVjaXBlTWFwLmdldChyZWNpcGVJZCkpLmZpbHRlcihCb29sZWFuKTtcbiAgfSwgW2FjdGl2ZUNvbGxlY3Rpb24sIHJlY2lwZXNdKTtcblxuICBjb25zdCBhdmFpbGFibGVSZWNpcGVzID0gdXNlTWVtbygoKSA9PiB7XG4gICAgaWYgKCFhY3RpdmVDb2xsZWN0aW9uKSB7XG4gICAgICByZXR1cm4gW107XG4gICAgfVxuXG4gICAgY29uc3Qgbm9ybWFsaXplZFF1ZXJ5ID0gcmVjaXBlUXVlcnkudHJpbSgpLnRvTG93ZXJDYXNlKCk7XG5cbiAgICByZXR1cm4gcmVjaXBlc1xuICAgICAgLmZpbHRlcigocmVjaXBlKSA9PiAhYWN0aXZlQ29sbGVjdGlvbi5yZWNpcGVJZHMuaW5jbHVkZXMocmVjaXBlLmlkKSlcbiAgICAgIC5maWx0ZXIoKHJlY2lwZSkgPT4gIW5vcm1hbGl6ZWRRdWVyeSB8fCByZWNpcGUuc2VhcmNoVGV4dC5pbmNsdWRlcyhub3JtYWxpemVkUXVlcnkpKVxuICAgICAgLnNsaWNlKDAsIDI0KTtcbiAgfSwgW2FjdGl2ZUNvbGxlY3Rpb24sIHJlY2lwZVF1ZXJ5LCByZWNpcGVzXSk7XG5cbiAgZnVuY3Rpb24gaGFuZGxlQ3JlYXRlQ29sbGVjdGlvbihldmVudCkge1xuICAgIGV2ZW50LnByZXZlbnREZWZhdWx0KCk7XG4gICAgY29uc3QgbmFtZSA9IG5ld0NvbGxlY3Rpb25OYW1lLnRyaW0oKTtcblxuICAgIGlmICghbmFtZSkge1xuICAgICAgcmV0dXJuO1xuICAgIH1cblxuICAgIG9uQ3JlYXRlQ29sbGVjdGlvbihuYW1lKTtcbiAgICBzZXROZXdDb2xsZWN0aW9uTmFtZSgnJyk7XG4gIH1cblxuICBmdW5jdGlvbiBoYW5kbGVSZW5hbWVDb2xsZWN0aW9uKGV2ZW50KSB7XG4gICAgZXZlbnQucHJldmVudERlZmF1bHQoKTtcblxuICAgIGlmICghYWN0aXZlQ29sbGVjdGlvbikge1xuICAgICAgcmV0dXJuO1xuICAgIH1cblxuICAgIGNvbnN0IG5hbWUgPSBkcmFmdE5hbWUudHJpbSgpO1xuXG4gICAgaWYgKCFuYW1lIHx8IG5hbWUgPT09IGFjdGl2ZUNvbGxlY3Rpb24ubmFtZSkge1xuICAgICAgcmV0dXJuO1xuICAgIH1cblxuICAgIG9uUmVuYW1lQ29sbGVjdGlvbihhY3RpdmVDb2xsZWN0aW9uLmlkLCBuYW1lKTtcbiAgfVxuXG4gIHJldHVybiAoXG4gICAgPHNlY3Rpb24gY2xhc3NOYW1lPVwiY29sbGVjdGlvbnMtcGFnZVwiIGFyaWEtbGFiZWw9XCJDb2xsZWN0aW9uc1wiPlxuICAgICAgPGFzaWRlIGNsYXNzTmFtZT1cImNvbGxlY3Rpb25zLXNpZGViYXJcIj5cbiAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJjb2xsZWN0aW9ucy1wYW5lbFwiPlxuICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZmlsdGVyLWhlYWRlclwiPlxuICAgICAgICAgICAgPGgyPllvdXIgQ29sbGVjdGlvbnM8L2gyPlxuICAgICAgICAgICAgPHNwYW4+e3VzZXJDb2xsZWN0aW9ucy5sZW5ndGh9PC9zcGFuPlxuICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgPGZvcm0gY2xhc3NOYW1lPVwiY29sbGVjdGlvbnMtY3JlYXRlLWlubGluZVwiIG9uU3VibWl0PXtoYW5kbGVDcmVhdGVDb2xsZWN0aW9ufT5cbiAgICAgICAgICAgIDxpbnB1dFxuICAgICAgICAgICAgICB0eXBlPVwidGV4dFwiXG4gICAgICAgICAgICAgIHZhbHVlPXtuZXdDb2xsZWN0aW9uTmFtZX1cbiAgICAgICAgICAgICAgb25DaGFuZ2U9eyhldmVudCkgPT4gc2V0TmV3Q29sbGVjdGlvbk5hbWUoZXZlbnQudGFyZ2V0LnZhbHVlKX1cbiAgICAgICAgICAgICAgcGxhY2Vob2xkZXI9XCJDcmVhdGUgYSBjb2xsZWN0aW9uXCJcbiAgICAgICAgICAgIC8+XG4gICAgICAgICAgICA8YnV0dG9uIHR5cGU9XCJzdWJtaXRcIj5DcmVhdGU8L2J1dHRvbj5cbiAgICAgICAgICA8L2Zvcm0+XG5cbiAgICAgICAgICB7dXNlckNvbGxlY3Rpb25zLmxlbmd0aCA/IChcbiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiY29sbGVjdGlvbnMtbmF2LWxpc3RcIj5cbiAgICAgICAgICAgICAge3VzZXJDb2xsZWN0aW9ucy5tYXAoKGNvbGxlY3Rpb24pID0+IChcbiAgICAgICAgICAgICAgICA8YnV0dG9uXG4gICAgICAgICAgICAgICAgICBrZXk9e2NvbGxlY3Rpb24uaWR9XG4gICAgICAgICAgICAgICAgICB0eXBlPVwiYnV0dG9uXCJcbiAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZT17Y29sbGVjdGlvbi5pZCA9PT0gYWN0aXZlQ29sbGVjdGlvbklkID8gJ2NvbGxlY3Rpb25zLW5hdi1pdGVtIGFjdGl2ZScgOiAnY29sbGVjdGlvbnMtbmF2LWl0ZW0nfVxuICAgICAgICAgICAgICAgICAgb25DbGljaz17KCkgPT4ge1xuICAgICAgICAgICAgICAgICAgICBzZXRBY3RpdmVDb2xsZWN0aW9uSWQoY29sbGVjdGlvbi5pZCk7XG4gICAgICAgICAgICAgICAgICAgIHNldERyYWZ0TmFtZShjb2xsZWN0aW9uLm5hbWUpO1xuICAgICAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgICA8c3Bhbj57Y29sbGVjdGlvbi5uYW1lfTwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgIDxzcGFuPntjb2xsZWN0aW9uLnJlY2lwZUlkcy5sZW5ndGh9PC9zcGFuPlxuICAgICAgICAgICAgICAgIDwvYnV0dG9uPlxuICAgICAgICAgICAgICApKX1cbiAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICkgOiAoXG4gICAgICAgICAgICA8cCBjbGFzc05hbWU9XCJlbXB0eS1zdGF0ZVwiPkNyZWF0ZSB5b3VyIGZpcnN0IGNvbGxlY3Rpb24gdG8gc3RhcnQgY3VyYXRpbmcgaG9tZXBhZ2UgcGlja3MuPC9wPlxuICAgICAgICAgICl9XG4gICAgICAgIDwvZGl2PlxuICAgICAgPC9hc2lkZT5cblxuICAgICAgPHNlY3Rpb24gY2xhc3NOYW1lPVwiY29sbGVjdGlvbnMtZWRpdG9yXCI+XG4gICAgICAgIHthY3RpdmVDb2xsZWN0aW9uID8gKFxuICAgICAgICAgIDw+XG4gICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImNvbGxlY3Rpb25zLXBhbmVsXCI+XG4gICAgICAgICAgICAgIDxmb3JtIGNsYXNzTmFtZT1cImNvbGxlY3Rpb25zLXJlbmFtZS1mb3JtXCIgb25TdWJtaXQ9e2hhbmRsZVJlbmFtZUNvbGxlY3Rpb259PlxuICAgICAgICAgICAgICAgIDxsYWJlbCBjbGFzc05hbWU9XCJzZWFyY2hcIj5cbiAgICAgICAgICAgICAgICAgIDxzcGFuPkNvbGxlY3Rpb24gbmFtZTwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgIDxpbnB1dFxuICAgICAgICAgICAgICAgICAgICB0eXBlPVwidGV4dFwiXG4gICAgICAgICAgICAgICAgICAgIHZhbHVlPXtkcmFmdE5hbWV9XG4gICAgICAgICAgICAgICAgICAgIG9uQ2hhbmdlPXsoZXZlbnQpID0+IHNldERyYWZ0TmFtZShldmVudC50YXJnZXQudmFsdWUpfVxuICAgICAgICAgICAgICAgICAgICBwbGFjZWhvbGRlcj1cIkNvbGxlY3Rpb24gbmFtZVwiXG4gICAgICAgICAgICAgICAgICAvPlxuICAgICAgICAgICAgICAgIDwvbGFiZWw+XG4gICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJjb2xsZWN0aW9ucy1lZGl0b3ItYWN0aW9uc1wiPlxuICAgICAgICAgICAgICAgICAgPGJ1dHRvbiB0eXBlPVwic3VibWl0XCIgY2xhc3NOYW1lPVwibW9iaWxlLXNlYXJjaC1zdWJtaXRcIj5cbiAgICAgICAgICAgICAgICAgICAgUmVuYW1lXG4gICAgICAgICAgICAgICAgICA8L2J1dHRvbj5cbiAgICAgICAgICAgICAgICAgIDxidXR0b25cbiAgICAgICAgICAgICAgICAgICAgdHlwZT1cImJ1dHRvblwiXG4gICAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZT1cImNvbGxlY3Rpb25zLWRlbGV0ZS1idXR0b25cIlxuICAgICAgICAgICAgICAgICAgICBvbkNsaWNrPXsoKSA9PiBvbkRlbGV0ZUNvbGxlY3Rpb24oYWN0aXZlQ29sbGVjdGlvbi5pZCl9XG4gICAgICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgICAgIERlbGV0ZVxuICAgICAgICAgICAgICAgICAgPC9idXR0b24+XG4gICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgIDwvZm9ybT5cbiAgICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImNvbGxlY3Rpb25zLWVkaXRvci1ncmlkXCI+XG4gICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiY29sbGVjdGlvbnMtcGFuZWxcIj5cbiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImZpbHRlci1oZWFkZXJcIj5cbiAgICAgICAgICAgICAgICAgIDxoMj5SZWNpcGVzIEluIENvbGxlY3Rpb248L2gyPlxuICAgICAgICAgICAgICAgICAgPHNwYW4+e2FjdGl2ZVJlY2lwZXMubGVuZ3RofTwvc3Bhbj5cbiAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICB7YWN0aXZlUmVjaXBlcy5sZW5ndGggPyAoXG4gICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImNvbGxlY3Rpb25zLXJlY2lwZS1saXN0XCI+XG4gICAgICAgICAgICAgICAgICAgIHthY3RpdmVSZWNpcGVzLm1hcCgocmVjaXBlKSA9PiAoXG4gICAgICAgICAgICAgICAgICAgICAgPGFydGljbGUga2V5PXtyZWNpcGUuaWR9IGNsYXNzTmFtZT1cImNvbGxlY3Rpb25zLXJlY2lwZS1pdGVtXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICA8ZGl2PlxuICAgICAgICAgICAgICAgICAgICAgICAgICA8c3Ryb25nPntyZWNpcGUudGl0bGV9PC9zdHJvbmc+XG4gICAgICAgICAgICAgICAgICAgICAgICAgIDxzcGFuPntyZWNpcGUudG90YWxUaW1lIHx8IHJlY2lwZS5jdWlzaW5lIHx8ICdSZWNpcGUnfTwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICAgICAgICAgICAgPGJ1dHRvblxuICAgICAgICAgICAgICAgICAgICAgICAgICB0eXBlPVwiYnV0dG9uXCJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgb25DbGljaz17KCkgPT4gb25SZW1vdmVSZWNpcGVGcm9tQ29sbGVjdGlvbihhY3RpdmVDb2xsZWN0aW9uLmlkLCByZWNpcGUuaWQpfVxuICAgICAgICAgICAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgICAgICAgICAgICBSZW1vdmVcbiAgICAgICAgICAgICAgICAgICAgICAgIDwvYnV0dG9uPlxuICAgICAgICAgICAgICAgICAgICAgIDwvYXJ0aWNsZT5cbiAgICAgICAgICAgICAgICAgICAgKSl9XG4gICAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICApIDogKFxuICAgICAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPVwiZW1wdHktc3RhdGVcIj5ObyByZWNpcGVzIGluIHRoaXMgY29sbGVjdGlvbiB5ZXQuPC9wPlxuICAgICAgICAgICAgICAgICl9XG4gICAgICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiY29sbGVjdGlvbnMtcGFuZWxcIj5cbiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImZpbHRlci1oZWFkZXJcIj5cbiAgICAgICAgICAgICAgICAgIDxoMj5BZGQgUmVjaXBlczwvaDI+XG4gICAgICAgICAgICAgICAgICA8c3Bhbj57YXZhaWxhYmxlUmVjaXBlcy5sZW5ndGh9PC9zcGFuPlxuICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICAgIDxsYWJlbCBjbGFzc05hbWU9XCJzZWFyY2hcIj5cbiAgICAgICAgICAgICAgICAgIDxzcGFuPlNlYXJjaCByZWNpcGVzPC9zcGFuPlxuICAgICAgICAgICAgICAgICAgPGlucHV0XG4gICAgICAgICAgICAgICAgICAgIHR5cGU9XCJzZWFyY2hcIlxuICAgICAgICAgICAgICAgICAgICB2YWx1ZT17cmVjaXBlUXVlcnl9XG4gICAgICAgICAgICAgICAgICAgIG9uQ2hhbmdlPXsoZXZlbnQpID0+IHNldFJlY2lwZVF1ZXJ5KGV2ZW50LnRhcmdldC52YWx1ZSl9XG4gICAgICAgICAgICAgICAgICAgIHBsYWNlaG9sZGVyPVwiU2VhcmNoIGJ5IHRpdGxlLCBpbmdyZWRpZW50LCB0YWcuLi5cIlxuICAgICAgICAgICAgICAgICAgLz5cbiAgICAgICAgICAgICAgICA8L2xhYmVsPlxuICAgICAgICAgICAgICAgIHthdmFpbGFibGVSZWNpcGVzLmxlbmd0aCA/IChcbiAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiY29sbGVjdGlvbnMtcmVjaXBlLWxpc3RcIj5cbiAgICAgICAgICAgICAgICAgICAge2F2YWlsYWJsZVJlY2lwZXMubWFwKChyZWNpcGUpID0+IChcbiAgICAgICAgICAgICAgICAgICAgICA8YXJ0aWNsZSBrZXk9e3JlY2lwZS5pZH0gY2xhc3NOYW1lPVwiY29sbGVjdGlvbnMtcmVjaXBlLWl0ZW1cIj5cbiAgICAgICAgICAgICAgICAgICAgICAgIDxkaXY+XG4gICAgICAgICAgICAgICAgICAgICAgICAgIDxzdHJvbmc+e3JlY2lwZS50aXRsZX08L3N0cm9uZz5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgPHNwYW4+e3JlY2lwZS50b3RhbFRpbWUgfHwgcmVjaXBlLmN1aXNpbmUgfHwgJ1JlY2lwZSd9PC9zcGFuPlxuICAgICAgICAgICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgICAgICAgICA8YnV0dG9uXG4gICAgICAgICAgICAgICAgICAgICAgICAgIHR5cGU9XCJidXR0b25cIlxuICAgICAgICAgICAgICAgICAgICAgICAgICBvbkNsaWNrPXsoKSA9PiBvbkFkZFJlY2lwZVRvQ29sbGVjdGlvbihhY3RpdmVDb2xsZWN0aW9uLmlkLCByZWNpcGUuaWQpfVxuICAgICAgICAgICAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgICAgICAgICAgICBBZGRcbiAgICAgICAgICAgICAgICAgICAgICAgIDwvYnV0dG9uPlxuICAgICAgICAgICAgICAgICAgICAgIDwvYXJ0aWNsZT5cbiAgICAgICAgICAgICAgICAgICAgKSl9XG4gICAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICApIDogKFxuICAgICAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPVwiZW1wdHktc3RhdGVcIj5ObyBtYXRjaGluZyByZWNpcGVzIGF2YWlsYWJsZSB0byBhZGQuPC9wPlxuICAgICAgICAgICAgICAgICl9XG4gICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgPC8+XG4gICAgICAgICkgOiAoXG4gICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJjb2xsZWN0aW9ucy1wYW5lbFwiPlxuICAgICAgICAgICAgPHAgY2xhc3NOYW1lPVwiZW1wdHktc3RhdGVcIj5DcmVhdGUgYSBjb2xsZWN0aW9uIHRvIHN0YXJ0IGFkZGluZyByZWNpcGVzLjwvcD5cbiAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgKX1cbiAgICAgIDwvc2VjdGlvbj5cbiAgICA8L3NlY3Rpb24+XG4gICk7XG59XG4iXSwiZmlsZSI6IkM6L1VzZXJzL2tpZXJhL0RvY3VtZW50cy9Qcm9qZWN0cy9SZWNpcGUgT3JnYW5pemVyIFByb2plY3RzL1N0b3ZldG9wL1N0b3ZldG9wIHYzL3NyYy9jb21wb25lbnRzL0NvbGxlY3Rpb25zUGFnZS5qc3gifQ==

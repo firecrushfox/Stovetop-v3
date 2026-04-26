@@ -128,7 +128,7 @@ export default function HomeRecipeCarousel({ collections }) {
                   </article>
                 ) : (
                   <article key={item.id} className="home-carousel-card">
-                    <a className="home-carousel-image-link" href={getRecipeHref(item.id)} onClick={scrollToTop}>
+                    <a className="home-carousel-image-link" href={getRecipeHref(item.id)}>
                       {item.image ? (
                         <img
                           className="home-carousel-image"
@@ -143,7 +143,7 @@ export default function HomeRecipeCarousel({ collections }) {
                       )}
                     </a>
 
-                    <a className="home-carousel-card-link" href={getRecipeHref(item.id)} onClick={scrollToTop}>
+                    <a className="home-carousel-card-link" href={getRecipeHref(item.id)}>
                       <span className="home-carousel-card-title">{item.title}</span>
                       {item.author ? <span className="home-carousel-card-author">{item.author}</span> : null}
                       <span className="home-carousel-card-meta">
@@ -171,8 +171,4 @@ export default function HomeRecipeCarousel({ collections }) {
       )}
     </section>
   );
-}
-
-function scrollToTop() {
-  window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
 }
