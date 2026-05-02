@@ -5,13 +5,23 @@ author: “Neil Lewis”
 yield: “10 to 12 servings”
 prep_time:
 cook_time:
-total_time: “PT1H15M”
+total_time: "PT1H15M"
 categories:
-  -
+  - Kentucky derby
+  - dessert
+  - cake
 tags:
-  -
-cuisine: “”
-image: “static01.nyt.com/images/2019/08/27/dining/ml-butter-cake/ml-butter-cake-threeByTwoMediumAt2X.jpg?quality=75&auto=webp”
+  - american
+  - all-purpose flour
+  - bundt cake
+  - butter
+  - buttermilk
+  - pound cake
+  - sugar
+  - dessert
+  - thanksgiving
+cuisine: “American”
+image: “https://static01.nyt.com/images/2019/08/27/dining/ml-butter-cake/ml-butter-cake-threeByTwoMediumAt2X.jpg?quality=75&auto=webp”
 date_saved: “2026-05-01”
 ---
 
